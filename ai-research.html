@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 智研会 — 51CTO 企业学院</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.ai-research-hero{
+  min-height:500px;
+  background:#f8fbfd url('assets/ai-research-hero.png') center top / 2105px 500px no-repeat;
+}
+.ai-research-hero::before{display:none}
+/* Section 2 — Intro: split layout */
+.intro{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;
+  background:#fff;border:1px solid var(--line);border-radius:24px;padding:48px;
+  box-shadow:0 14px 36px rgba(20,32,56,0.06)}
+.intro h3{margin:0 0 14px;font-size:24px;font-weight:800;color:var(--ink-2)}
+.intro p{margin:0 0 14px;font-size:15px;line-height:1.85;color:var(--muted-2)}
+.intro-art{
+  position:relative;height:320px;border-radius:18px;overflow:hidden;
+  background:radial-gradient(circle at 30% 30%, rgba(255,167,185,0.25), transparent 50%),
+    linear-gradient(135deg,#FFE3E9,#F5F8FE);
+  display:grid;place-items:center;
+}
+.intro-art .core{
+  position:relative;z-index:2;width:140px;height:140px;border-radius:999px;
+  background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;
+  display:grid;place-items:center;font-weight:800;font-size:18px;text-align:center;line-height:1.4;
+  box-shadow:0 24px 50px rgba(20,32,56,0.20);
+  animation:pulse 3s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.intro-art svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 50s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Section 3 — Position: 3 cards with hover swap */
+.pos-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pos-card{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px 30px;
+  transition:transform .35s, box-shadow .35s;overflow:hidden;cursor:default;
+}
+.pos-card::before{
+  content:attr(data-step);position:absolute;right:18px;top:18px;
+  font-family:Inter,sans-serif;font-weight:800;font-size:48px;color:rgba(230,33,42,0.08);
+  line-height:1;letter-spacing:-0.04em;transition:transform .4s ease, color .4s ease;
+}
+.pos-card:hover{transform:translateY(-8px);box-shadow:0 22px 48px rgba(20,32,56,0.10)}
+.pos-card:hover::before{color:rgba(230,33,42,0.18);transform:scale(1.1) rotate(-6deg)}
+.pos-card .ic{
+  width:64px;height:64px;border-radius:18px;
+  background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;
+  display:grid;place-items:center;font-size:26px;margin-bottom:20px;
+  transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.pos-card:hover .ic{transform:rotate(-8deg) scale(1.08)}
+.pos-card h4{margin:0;font-size:22px;font-weight:800;color:var(--ink-2)}
+.pos-card p{margin:10px 0 0;font-size:14px;line-height:1.75;color:var(--muted-2)}
+
+/* Section 4 — Activities: interactive constellation */
+.act-grid{
+  position:relative;display:grid;grid-template-columns:1.05fr repeat(3,minmax(0,1fr));gap:18px;
+  padding:18px;border-radius:30px;
+  background:
+    radial-gradient(circle at 22% 30%,rgba(255,20,69,0.08),transparent 30%),
+    linear-gradient(135deg,#fff 0%,#f8fbff 100%);
+  border:1px solid rgba(20,32,56,0.06);
+  box-shadow:0 20px 58px rgba(20,32,56,0.07);
+  overflow:hidden;
+}
+.act-grid::before{
+  content:'';position:absolute;inset:18px;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(148,163,184,0.11) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(148,163,184,0.11) 1px,transparent 1px);
+  background-size:34px 34px;
+  mask-image:radial-gradient(circle at 50% 50%,#000 0%,transparent 72%);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 0%,transparent 72%);
+}
+.act-feat,.act-mini{
+  position:relative;z-index:1;border-radius:24px;padding:26px 24px;
+  background:rgba(255,255,255,0.86);border:1px solid rgba(20,32,56,0.07);
+  box-shadow:0 12px 30px rgba(20,32,56,0.05);overflow:hidden;cursor:pointer;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s,background .35s;
+}
+.act-feat{
+  grid-row:span 2;min-height:420px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:
+    radial-gradient(circle at 76% 18%,rgba(255,20,69,0.10),transparent 34%),
+    rgba(255,255,255,0.9);
+}
+.act-feat::after,.act-mini::after{
+  content:'';position:absolute;right:-56px;top:-56px;width:128px;height:128px;border-radius:40px;
+  border:1px solid rgba(230,33,42,0.08);transform:rotate(18deg);transition:transform .45s ease,opacity .35s;
+}
+.act-feat:hover,.act-mini:hover{transform:translateY(-8px);box-shadow:0 24px 54px rgba(20,32,56,0.11);border-color:rgba(230,33,42,0.14);background:#fff}
+.act-feat:hover::after,.act-mini:hover::after{transform:rotate(28deg) scale(1.08);opacity:.9}
+.act-feat .glyph,.act-mini .ic{
+  width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,#fff0f2,#fff);
+  display:grid;place-items:center;color:var(--red-deep);font-size:24px;
+  border:1px solid rgba(230,33,42,0.10);transition:transform .35s,background .35s;
+}
+.act-feat .glyph{width:72px;height:72px;border-radius:22px;font-size:30px;margin-bottom:24px}
+.act-feat:hover .glyph,.act-mini:hover .ic{transform:rotate(-8deg) scale(1.08);background:var(--red-light)}
+.act-feat .badge{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;
+  background:rgba(230,33,42,0.08);color:var(--red-deep);font-size:12px;font-weight:800;
+  align-self:flex-start;margin-bottom:14px;order:-1;
+}
+.act-feat h4,.act-mini h4{margin:0;color:var(--ink);font-weight:800;line-height:1.35}
+.act-feat h4{font-size:26px}.act-mini h4{font-size:18px;margin-top:16px}
+.act-feat p,.act-mini p{margin:12px 0 0;font-size:13px;line-height:1.75;color:var(--muted-2)}
+.act-mini{min-height:196px}
+.act-mini::before{
+  content:'';position:absolute;left:26px;top:0;width:1px;height:26px;
+  background:linear-gradient(180deg,rgba(230,33,42,0.28),transparent);
+}
+.visit-marquee{margin-top:30px;display:grid;gap:24px}
+.visit-row{
+  display:flex;width:max-content;gap:24px;animation:visit-scroll 60s linear infinite;
+}
+.visit-row.rev{animation-direction:reverse;animation-duration:70s}
+.visit-marquee:hover .visit-row{animation-play-state:paused}
+.visit-chip{
+  flex:0 0 auto;min-width:160px;padding:24px 28px;border-radius:24px;
+  background:rgba(255,255,255,0.92);border:1px solid rgba(20,32,56,0.07);
+  box-shadow:0 10px 24px rgba(20,32,56,0.06);
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  color:var(--ink-2);font-weight:800;transition:transform .25s,border-color .25s,color .25s,box-shadow .25s;
+}
+.visit-chip::before{content:'';width:7px;height:7px;border-radius:999px;background:rgba(230,33,42,0.34)}
+.visit-chip:hover{transform:translateY(-5px);color:var(--red-deep);border-color:rgba(230,33,42,0.16);box-shadow:0 16px 32px rgba(20,32,56,0.10)}
+@keyframes visit-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* 生态合作伙伴 logo 卡片 */
+.partner-lite{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:28px;
+}
+.partner-lite .partner-card{
+  position:relative;
+  min-height:158px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  padding:24px 18px;
+  background:linear-gradient(180deg,#fbfcfe 0%,#ffffff 100%);
+  border:1px solid rgba(20,32,56,0.07);
+  border-radius:20px;
+  box-shadow:0 6px 18px rgba(20,32,56,0.04);
+  transition:transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s ease, border-color .35s ease, background .35s ease;
+}
+.partner-lite .partner-card:hover{
+  transform:translateY(-5px);
+  background:#ffffff;
+  border-color:rgba(20,32,56,0.12);
+  box-shadow:0 14px 32px rgba(20,32,56,0.08);
+}
+.partner-logo{
+  height:54px;width:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+.partner-logo img{
+  max-height:100%;max-width:140px;object-fit:contain;
+  transition:opacity .3s, transform .35s ease;
+}
+/* 白色/单色 logo：转灰 */
+.partner-logo img.mono{filter:grayscale(100%) brightness(0);opacity:.55}
+/* 彩色 logo：去白底 */
+.partner-logo img.color{mix-blend-mode:multiply;opacity:.85}
+.partner-lite .partner-card:hover .partner-logo img{opacity:1;transform:scale(1.04)}
+.partner-logo-fallback{
+  width:54px;height:54px;border-radius:16px;
+  background:rgba(20,32,56,0.06);color:var(--ink-2);
+  display:grid;place-items:center;font-size:22px;
+}
+.partner-name{
+  font-size:14px;font-weight:700;color:var(--ink-2);line-height:1.45;text-align:center;
+  transition:color .3s;
+}
+.partner-lite .partner-card:hover .partner-name{color:var(--ink)}
+@media (max-width:1080px){
+  .partner-lite{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .partner-lite{grid-template-columns:1fr}
+}
+
+/* Section 5 — 核心成员：浅色大卡，左图右文 */
+.research-experts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:stretch}
+.research-expert{
+  position:relative;display:grid;grid-template-columns:200px 1fr;gap:0;
+  min-height:300px;border-radius:24px;overflow:hidden;
+  background:#ffffff;
+  border:1px solid rgba(20,32,56,0.07);
+  box-shadow:0 8px 22px rgba(20,32,56,0.05);
+  transition:transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s ease, border-color .35s ease;
+}
+.research-expert:hover{
+  transform:translateY(-6px);
+  border-color:rgba(20,32,56,0.12);
+  box-shadow:0 20px 40px rgba(20,32,56,0.10);
+}
+.member-photo{
+  position:relative;background:
+    radial-gradient(circle at 50% 38%,#ffffff 0%,#f3f5f9 70%,#eaeef4 100%);
+  overflow:hidden;
+}
+.member-photo::before{
+  content:'';position:absolute;inset:14px;border-radius:18px;
+  background:linear-gradient(180deg,#fafbfd 0%,#eef2f7 100%);
+  border:1px solid rgba(20,32,56,0.04);
+}
+.member-photo .img{
+  position:absolute;left:0;right:0;top:6px;bottom:0;
+  background-size:auto 96%;background-position:center bottom;background-repeat:no-repeat;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+  z-index:1;
+}
+.research-expert:hover .member-photo .img{transform:scale(1.05)}
+.member-photo .badge{
+  position:absolute;top:14px;left:14px;z-index:2;
+  padding:5px 11px;border-radius:999px;
+  background:#ffffff;border:1px solid rgba(20,32,56,0.08);
+  font-size:11px;font-weight:700;color:var(--ink-2);letter-spacing:.04em;
+}
+.member-body{
+  padding:26px 28px;display:flex;flex-direction:column;justify-content:center;gap:10px;
+  background:#ffffff;
+}
+.member-body .head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.member-body h4{
+  margin:0;font-size:24px;font-weight:800;color:var(--ink);letter-spacing:.02em;
+  position:relative;padding-left:14px;
+}
+.member-body h4::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:4px;height:22px;border-radius:999px;background:var(--ink);
+  transition:background .3s ease, height .3s ease;
+}
+.research-expert:hover .member-body h4::before{background:var(--ink-2);height:26px}
+.member-body .role{
+  margin:2px 0 4px;font-size:13px;line-height:1.55;color:var(--muted-2);font-weight:500;
+}
+.member-body .blurb{
+  margin:8px 0 0;font-size:13.5px;line-height:1.75;color:var(--muted-3);
+}
+.member-body .skills{
+  margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;
+}
+.member-body .skill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:999px;
+  background:#f3f5f9;border:1px solid rgba(20,32,56,0.06);
+  color:var(--ink-2);font-size:12px;font-weight:600;
+  transition:background .3s ease, color .3s ease, transform .3s ease;
+}
+.member-body .skill:hover{transform:translateY(-2px);background:#e9edf3;color:var(--ink)}
+
+/* Section 6 — Entry */
+.entry{
+  position:relative;background:linear-gradient(135deg,#FFF7F9 0%,#FFFFFF 52%,#F8FAFD 100%);
+  border:1px solid var(--line);border-radius:24px;padding:42px;
+  display:grid;grid-template-columns:1fr 1.1fr;gap:34px;align-items:stretch;
+  box-shadow:0 16px 42px rgba(20,32,56,0.06);overflow:hidden;
+}
+.entry::before{content:'';position:absolute;right:-120px;top:-120px;width:320px;height:320px;border-radius:999px;background:radial-gradient(circle,rgba(255,20,69,0.10),transparent 70%)}
+.entry > *{position:relative;z-index:1}
+.entry h3{margin:0 0 18px;font-size:22px;font-weight:800;color:var(--ink-2);display:flex;align-items:center;gap:10px}
+.entry h3::before{content:'';width:10px;height:10px;border-radius:999px;background:var(--red);box-shadow:0 0 0 6px rgba(255,20,69,0.08)}
+.entry-conditions{background:#fff;border:1px solid rgba(233,237,245,0.9);border-radius:20px;padding:26px}
+.entry-conditions ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.entry-conditions li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--ink-2);line-height:1.7}
+.entry-conditions .icn{color:var(--red-deep);background:var(--red-light);width:26px;height:26px;border-radius:9px;display:grid;place-items:center;font-size:11px;flex:0 0 auto;margin-top:1px}
+.entry-flow{background:#fff;border:1px solid rgba(233,237,245,0.9);border-radius:20px;padding:26px}
+.entry-flow ol{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.entry-flow li{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:flex-start;position:relative}
+.entry-flow li + li::before{content:'';position:absolute;left:20px;top:-14px;width:2px;height:14px;background:linear-gradient(180deg,rgba(255,20,69,0.30),rgba(255,20,69,0))}
+.entry-flow .step{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;display:grid;place-items:center;font-family:Inter,sans-serif;font-weight:800;font-size:14px;box-shadow:0 12px 24px rgba(230,33,42,0.18)}
+.entry-flow .txt{font-size:14px;color:var(--ink-2);line-height:1.7;padding-top:2px}
+
+@media (max-width:1080px){
+  .intro,.entry{grid-template-columns:1fr;padding:32px}
+  .pos-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .act-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .act-grid::before{display:none}
+  .act-feat{grid-row:auto;grid-column:span 2;min-height:280px}
+  .research-experts{grid-template-columns:1fr}
+  .research-expert{grid-template-columns:180px 1fr}
+}
+@media (max-width:640px){
+  .pos-grid,.act-grid{grid-template-columns:1fr}
+  .act-feat{grid-column:auto}
+  .research-experts{grid-template-columns:1fr;gap:16px}
+  .research-expert{grid-template-columns:1fr;min-height:auto}
+  .member-photo{height:240px}
+  .member-photo .img{background-size:auto 92%}
+  .member-body{padding:22px 22px 26px}
+  .member-body h4{font-size:22px}
+}
+</style>
+</head>
+<body data-page="ai-research" id="top">
+
+<nav class="nav" id="site-nav"></nav>
+
+<section class="hero ai-research-hero" data-screen-label="01 Hero">
+  <div class="container reveal in">
+    <span class="hero-eyebrow"><span class="dot"></span>AI 智研会</span>
+    <h1>AI 智研会</h1>
+    <p class="hero-sub">产业 AI 实践高端智囊社群 · 汇聚产业 AI 场景创新、最佳实践、生态合作、效果评估。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#intro">立即加入 <i class="fas fa-arrow-right"></i></a>
+      <a class="btn btn-ghost" href="#intro">了解更多</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="intro" data-screen-label="02 Intro">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>关于 AI 智研会<span class="bar"></span></h2>
+      <p>汇聚产业精英，共探 AI 落地最佳实践</p>
+    </div>
+    <div class="intro reveal delay-1" style="grid-template-columns:1fr; text-align:center; padding: 40px 24px;">
+      <div><p style="font-size:18px; margin:0; color:var(--ink-2); line-height:1.6;">AI 智研会是 51CTO 旗下的产业 AI 实践平台，汇聚行业精英，探索 AI 落地路径与最佳实践，助力成员把握 AI 时代机遇。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" data-screen-label="03 Position">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>核心定位<span class="bar"></span></h2>
+      <p>搭建 AI 领域资源与服务枢纽</p>
+    </div>
+    <div class="pos-grid reveal delay-1">
+      <div class="pos-card" data-step="01"><div class="ic"><i class="fas fa-brain"></i></div><h4>高端智库</h4><p>汇聚 AI 领域顶尖专家，提供权威行业洞察、前瞻趋势研判，为企业 AI 战略决策提供智力支持。</p></div>
+      <div class="pos-card" data-step="02"><div class="ic"><i class="fas fa-flask"></i></div><h4>实战研究所</h4><p>深度解析真实业务场景，沉淀可复用落地方法论，通过“AI问诊”工作坊解决企业应用痛点。</p></div>
+      <div class="pos-card" data-step="03"><div class="ic"><i class="fas fa-network-wired"></i></div><h4>生态连接器</h4><p>链动技术商与需求方，构建 AI 产业生态圈，促进产学研深度融合。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 活动体系 — 1 大 + 6 小 ─── -->
+<section class="section" data-screen-label="04 Activities">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>深度活动体系<span class="bar"></span></h2>
+      <p>线上线下联动，打造沉浸式交流平台</p>
+    </div>
+    <div class="act-grid reveal delay-1">
+      <div class="act-feat"><span class="glyph"><i class="fas fa-handshake"></i></span><span class="badge"><i class="fas fa-star"></i> 深度交流</span><h4>企业走访交流会</h4><p>走进标杆企业，围绕真实 AI 应用场景、组织机制和落地效果开展深度交流。</p></div>
+      <div class="act-mini"><div class="ic"><i class="fas fa-users"></i></div><h4>闭门工作会</h4><p>小范围高质量研讨，聚焦共性难题。</p></div>
+      <div class="act-mini"><div class="ic"><i class="fas fa-lightbulb"></i></div><h4>AI 问诊工作坊</h4><p>围绕企业真实问题做场景诊断。</p></div>
+      <div class="act-mini"><div class="ic"><i class="fas fa-microphone-alt"></i></div><h4>公开高峰论坛</h4><p>发布行业洞察与优秀实践案例。</p></div>
+      <div class="act-mini"><div class="ic"><i class="fas fa-book"></i></div><h4>研究报告</h4><p>沉淀 AI 落地方法论与趋势观察。</p></div>
+      <div class="act-mini"><div class="ic"><i class="fas fa-comments"></i></div><h4>私域社群</h4><p>持续连接同行专家与生态伙伴。</p></div>
+      <div class="act-mini"><div class="ic"><i class="fas fa-route"></i></div><h4>标杆访学</h4><p>链接产业一线 AI 实践样本。</p></div>
+    </div>
+    <div class="section-head reveal" style="margin-top:64px;margin-bottom:0"><h2><span class="bar"></span>计划走访交流企业<span class="bar"></span></h2><p>持续走进产业一线，连接真实 AI 实践现场</p></div>
+    <div class="marquee-mask visit-marquee reveal delay-1" aria-label="计划走访交流企业">
+      <div class="visit-row">
+        <span class="visit-chip">字节跳动</span><span class="visit-chip">三一重工</span><span class="visit-chip">科大讯飞</span><span class="visit-chip">智谱AI</span><span class="visit-chip">歌尔股份</span><span class="visit-chip">腾讯</span><span class="visit-chip">泸州老窖</span><span class="visit-chip">宇树科技</span><span class="visit-chip">中国广核</span><span class="visit-chip">51Talk</span><span class="visit-chip">东风汽车</span><span class="visit-chip">大兴机场</span>
+        <span class="visit-chip">字节跳动</span><span class="visit-chip">三一重工</span><span class="visit-chip">科大讯飞</span><span class="visit-chip">智谱AI</span><span class="visit-chip">歌尔股份</span><span class="visit-chip">腾讯</span><span class="visit-chip">泸州老窖</span><span class="visit-chip">宇树科技</span><span class="visit-chip">中国广核</span><span class="visit-chip">51Talk</span><span class="visit-chip">东风汽车</span><span class="visit-chip">大兴机场</span>
+      </div>
+      <div class="visit-row rev">
+        <span class="visit-chip">智谱AI</span><span class="visit-chip">腾讯</span><span class="visit-chip">宇树科技</span><span class="visit-chip">中国广核</span><span class="visit-chip">大兴机场</span><span class="visit-chip">科大讯飞</span><span class="visit-chip">三一重工</span><span class="visit-chip">东风汽车</span><span class="visit-chip">歌尔股份</span><span class="visit-chip">字节跳动</span><span class="visit-chip">泸州老窖</span><span class="visit-chip">51Talk</span>
+        <span class="visit-chip">智谱AI</span><span class="visit-chip">腾讯</span><span class="visit-chip">宇树科技</span><span class="visit-chip">中国广核</span><span class="visit-chip">大兴机场</span><span class="visit-chip">科大讯飞</span><span class="visit-chip">三一重工</span><span class="visit-chip">东风汽车</span><span class="visit-chip">歌尔股份</span><span class="visit-chip">字节跳动</span><span class="visit-chip">泸州老窖</span><span class="visit-chip">51Talk</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" data-screen-label="05 Members">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>核心成员<span class="bar"></span></h2>
+      <p>行业顶尖专家领衔，提供权威智力支持</p>
+    </div>
+    <div class="research-experts reveal delay-1" id="research-experts">
+      <div class="research-expert">
+        <div class="member-photo">
+          <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
+        </div>
+        <div class="member-body">
+          <div class="head"><h4>刘院长</h4></div>
+          <div class="role">原英孚创始人 · 前智谱AI首席生态官</div>
+          <p class="blurb">拥有 20 年教育及 AI 行业经验，曾主导多个大型 AI 教育产品研发与落地。</p>
+          <div class="skills"><span class="skill">大模型应用</span><span class="skill">AI 教育</span><span class="skill">数字化转型</span></div>
+        </div>
+      </div>
+      <div class="research-expert">
+        <div class="member-photo">
+          <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
+        </div>
+        <div class="member-body">
+          <div class="head"><h4>陈老师</h4></div>
+          <div class="role">科大讯飞 · 数字化转型副总经理</div>
+          <p class="blurb">资深 AI 产品专家，主导过多个省级数字化转型项目。</p>
+          <div class="skills"><span class="skill">智能语音</span><span class="skill">企业服务</span><span class="skill">产品战略</span></div>
+        </div>
+      </div>
+      <div class="research-expert">
+        <div class="member-photo">
+          <div class="img" style="background-image:url('assets/teachers/3.png')"></div>
+        </div>
+        <div class="member-body">
+          <div class="head"><h4>韩老师</h4></div>
+          <div class="role">盘如科技技术 VP · 前阿里云技术总监</div>
+          <p class="blurb">15 年云计算与 AI 架构经验，精通分布式系统、机器学习平台架构及大规模数据处理。</p>
+          <div class="skills"><span class="skill">系统架构</span><span class="skill">机器学习</span><span class="skill">云计算</span></div>
+        </div>
+      </div>
+      <div class="research-expert">
+        <div class="member-photo">
+          <div class="img" style="background-image:url('assets/teachers/4.png')"></div>
+        </div>
+        <div class="member-body">
+          <div class="head"><h4>冯老师</h4></div>
+          <div class="role">百度 AI 技术生态部 · 资深算法架构师</div>
+          <p class="blurb">专注计算机视觉与深度学习领域，主导研发的图像识别算法在多个实际场景中达到行业领先水平。</p>
+          <div class="skills"><span class="skill">计算机视觉</span><span class="skill">深度学习</span><span class="skill">算法优化</span></div>
+        </div>
+      </div>
+      <div class="research-expert">
+        <div class="member-photo">
+          <div class="img" style="background-image:url('assets/teachers/5.png')"></div>
+        </div>
+        <div class="member-body">
+          <div class="head"><h4>蔡老师</h4></div>
+          <div class="role">腾讯云 · 首席 AI 布道师</div>
+          <p class="blurb">长期致力于 AI 技术普及与生态建设，拥有丰富的技术培训与企业咨询经验。</p>
+          <div class="skills"><span class="skill">生成式 AI</span><span class="skill">知识图谱</span><span class="skill">技术布道</span></div>
+        </div>
+      </div>
+      <div class="research-expert">
+        <div class="member-photo">
+          <div class="img" style="background-image:url('assets/teachers/6.png')"></div>
+        </div>
+        <div class="member-body">
+          <div class="head"><h4>马老师</h4></div>
+          <div class="role">字节跳动 · 自动驾驶实验室高级研究员</div>
+          <p class="blurb">在强化学习与多智能体系统领域有突出贡献，具备极强的技术攻坚能力。</p>
+          <div class="skills"><span class="skill">强化学习</span><span class="skill">自动驾驶</span><span class="skill">多智能体</span></div>
+        </div>
+      </div>
+      <div class="research-expert">
+        <div class="member-photo">
+          <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
+        </div>
+        <div class="member-body">
+          <div class="head"><h4>艾老师</h4></div>
+          <div class="role">资深算法工程师 · 10 年算法经验</div>
+          <p class="blurb">近 2 年落地多个大模型实战项目，精通自然语言处理与推荐系统。</p>
+          <div class="skills"><span class="skill">NLP</span><span class="skill">推荐系统</span><span class="skill">大模型落地</span></div>
+        </div>
+      </div>
+      <div class="research-expert">
+        <div class="member-photo">
+          <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
+        </div>
+        <div class="member-body">
+          <div class="head"><h4>李老师</h4></div>
+          <div class="role">微软亚洲研究院 · 资深研究员</div>
+          <p class="blurb">在人工智能基础理论研究方面取得多项突破，研究方向涵盖多模态学习、联邦学习等前沿领域。</p>
+          <div class="skills"><span class="skill">多模态学习</span><span class="skill">基础理论</span><span class="skill">联邦学习</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" data-screen-label="06 Partners">
+  <div class="container">
+    <div class="section-head reveal"><h2><span class="bar"></span>生态合作伙伴<span class="bar"></span></h2><p>连接 AI 产业生态，共同推动实践落地</p></div>
+    <div class="partner-lite reveal delay-1">
+      <div class="partner-card">
+        <div class="partner-logo">
+          <img class="mono" src="assets/partners/turing.png" alt="图灵智能研究院" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <span class="partner-logo-fallback" style="display:none"><i class="fas fa-brain"></i></span>
+        </div>
+        <span class="partner-name">图灵智能研究院</span>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo">
+          <img class="color" src="assets/partners/tencent-cloud.webp" alt="腾讯云 TVP" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <span class="partner-logo-fallback" style="display:none"><i class="fas fa-cloud"></i></span>
+        </div>
+        <span class="partner-name">腾讯云 TVP</span>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo">
+          <img class="mono" src="assets/partners/ptpress.png" alt="人民邮电社区" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <span class="partner-logo-fallback" style="display:none"><i class="fas fa-book-open"></i></span>
+        </div>
+        <span class="partner-name">人民邮电社区</span>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo">
+          <img class="color" src="assets/partners/tsinghua-pbc.jpg" alt="清华五道口 AI 项目" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <span class="partner-logo-fallback" style="display:none"><i class="fas fa-university"></i></span>
+        </div>
+        <span class="partner-name">清华五道口 AI 项目<br>&amp; 数字中国项目</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-screen-label="07 Entry">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>准入机制<span class="bar"></span></h2>
+      <p>严格审核，确保社群质量与价值密度</p>
+    </div>
+    <div class="entry reveal delay-1">
+      <div class="entry-conditions">
+        <h3>谁能加入 AI 智研会</h3>
+        <ul>
+          <li><span class="icn"><i class="fas fa-check"></i></span>认同 AI 智研会的理念与价值观，愿意积极参与社群活动，共享资源与经验。</li>
+          <li><span class="icn"><i class="fas fa-check"></i></span>在 AI 领域有一定实践经验或研究成果，能够提供有价值的解决方案或洞察。</li>
+          <li><span class="icn"><i class="fas fa-check"></i></span>通过智研会审核，确保成员质量与高端定位相符。</li>
+        </ul>
+      </div>
+      <div class="entry-flow">
+        <h3>申请加入流程</h3>
+        <ol>
+          <li><span class="step">01</span><span class="txt">提交申请表，附自我介绍与主导项目</span></li>
+          <li><span class="step">02</span><span class="txt">智研会秘书处 1 对 1 沟通核实</span></li>
+          <li><span class="step">03</span><span class="txt">核心成员评审委员会审议</span></li>
+          <li><span class="step">04</span><span class="txt">通过审议后获得正式邀请函</span></li>
+          <li><span class="step">05</span><span class="txt">参与下一次定期活动，正式融入社群</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="site-footer" id="site-footer"></footer>
+<aside class="side" id="site-side"></aside>
+<script src="assets/site.js"></script>
+</body>
+</html>

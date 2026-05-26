@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>定制化企业实战课程 — 51CTO 企业学院</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.course-hero{
+  min-height:500px;
+  background:#f8fbfd url('assets/course-hero.png') center top / 2105px 500px no-repeat;
+}
+.course-hero::before{display:none}
+/* Section 2 — Highlights: big stat strip */
+.hl-strip{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;
+  background:transparent;border:0;padding:0;box-shadow:none;
+}
+.hl-item{
+  --hl:var(--red-deep);
+  --hl-soft:var(--red-soft);
+  --hl-tint:rgba(255,20,69,0.08);
+  position:relative;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfcfe 100%);
+  border:1px solid rgba(20,32,56,0.06);
+  border-radius:24px;padding:42px 32px 36px;
+  overflow:hidden;isolation:isolate;cursor:default;text-align:left;
+  box-shadow:0 12px 30px rgba(20,32,56,0.05);
+  transition:transform .5s cubic-bezier(0.16,1,0.3,1),
+             box-shadow .5s ease;
+}
+.hl-item:hover{
+  transform:translateY(-10px);
+  box-shadow:0 28px 60px rgba(20,32,56,0.10);
+}
+/* Single sheen sweep on hover */
+.hl-item::after{
+  content:'';position:absolute;left:-40%;top:0;width:35%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.45),transparent);
+  transform:skewX(-22deg);transition:none;pointer-events:none;z-index:1;
+}
+.hl-item:hover::after{animation:hl-sheen 1s ease forwards}
+@keyframes hl-sheen{from{left:-40%}to{left:130%}}
+/* Big italic background number */
+.hl-no{
+  position:absolute;right:26px;top:22px;z-index:0;
+  font-family:Inter,sans-serif;font-weight:900;
+  font-size:78px;line-height:1;letter-spacing:-0.05em;
+  color:var(--hl-tint);font-style:italic;pointer-events:none;
+  transition:color .45s ease, transform .45s ease;
+}
+.hl-item:hover .hl-no{
+  color:rgba(255,20,69,0.18);
+  transform:translateY(-4px) translateX(2px);
+}
+/* Icon disk with rotating dashed orbit + outer ring */
+.hl-item .num{
+  position:relative;z-index:2;
+  width:88px;height:88px;border-radius:50%;
+  background:linear-gradient(135deg, var(--hl) 0%, var(--hl-soft) 100%);
+  display:grid;place-items:center;color:#fff;
+  margin:0 0 30px;
+  box-shadow:0 14px 30px rgba(230,33,42,0.22), inset 0 1px 0 rgba(255,255,255,0.32);
+  animation:hl-bob 5s ease-in-out infinite;
+  transition:transform .45s cubic-bezier(0.34,1.56,0.64,1);
+}
+.hl-item .num i{font-size:32px;color:#fff;line-height:1}
+.hl-item .num small{display:none}
+.hl-item .num::before{
+  content:'';position:absolute;inset:-10px;border-radius:50%;
+  border:2px dashed var(--hl);opacity:0.20;pointer-events:none;
+  animation:hl-spin 16s linear infinite;
+}
+.hl-item .num::after{
+  content:'';position:absolute;inset:-22px;border-radius:50%;
+  border:1px solid var(--hl-tint);pointer-events:none;
+}
+@keyframes hl-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes hl-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.hl-item:hover .num{transform:scale(1.10) rotate(-6deg)}
+.hl-item:hover .num::before{animation-duration:5s;opacity:0.55}
+/* Title with growing underline */
+.hl-item h4{
+  position:relative;z-index:2;
+  margin:0;font-size:22px;font-weight:800;
+  color:var(--ink-2);letter-spacing:0.01em;display:inline-block;
+}
+.hl-item h4::after{
+  content:'';position:absolute;left:0;bottom:-10px;
+  width:30px;height:3px;border-radius:999px;
+  background:linear-gradient(90deg, var(--hl), var(--hl-soft));
+  transition:width .5s cubic-bezier(0.16,1,0.3,1);
+}
+.hl-item:hover h4::after{width:64px}
+.hl-item p{
+  position:relative;z-index:2;
+  margin:22px 0 0;font-size:14px;line-height:1.75;color:var(--muted-2);
+}
+
+/* ════════════════════════════════════════════════
+   Section 3 — 培训全流程：横向时间轴 + 节点 + 连接箭头
+   ════════════════════════════════════════════════ */
+@keyframes flowRun{0%{background-position:0 0}100%{background-position:14px 0}}
+@keyframes nodePulse{0%,100%{box-shadow:0 0 0 0 rgba(255,20,69,.36),0 14px 28px rgba(255,20,69,.20)}50%{box-shadow:0 0 0 10px rgba(255,20,69,0),0 14px 28px rgba(255,20,69,.20)}}
+@keyframes chevronWave{0%{opacity:.25;transform:translateX(-4px)}50%{opacity:1;transform:none}100%{opacity:.25;transform:translateX(4px)}}
+@keyframes ringExpand{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+
+.flow{
+  position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:18px;margin-top:8px;
+}
+/* 中央时间轴（贯穿所有节点圆心） */
+.flow::before{
+  content:'';position:absolute;left:8.3%;right:8.3%;top:38px;height:1px;z-index:0;
+  background-image:repeating-linear-gradient(90deg,rgba(255,20,69,.32) 0 4px,transparent 4px 10px);
+  background-size:14px 1px;
+  animation:flowRun 2.2s linear infinite;
+}
+/* 时间轴左右端点的小圆 */
+.flow::after{
+  content:'';position:absolute;left:calc(8.3% - 3px);top:35px;width:6px;height:6px;border-radius:50%;
+  background:rgba(255,20,69,.45);box-shadow:0 0 0 3px rgba(255,20,69,.08);z-index:0;
+}
+/* 沿虚线平滑爬行的能量光点 */
+.flow .orb{
+  position:absolute;top:32px;left:0;width:14px;height:14px;border-radius:50%;z-index:1;
+  background:radial-gradient(circle,#fff 0%,var(--red) 60%,transparent 80%);
+  box-shadow:0 0 18px rgba(255,20,69,.7);
+  transform:translate(-50%,0);
+  pointer-events:none;opacity:0;
+}
+
+.proc-step{
+  position:relative;background:transparent;border:0;padding:0;z-index:2;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+/* 节点圆 */
+.proc-step .n{
+  position:relative;width:76px;height:76px;border-radius:50%;
+  background:#fff;border:2px solid rgba(255,20,69,.18);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  color:var(--red);font-family:Inter,sans-serif;font-weight:800;font-size:13px;
+  box-shadow:0 8px 18px rgba(20,32,56,.06);
+  transition:transform .45s cubic-bezier(.16,1,.3,1), background .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease;
+  margin-bottom:18px;
+}
+.proc-step .n i{font-size:22px;line-height:1;margin-bottom:3px;color:var(--red);transition:color .35s ease, transform .45s ease}
+.proc-step .n .num{font-size:11px;letter-spacing:.10em;opacity:.85;transition:opacity .35s ease}
+.proc-step .n::before{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+  border:1px dashed rgba(255,20,69,.3);opacity:0;transition:opacity .35s ease;
+  animation:spinSlow 14s linear infinite;
+}
+.proc-step .n::after{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  background:rgba(255,20,69,.25);opacity:0;
+}
+.proc-step:hover .n{
+  background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;
+  border-color:var(--red);
+  transform:translateY(-6px) scale(1.08);
+  animation:nodePulse 1.6s ease-out infinite;
+}
+.proc-step:hover .n i,
+.proc-step:hover .n .num{color:#fff}
+.proc-step:hover .n i{transform:scale(1.08) rotate(-6deg)}
+.proc-step:hover .n::before{opacity:1}
+.proc-step:hover .n::after{animation:ringExpand 1s ease-out infinite}
+
+/* 节点之间的连接箭头（除最后一个） */
+.proc-step::after{
+  content:'\f054';font-family:'Font Awesome 6 Free';font-weight:900;
+  position:absolute;top:30px;right:-18px;width:18px;height:18px;
+  display:grid;place-items:center;font-size:14px;color:var(--red);
+  opacity:.45;transition:opacity .35s ease, transform .35s ease, color .35s ease;
+  z-index:3;
+}
+.proc-step:last-child::after{display:none}
+.proc-step:hover::after{opacity:1;color:var(--red-deep);animation:chevronWave 1s ease-in-out infinite}
+
+/* 文字卡片 */
+.proc-step .info{
+  background:#fff;border:1px solid rgba(20,32,56,.06);border-radius:14px;
+  padding:18px 16px 16px;width:100%;
+  box-shadow:0 6px 18px rgba(20,32,56,.04);
+  transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s ease, border-color .35s ease;
+  position:relative;
+}
+.proc-step .info::before{
+  content:'';position:absolute;left:50%;top:-7px;transform:translateX(-50%) rotate(45deg);
+  width:14px;height:14px;background:#fff;
+  border-left:1px solid rgba(20,32,56,.06);border-top:1px solid rgba(20,32,56,.06);
+  transition:border-color .35s ease;
+}
+.proc-step:hover .info{
+  transform:translateY(-3px);
+  border-color:rgba(255,20,69,.20);
+  box-shadow:0 16px 32px rgba(255,20,69,.10);
+}
+.proc-step:hover .info::before{border-color:rgba(255,20,69,.20)}
+.proc-step .info h4{margin:0 0 6px;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:.02em;transition:color .3s ease}
+.proc-step:hover .info h4{color:var(--red-deep)}
+.proc-step .info p{margin:0;font-size:12.5px;line-height:1.7;color:var(--muted-2)}
+
+/* Section 4 — Guarantee: feature panel with split */
+.guarantee-panel{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:0;
+  background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;
+  box-shadow:0 14px 36px rgba(20,32,56,0.06);
+}
+.gp-left{
+  padding:48px;
+  background:linear-gradient(135deg,#FFF6F8 0%, #FFFFFF 100%);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.gp-left .badge{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
+  background:var(--red);color:#fff;font-size:12px;font-weight:700;letter-spacing:0.04em;
+  align-self:flex-start;margin-bottom:18px;
+}
+.gp-left h3{margin:0 0 14px;font-size:26px;font-weight:800;color:var(--ink-2);line-height:1.3}
+.gp-left p{margin:0;font-size:15px;line-height:1.85;color:var(--muted-2)}
+.gp-right{
+  padding:36px 48px;display:flex;flex-direction:column;gap:18px;
+}
+.gp-item{
+  display:grid;grid-template-columns:48px 1fr;gap:18px;align-items:flex-start;
+  padding:18px 0;border-bottom:1px dashed var(--line);
+  transition:transform .25s ease;
+}
+.gp-item:last-child{border-bottom:0}
+.gp-item:hover{transform:translateX(6px)}
+.gp-item .ic{
+  width:48px;height:48px;border-radius:14px;background:var(--red-light);color:var(--red-deep);
+  display:grid;place-items:center;font-size:20px;
+  transition:background .3s, color .3s, transform .3s;
+}
+.gp-item:hover .ic{background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;transform:rotate(-8deg)}
+.gp-item h5{margin:0;font-size:16px;font-weight:700;color:var(--ink-2)}
+.gp-item p{margin:6px 0 0;font-size:13px;line-height:1.7;color:var(--muted-2)}
+
+/* Section 5 — Experts (same as home poster expand) */
+.experts{display:flex;gap:16px;align-items:stretch;height:460px}
+.expert-poster{
+  position:relative;flex:1 1 0;min-width:0;
+  border-radius:18px;overflow:hidden;
+  background:linear-gradient(180deg,#F6F8FB 0%,#EEF2F7 54%,#E7ECF3 100%);
+  cursor:pointer;
+  transition:flex .55s cubic-bezier(0.16,1,0.3,1);
+}
+.expert-poster.is-open{flex:2.4 1 0}
+.expert-poster .photo{
+  position:absolute;left:0;right:0;bottom:0;top:0;
+  background-size:auto 95%;
+  background-position:center bottom;
+  background-repeat:no-repeat;
+  transition:transform .6s cubic-bezier(0.16,1,0.3,1), filter .4s ease;
+  filter:saturate(0.9);
+}
+.expert-poster.is-open .photo{transform:scale(1.03);filter:saturate(1.05)}
+.expert-poster::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(15,23,42,0) 30%,rgba(15,23,42,0.55) 78%,rgba(15,23,42,0.86) 100%);
+  z-index:2;pointer-events:none;
+  transition:opacity .35s ease;
+}
+.expert-poster .info{
+  position:absolute;left:0;right:0;bottom:0;z-index:3;
+  padding:22px 22px 24px;color:#fff;
+}
+.expert-poster .name-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.expert-poster .name-row::before{content:'';width:3px;height:18px;border-radius:999px;background:var(--red)}
+.expert-poster h4{margin:0;font-size:20px;font-weight:800;color:#fff;letter-spacing:0.02em;text-shadow:0 2px 8px rgba(0,0,0,0.35)}
+.expert-poster .role{font-size:13px;color:rgba(255,255,255,0.86);margin-bottom:0;text-shadow:0 1px 6px rgba(0,0,0,0.4)}
+.expert-poster .blurb{
+  max-height:0;opacity:0;margin:0;padding:0;
+  font-size:13px;line-height:1.7;color:rgba(255,255,255,0.92);
+  overflow:hidden;
+  transition:max-height .45s ease, opacity .35s ease .05s, margin .35s ease;
+}
+.expert-poster .blurb b{color:#fff;font-weight:700}
+.expert-poster.is-open .blurb{max-height:120px;opacity:1;margin:12px 0 0}
+.expert-poster .badge{
+  position:absolute;top:14px;left:14px;z-index:3;
+  padding:4px 12px;border-radius:999px;
+  background:rgba(255,255,255,0.18);color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:0.04em;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.22);
+  transition:background .25s ease, color .25s ease;
+}
+.expert-poster.is-open .badge{background:var(--red);border-color:var(--red)}
+
+/* Section 6 — Course grid */
+.course-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.course-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  transition:transform .3s, box-shadow .3s}
+.course-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-lg)}
+.course-card .thumb{height:160px;background:#FFF6F8;background-size:cover;background-position:center}
+.course-card .body{padding:16px 18px 18px}
+.course-card h4{margin:0;font-size:15px;font-weight:700;line-height:1.45;color:var(--ink-2);min-height:42px;
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.course-card .meta{color:var(--muted-2);font-size:12px;margin-top:8px}
+
+/* Section 7 — Success cases */
+.course-success-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.course-success-card{
+  background:#fff;border:1px solid rgba(20,32,56,0.07);border-radius:22px;
+  padding:28px;box-shadow:0 14px 36px rgba(20,32,56,0.06);
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.course-success-card:hover{transform:translateY(-8px);box-shadow:0 24px 54px rgba(20,32,56,0.12);border-color:rgba(230,33,42,0.14)}
+.course-success-head{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.course-success-head .ic{
+  width:52px;height:52px;border-radius:999px;
+  background:var(--red-50);color:var(--red-deep);
+  display:grid;place-items:center;font-size:21px;flex:0 0 auto;
+  transition:background .3s ease,color .3s ease,transform .3s ease;
+}
+.course-success-card:hover .course-success-head .ic{background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;transform:rotate(-8deg)}
+.course-success-head h4{margin:0;font-size:18px;font-weight:800;color:var(--ink);line-height:1.35}
+.course-success-head span{display:block;margin-top:4px;font-size:13px;color:var(--muted-2)}
+.course-success-block{margin:0 0 16px}
+.course-success-block h5{
+  margin:0 0 6px;font-size:14px;font-weight:800;color:var(--ink-2);
+  display:flex;align-items:center;gap:8px;
+}
+.course-success-block h5 i{color:var(--red-deep);font-size:13px}
+.course-success-block p,.course-success-block li{font-size:13px;line-height:1.7;color:var(--muted-2)}
+.course-success-block p{margin:0}
+.course-success-block ul{margin:0;padding-left:18px}
+.course-success-quote{
+  position:relative;margin-top:20px;padding:18px;border-radius:16px;
+  background:linear-gradient(135deg,#fafbfc 0%,#fff 100%);
+  border:1px solid var(--line-2);font-size:13px;line-height:1.7;color:var(--muted-2);
+}
+.course-success-quote i{position:absolute;left:16px;top:12px;color:rgba(255,20,69,0.10);font-size:28px}
+.course-success-quote p{position:relative;margin:0;font-style:italic}
+.course-success-quote span{display:block;margin-top:10px;text-align:right;color:#9aa3af;font-size:12px;font-weight:600}
+
+@media (max-width:1080px){
+  .hl-strip{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px;padding:36px 24px}
+  .hl-item + .hl-item::before{display:none}
+  .flow{grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 18px}
+  .flow::before,.flow::after,.flow .orb{display:none}
+  .proc-step:nth-child(3n)::after{display:none}
+  .proc-step::after{top:30px}
+  .guarantee-panel{grid-template-columns:1fr}
+  .gp-left{padding:36px}
+  .gp-right{padding:24px 36px 36px}
+  .experts{flex-direction:row;flex-wrap:wrap;height:auto}
+  .expert-poster{flex:1 1 calc(50% - 8px);height:340px}
+  .course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .course-success-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .hl-strip{grid-template-columns:1fr}
+  .expert-poster{flex:1 1 100%}
+  .course-grid{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr;gap:24px}
+  .proc-step::after{display:none}
+}
+@keyframes spinSlow{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+</head>
+<body data-page="course" id="top">
+
+<nav class="nav" id="site-nav"></nav>
+
+<section class="hero course-hero" data-screen-label="01 Hero">
+  <div class="container reveal in">
+    <span class="hero-eyebrow"><span class="dot"></span>定制课程</span>
+    <h1>定制化企业实战课程</h1>
+    <p class="hero-sub">51CTO 企业学院，打造可落地的实战课程。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#cta">立即咨询 <i class="fas fa-arrow-right"></i></a>
+      <a class="btn btn-ghost" href="#highlight">查看课程亮点</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 课程亮点 — 数据条 ─── -->
+<section class="section" id="highlight" data-screen-label="02 Highlight">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>课程亮点<span class="bar"></span></h2>
+      <p>三大核心优势，打造极致学习体验</p>
+    </div>
+    <div class="hl-strip reveal delay-1">
+      <div class="hl-item">
+        <span class="hl-no">01</span>
+        <div class="num"><i class="fas fa-hammer"></i></div>
+        <h4>实战化</h4>
+        <p>实战派名师授课，理论 + 实操双保障，沉淀可落地的方法论。</p>
+      </div>
+      <div class="hl-item">
+        <span class="hl-no">02</span>
+        <div class="num"><i class="fas fa-layer-group"></i></div>
+        <h4>场景化</h4>
+        <p>贴合真实业务场景，从行业痛点出发，解决实际工作问题。</p>
+      </div>
+      <div class="hl-item">
+        <span class="hl-no">03</span>
+        <div class="num"><i class="fas fa-chart-line"></i></div>
+        <h4>成果化</h4>
+        <p>全周期培训服务，确保培训效果可量化、可复盘、可持续。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 培训全流程 ─── -->
+<section class="section alt" data-screen-label="03 Process">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>培训全流程<span class="bar"></span></h2>
+      <p>从需求调研到效果评估，打造企业专属的实战学习闭环</p>
+    </div>
+    <div class="flow reveal delay-1">
+      <span class="orb" aria-hidden="true"></span>
+      <div class="proc-step">
+        <div class="n"><i class="fas fa-magnifying-glass"></i><span class="num">STEP 01</span></div>
+        <div class="info">
+          <h4>需求深度调研</h4>
+          <p>1v1 访谈企业负责人 / 业务骨干，明确培训目标、岗位痛点、学员基础，输出专属需求报告。</p>
+        </div>
+      </div>
+      <div class="proc-step">
+        <div class="n"><i class="fas fa-pen-ruler"></i><span class="num">STEP 02</span></div>
+        <div class="info">
+          <h4>定制方案设计</h4>
+          <p>匹配行业 + 岗位场景，设计课程大纲、实战任务、考核标准，提供专属方案建议书。</p>
+        </div>
+      </div>
+      <div class="proc-step">
+        <div class="n"><i class="fas fa-chalkboard-user"></i><span class="num">STEP 03</span></div>
+        <div class="info">
+          <h4>实战授课交付</h4>
+          <p>一线实战专家授课，理论 + 实操双轨教学，融入企业真实业务案例，同步答疑辅导。</p>
+        </div>
+      </div>
+      <div class="proc-step">
+        <div class="n"><i class="fas fa-handshake-angle"></i><span class="num">STEP 04</span></div>
+        <div class="info">
+          <h4>项目落地辅导</h4>
+          <p>课后跟进学员真实项目，提供 1v1 辅导、方案优化、问题解决，助力成果落地。</p>
+        </div>
+      </div>
+      <div class="proc-step">
+        <div class="n"><i class="fas fa-chart-column"></i><span class="num">STEP 05</span></div>
+        <div class="info">
+          <h4>效果评估复盘</h4>
+          <p>多维度评估学员能力提升，输出培训效果报告，包含数据、案例、改进建议。</p>
+        </div>
+      </div>
+      <div class="proc-step">
+        <div class="n"><i class="fas fa-arrows-spin"></i><span class="num">STEP 06</span></div>
+        <div class="info">
+          <h4>长期迭代优化</h4>
+          <p>跟踪培训落地效果，根据企业业务变化，提供课程迭代、复训、进阶培训建议。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 服务保障 ─── -->
+<section class="section" data-screen-label="04 Guarantee">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>服务保障<span class="bar"></span></h2>
+      <p>四大服务保障，免除企业后顾之忧</p>
+    </div>
+    <div class="guarantee-panel reveal delay-1">
+      <div class="gp-left">
+        <span class="badge"><i class="fas fa-shield-halved"></i> 全周期保障</span>
+        <h3>从师资、内容到效果追踪，保障每一次培训可落地</h3>
+        <p>围绕企业真实业务目标定制课程内容，匹配一线实战讲师，并通过课后辅导、效果评估和持续答疑，把培训成果延伸到岗位实践中。</p>
+      </div>
+      <div class="gp-right">
+        <div class="gp-item">
+          <div class="ic"><i class="fas fa-user-tie"></i></div>
+          <div><h5>师资保障</h5><p>所有讲师均为行业一线实战专家，具备 10 年 + 企业项目经验。</p></div>
+        </div>
+        <div class="gp-item">
+          <div class="ic"><i class="fas fa-book-open"></i></div>
+          <div><h5>内容保障</h5><p>课程内容根据企业需求 100% 定制，贴合真实业务场景。</p></div>
+        </div>
+        <div class="gp-item">
+          <div class="ic"><i class="fas fa-check-circle"></i></div>
+          <div><h5>效果保障</h5><p>提供项目辅导 + 效果评估报告，确保培训成果可落地、可量化。</p></div>
+        </div>
+        <div class="gp-item">
+          <div class="ic"><i class="fas fa-headset"></i></div>
+          <div><h5>售后保障</h5><p>培训结束后提供 3 个月免费答疑，后续课程迭代优先支持。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 实战专家 — 海报伸缩 ─── -->
+<section class="section alt" data-screen-label="05 Experts">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>实战专家<span class="bar"></span></h2>
+      <p>汇聚行业顶尖讲师与实战派顾问</p>
+    </div>
+    <div class="experts reveal delay-1" id="experts">
+      <div class="expert-poster is-open"><span class="badge">云架构</span><div class="photo" style="background-image:url('assets/teachers/1.png')"></div><div class="info"><div class="name-row"><h4>殷老师</h4></div><div class="role">盘如科技技术 VP</div><div class="blurb"><b>前阿里云技术总监</b>，多年云架构与企业级技术管理经验。</div></div></div>
+      <div class="expert-poster"><span class="badge">金融科技</span><div class="photo" style="background-image:url('assets/teachers/2.png')"></div><div class="info"><div class="name-row"><h4>齐老师</h4></div><div class="role">原京东金融架构师</div><div class="blurb"><b>原工商银行高级工程师</b>，金融科技领域资深专家。</div></div></div>
+      <div class="expert-poster"><span class="badge">AI 产品</span><div class="photo" style="background-image:url('assets/teachers/3.png')"></div><div class="info"><div class="name-row"><h4>黄老师</h4></div><div class="role">Agently.tech AI 负责人</div><div class="blurb"><b>原美团高级产品经理</b>，AI 产品设计与应用专家。</div></div></div>
+      <div class="expert-poster"><span class="badge">数据产品</span><div class="photo" style="background-image:url('assets/teachers/4.png')"></div><div class="info"><div class="name-row"><h4>李老师</h4></div><div class="role">原百度资深产品专家</div><div class="blurb"><b>12 年大数据平台经验</b>，数据产品与技术专家。</div></div></div>
+      <div class="expert-poster"><span class="badge">云原生</span><div class="photo" style="background-image:url('assets/teachers/5.png')"></div><div class="info"><div class="name-row"><h4>王老师</h4></div><div class="role">前阿里技术总监</div><div class="blurb"><b>15 年云计算架构经验</b>，企业级架构与云原生专家。</div></div></div>
+      <div class="expert-poster"><span class="badge">数据科学</span><div class="photo" style="background-image:url('assets/teachers/6.png')"></div><div class="info"><div class="name-row"><h4>张老师</h4></div><div class="role">腾讯高级数据科学家</div><div class="blurb"><b>专注推荐系统与机器学习</b>，数据科学领域专家。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 热门实战课程 ─── -->
+<section class="section" data-screen-label="06 Courses">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>热门实战课程<span class="bar"></span></h2>
+      <p>精选前沿技术，助力业务快速突破</p>
+    </div>
+    <div class="course-grid reveal delay-1">
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/1.png')"></div><div class="body"><h4>业技融合训练营</h4><div class="meta">以真实项目演练，统一业务目标，明确业务与科技职责流程。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/2.png')"></div><div class="body"><h4>数字化运营体系培养</h4><div class="meta">打通客户洞察、场景经营、私域运营与数据驱动。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/3.png')"></div><div class="body"><h4>自智网络实战训练营</h4><div class="meta">围绕运营商网络自治化建设，强化 L3-L4 级自智能力落地。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/4.png')"></div><div class="body"><h4>政企 DICT 人才实战</h4><div class="meta">覆盖方案设计、交付落地、客户运营全环节。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/5.png')"></div><div class="body"><h4>项目经理能力提升</h4><div class="meta">围绕项目经理能力模型，构建项目管理工具箱。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/6.png')"></div><div class="body"><h4>AI 产品经理训练营</h4><div class="meta">案例教学 + 现场实战 + 黑客松，产出 AI 产品解决方案。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/7.png')"></div><div class="body"><h4>网络安全实战训练营</h4><div class="meta">通过攻防演练与合规实操，强化安全防护与应急处置能力。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/8.png')"></div><div class="body"><h4>AI 大赛实战训练营</h4><div class="meta">以赛促学、以练促用，产出可落地提示词和智能体。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 企业客户成功案例 ─── -->
+<section class="section alt" data-screen-label="07 Cases">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>企业客户成功案例<span class="bar"></span></h2>
+      <p>覆盖金融、运营商、政企、互联网等行业，用真实项目成果说话</p>
+    </div>
+    <div class="course-success-grid reveal delay-1">
+      <div class="course-success-card">
+        <div class="course-success-head">
+          <div class="ic"><i class="fas fa-network-wired"></i></div>
+          <div><h4>某省级运营商</h4><span>网络安全训练营</span></div>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-exclamation-circle"></i>客户痛点</h5>
+          <p>运维团队攻防能力不足，漏洞响应效率低，合规压力大。</p>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-lightbulb"></i>定制方案</h5>
+          <p>L3-L4 级攻防实战演练 + 真实场景模拟 + 专项漏洞修复辅导。</p>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-chart-line"></i>量化成果</h5>
+          <ul>
+            <li>团队漏洞识别效率提升 65%</li>
+            <li>重大漏洞平均修复时间缩短 40%</li>
+            <li>通过运营商网络安全合规审计</li>
+          </ul>
+        </div>
+        <div class="course-success-quote">
+          <i class="fas fa-quote-left"></i>
+          <p>“课程完全贴合我们的真实业务场景，从理论到实操的闭环设计，让团队的安全防护能力真正落地了。”</p>
+          <span>某运营商信息安全部负责人</span>
+        </div>
+      </div>
+      <div class="course-success-card">
+        <div class="course-success-head">
+          <div class="ic"><i class="fas fa-university"></i></div>
+          <div><h4>某城商行</h4><span>数字化运营能力提升</span></div>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-exclamation-circle"></i>客户痛点</h5>
+          <p>业务与技术脱节，数字化转型落地难，运营效率低下。</p>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-lightbulb"></i>定制方案</h5>
+          <p>银行数字化转型全链路实战课程 + 业务场景拆解 + 项目辅导。</p>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-chart-line"></i>量化成果</h5>
+          <ul>
+            <li>业务部门与技术部门协作效率提升 50%</li>
+            <li>核心业务流程优化项目落地率达 90%</li>
+            <li>培养了 12 名数字化运营骨干人才</li>
+          </ul>
+        </div>
+        <div class="course-success-quote">
+          <i class="fas fa-quote-left"></i>
+          <p>“定制化的课程完全解决了我们‘学了用不上’的问题，学员带着真实项目来上课，下课就能直接推进工作。”</p>
+          <span>某城商行人力资源部总监</span>
+        </div>
+      </div>
+      <div class="course-success-card">
+        <div class="course-success-head">
+          <div class="ic"><i class="fas fa-laptop-code"></i></div>
+          <div><h4>某互联网大厂</h4><span>AI 产品经理实战营</span></div>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-exclamation-circle"></i>客户痛点</h5>
+          <p>产品团队对 AI 技术理解不足，AI 产品落地能力弱。</p>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-lightbulb"></i>定制方案</h5>
+          <p>AI 产品设计全流程实战 + 真实业务场景拆解 + 48 小时项目路演。</p>
+        </div>
+        <div class="course-success-block">
+          <h5><i class="fas fa-chart-line"></i>量化成果</h5>
+          <ul>
+            <li>团队 AI 产品原型交付周期缩短 30%</li>
+            <li>3 个 AI 创新项目从 0 到 1 完成落地</li>
+            <li>输出 8 份可复用的 AI 产品解决方案</li>
+          </ul>
+        </div>
+        <div class="course-success-quote">
+          <i class="fas fa-quote-left"></i>
+          <p>“老师都是一线实战专家，讲的全是能直接用在项目里的干货，学员反馈非常好。”</p>
+          <span>某互联网大厂产品培训负责人</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cta" data-screen-label="08 CTA">
+  <div class="container reveal">
+    <div class="cta-strip">
+      <div><h3>联系学习顾问定制专属实战课程</h3><p>免费获取企业专属学习计划，专业顾问 1 对 1 服务。</p></div>
+      <div class="actions">
+        <a class="btn btn-white" href="#">立即咨询 <i class="fas fa-arrow-right"></i></a>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<aside class="side" id="site-side"></aside>
+<script src="assets/site.js"></script>
+<script>
+// Expert poster expand
+document.querySelectorAll('#experts .expert-poster').forEach(p => {
+  ['mouseenter','click'].forEach(ev => {
+    p.addEventListener(ev, () => {
+      document.querySelectorAll('#experts .expert-poster').forEach(x => x.classList.remove('is-open'));
+      p.classList.add('is-open');
+    });
+  });
+});
+
+// 培训全流程：能量光点沿虚线连续平滑爬行；鼠标悬停时平滑滑到鼠标节点
+document.querySelectorAll('.flow').forEach(flow => {
+  const orb = flow.querySelector('.orb');
+  if(!orb) return;
+  const steps = Array.from(flow.querySelectorAll('.proc-step'));
+  if(!steps.length) return;
+
+  let startX = 0, endX = 0;       // 时间轴左右端点 X
+  let cur = 0;                    // 当前光点位置（px）
+  let target = 0;                 // hover 时的目标位置
+  let hovering = false;
+  let pxPerSec = 30;              // 自动爬行速度
+  let last = null;
+  let paused = false;
+
+  const centerOf = (step) => {
+    const n = step.querySelector('.n');
+    const fr = flow.getBoundingClientRect();
+    const r = n.getBoundingClientRect();
+    return r.left - fr.left + r.width / 2;
+  };
+  const measure = () => {
+    startX = centerOf(steps[0]);
+    endX = centerOf(steps[steps.length - 1]);
+    // 全程约 22s 走完一遍
+    pxPerSec = Math.max(15, (endX - startX) / 22);
+    if(cur < startX || cur > endX) cur = startX;
+  };
+
+  const tick = (t) => {
+    if(last === null) last = t;
+    const dt = (t - last) / 1000;
+    last = t;
+    if(!paused){
+      if(hovering){
+        // 平滑滑向目标（指数缓动，框架无关）
+        const k = 1 - Math.exp(-dt * 7);
+        cur += (target - cur) * k;
+      } else {
+        // 连续匀速向右
+        cur += pxPerSec * dt;
+        if(cur > endX) cur = startX;
+      }
+      orb.style.left = cur + 'px';
+      orb.style.opacity = '1';
+    }
+    requestAnimationFrame(tick);
+  };
+
+  steps.forEach(s => {
+    s.addEventListener('mouseenter', () => { hovering = true; target = centerOf(s); });
+    s.addEventListener('focusin',   () => { hovering = true; target = centerOf(s); });
+  });
+  flow.addEventListener('mouseleave', () => { hovering = false; });
+
+  const init = () => { measure(); cur = startX; orb.style.left = cur + 'px'; requestAnimationFrame(tick); };
+  if(document.readyState === 'complete') init();
+  else window.addEventListener('load', init);
+
+  window.addEventListener('resize', () => { const before = cur - startX; measure(); cur = startX + Math.min(before, endX - startX); });
+  document.addEventListener('visibilitychange', () => { paused = document.hidden; last = null; });
+});
+</script>
+</body>
+</html>

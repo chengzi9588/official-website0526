@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>客户案例 — 51CTO 企业学院</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.cases-hero{
+  min-height:500px;
+  background:#f8fbfd url('assets/cases-hero.png') center top / 2105px 500px no-repeat;
+}
+.cases-hero::before{display:none}
+.filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:32px}
+.filter{
+  padding:8px 18px;border-radius:999px;background:#fff;border:1px solid var(--line);
+  color:var(--ink-2);font-size:14px;font-weight:600;cursor:pointer;
+  transition:background .2s, color .2s, border-color .2s;
+}
+.filter:hover{color:var(--red-deep)}
+.filter.active{background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 6px 14px rgba(20,32,56,0.12)}
+
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.case-card{
+  position:relative;border-radius:22px;overflow:hidden;
+  background:#fff;color:var(--ink-2);min-height:360px;
+  cursor:pointer;box-shadow:0 14px 34px rgba(20,32,56,0.08);
+  border:1px solid rgba(20,32,56,0.06);
+  opacity:0;transform:translateY(18px);
+  animation:caseCardIn .55s cubic-bezier(.2,.8,.2,1) forwards;
+  animation-delay:calc(var(--i,0) * 45ms);
+  transition:transform .32s ease, box-shadow .32s ease, border-color .32s ease;
+}
+.case-card:hover{transform:translateY(-8px);box-shadow:0 24px 54px rgba(20,32,56,0.14);border-color:rgba(230,33,42,0.14)}
+.case-card .media{position:relative;height:182px;overflow:hidden;background:#f5f7fb}
+.case-card .media::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.14));
+  opacity:.7;transition:opacity .3s;
+}
+.case-card:hover .media::after{opacity:.35}
+.case-card img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .7s cubic-bezier(.2,.8,.2,1), filter .3s}
+.case-card:hover img{transform:scale(1.08);filter:saturate(1.05)}
+.case-card .body{
+  position:relative;z-index:2;margin:-20px 16px 16px;padding:20px 18px 18px;
+  background:#fff;border-radius:18px;box-shadow:0 12px 28px rgba(20,32,56,0.10);
+  min-height:166px;transition:transform .32s ease, box-shadow .32s ease;
+}
+.case-card:hover .body{transform:translateY(-4px);box-shadow:0 18px 34px rgba(20,32,56,0.13)}
+.case-card .tag{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  background:rgba(230,33,42,0.08);font-size:11px;font-weight:700;color:var(--red-deep);
+  margin-bottom:10px;
+}
+.case-card h4{margin:0;font-size:18px;font-weight:800;color:var(--ink);line-height:1.42}
+.case-card p{margin:9px 0 0;font-size:13px;color:var(--muted-2);line-height:1.65;
+  display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.case-card .arrow{
+  position:absolute;right:18px;bottom:18px;z-index:3;
+  width:36px;height:36px;border-radius:999px;background:linear-gradient(135deg,var(--red),var(--red-soft));
+  display:grid;place-items:center;color:#fff;font-size:13px;
+  box-shadow:0 10px 22px rgba(230,33,42,0.20);
+  transform:translateX(12px);opacity:0;transition:transform .28s ease, opacity .28s ease;
+}
+.case-card:hover .arrow{transform:translateX(0);opacity:1}
+@keyframes caseCardIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media (max-width:1080px){.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.case-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-page="cases" id="top">
+
+<nav class="nav" id="site-nav"></nav>
+
+<section class="hero cases-hero" data-screen-label="01 Hero">
+  <div class="container reveal in">
+    <span class="hero-eyebrow"><span class="dot"></span>客户案例</span>
+    <h1>客户案例</h1>
+    <p class="hero-sub">自 2005 年成立以来，51CTO 已与超过 25000 家国内外企业建立深度合作，覆盖科技互联网、运营商、金融、能源、制造、医疗、房地产、教育、出版等行业。</p>
+    <div class="hero-actions"><a class="btn btn-primary" href="#case-grid">成为客户 <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<section class="section" data-screen-label="02 Cases">
+  <div class="container">
+    <div class="filters reveal">
+      <button class="filter active" data-f="all">全部行业</button>
+      <button class="filter" data-f="joint-stock">股份行</button>
+      <button class="filter" data-f="state-bank">国有行</button>
+      <button class="filter" data-f="energy">能源</button>
+      <button class="filter" data-f="insurance">保险</button>
+      <button class="filter" data-f="commercial-bank">商业银行</button>
+      <button class="filter" data-f="operator">运营商</button>
+    </div>
+    <div class="case-grid reveal delay-1" id="case-grid"></div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<aside class="side" id="site-side"></aside>
+<script src="assets/site.js"></script>
+<script>
+const cases = [
+  { tag:'某股份行', cat:'joint-stock', title:'金融科技融合培训项目', desc:'覆盖线上学习、线下工作坊、项目辅导和复盘总结，业务与技术人员组队推进真实金融科技创新项目，沉淀实践案例、成熟度评估模型和行动手册。', bg:'assets/case_bg/case-1.jpeg', link:'case-detail.html?id=1' },
+  { tag:'某国有行', cat:'state-bank', title:'大数据应用建模实战培训', desc:'面向管理者及跨条线团队，围绕真实业务分组开展理论学习、行动学习、课后辅导和答辩路演，形成课题报告和汇报成果。', bg:'assets/case_bg/case-2.jpg', link:'case-detail.html?id=2' },
+  { tag:'某国有行', cat:'state-bank', title:'金融业务 AI 落地场景识别', desc:'切入银行对公和信贷核心场景，完成流程梳理、痛点识别、机会点挖掘、技术需求分析和试点规划。', bg:'assets/case_bg/case-3.jpg', link:'case-detail.html?id=3' },
+  { tag:'某能源企业', cat:'energy', title:'AI 专业人才体系化培养项目', desc:'包含角色划分、能力模型、线上筛选、线下实训和训后实践，形成从人员盘点、能力提升到实践转化的完整路径。', bg:'assets/case_bg/case-4.jpg', link:'case-detail.html?id=4' },
+  { tag:'某保险公司', cat:'insurance', title:'大模型调优训练营', desc:'面向数据中心技术人员，覆盖大模型部署、开发框架、垂直领域微调、模型剪枝和压缩等关键工程环节。', bg:'assets/case_bg/case-5.jpg', link:'case-detail.html?id=5' },
+  { tag:'某保险公司', cat:'insurance', title:'大语言模型研发效能提升项目', desc:'贴近研发提效痛点，覆盖需求、开发、测试和效能度量，团队基于真实场景产出应用方案和改进数据。', bg:'assets/case_bg/case-6.png', link:'case-detail.html?id=6' },
+  { tag:'某能源科技公司', cat:'energy', title:'AI 专业人才培养项目', desc:'覆盖 AI 应用架构、建模工程、平台技术三类岗位，贯穿大模型场景设计、部署、RAG 落地和智能体开发。', bg:'assets/case_bg/case-7.jpeg', link:'case-detail.html?id=7' },
+  { tag:'某银行', cat:'commercial-bank', title:'科运中心员工梯队建设领导力培训项目', desc:'按初、中、高级青年骨干分层设计，涵盖沟通协作、需求管理、数字化转型、科技创新和领导力等内容。', bg:'assets/case_bg/case-1.jpeg', link:'case-detail.html?id=8' },
+  { tag:'某银行', cat:'commercial-bank', title:'CTO 成长营项目', desc:'面向对公和对私业务条线高层技术管理者，聚焦数字化转型设计、技术战略和组织能力建设。', bg:'assets/case_bg/case-2.jpg', link:'case-detail.html?id=9' },
+  { tag:'某银行', cat:'commercial-bank', title:'专业序列学习地图规划项目', desc:'覆盖价值梳理、能力模型、学习路径设计、课程资源匹配和题库建设，形成从能力标准到资源落地的完整服务。', bg:'assets/case_bg/case-3.jpg', link:'case-detail.html?id=10' },
+  { tag:'某银行', cat:'commercial-bank', title:'技术角色学习地图与课程研发项目', desc:'围绕架构师、数据分析师等关键角色开展能力图谱优化和课程体系建设，配套开发课件、脚本、手册和试题。', bg:'assets/case_bg/case-4.jpg', link:'case-detail.html?id=11' },
+  { tag:'某股份制银行', cat:'joint-stock', title:'大数据学苑数据分析师培养项目', desc:'覆盖总分行及不同业务管理岗位，分线上学习、线下研修和作品评审三阶段，围绕精准营销、风控管理等场景展开。', bg:'assets/case_bg/case-5.jpg', link:'case-detail.html?id=12' },
+  { tag:'某股份制银行', cat:'joint-stock', title:'创新大赛组织与运营项目', desc:'覆盖行内赛和公开赛，包含项目征集、培训、加速营、参访、路演、评审和传播等完整环节。', bg:'assets/case_bg/case-6.png', link:'case-detail.html?id=13' },
+  { tag:'某移动省分公司', cat:'operator', title:'AI 技能竞赛', desc:'设置提示词应用和智能体开发双赛道，推动围绕业务痛点开发 AI 应用，沉淀多类智能体和业务方案。', bg:'assets/case_bg/case-7.jpeg', link:'case-detail.html?id=14' },
+  { tag:'某大型云服务商', cat:'operator', title:'全栈认证体系建设项目', desc:'围绕关键岗位构建覆盖课程、题库、考试、证书和运营的标准化认证体系，突出评、培、考、证、用一体化。', bg:'assets/case_bg/case-1.jpeg', link:'case-detail.html?id=15' },
+];
+
+function render(filter){
+  const grid = document.getElementById('case-grid');
+  grid.innerHTML = cases
+    .filter(c => filter==='all' || c.cat===filter)
+    .map((c, i) => `
+      <a href="${c.link}" class="case-card" style="--i:${i}; display:block; text-decoration:none;">
+        <div class="media"><img src="${c.bg}" alt=""></div>
+        <div class="body">
+          <span class="tag"><i class="fas fa-tag"></i>${c.tag}</span>
+          <h4>${c.title}</h4>
+          <p>${c.desc}</p>
+        </div>
+        <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+      </a>
+    `).join('');
+}
+render('all');
+document.querySelectorAll('.filter').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.filter').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    render(b.dataset.f);
+  });
+});
+</script>
+</body>
+</html>

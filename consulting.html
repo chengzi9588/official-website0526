@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>人才咨询 — 51CTO 企业学院</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.consulting-hero{
+  min-height:500px;
+  background:#f8fbfd url('assets/consulting-hero.png') center top / 2105px 500px no-repeat;
+}
+.consulting-hero::before{display:none}
+.consulting-hero .container{position:relative;z-index:2}
+/* Section 2 — Steps: SVG horizontal flow */
+.svg-flow{
+  position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;
+  padding:60px 0 24px;
+}
+.svg-flow .line-svg{
+  position:absolute;left:6%;right:6%;top:48px;height:4px;z-index:0;
+}
+.svg-flow .line-svg path{stroke-dasharray:6 8;stroke:url(#flowg);stroke-width:3;fill:none;
+  animation:dash-march 1.5s linear infinite}
+.svg-flow .dot{
+  position:absolute;left:0;top:32px;width:18px;height:18px;border-radius:999px;
+  background:linear-gradient(135deg,var(--red),var(--red-soft));
+  box-shadow:0 0 0 6px rgba(255,20,69,0.10);
+  animation:dot-march 8s linear infinite;z-index:1;
+}
+@keyframes dash-march{to{stroke-dashoffset:-28}}
+@keyframes dot-march{
+  0%{left:6%}100%{left:94%}
+}
+.step-card{
+  position:relative;z-index:1;background:#fff;border:1px solid var(--line);border-radius:18px;padding:56px 26px 28px;
+  transition:transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s;
+  cursor:default;
+  box-shadow:0 10px 28px rgba(20,32,56,0.04);
+}
+.step-card:hover{transform:translateY(-8px);box-shadow:0 22px 48px rgba(20,32,56,0.10)}
+.step-card .num-circle{
+  position:absolute;left:24px;top:-22px;
+  width:78px;height:48px;border-radius:16px;
+  background:linear-gradient(135deg,var(--red),var(--red-soft));
+  display:grid;place-items:center;color:#fff;
+  font-family:Inter,sans-serif;font-weight:800;font-size:22px;
+  box-shadow:0 16px 32px rgba(230,33,42,0.20), inset 0 1px 0 rgba(255,255,255,0.35);
+  transition:transform .35s cubic-bezier(0.34,1.56,0.64,1), box-shadow .3s;
+}
+.step-card .num-circle::after{
+  content:'STEP';position:absolute;right:-34px;top:50%;transform:translateY(-50%);
+  font-size:10px;letter-spacing:0.12em;color:var(--red-deep);font-weight:800;
+  background:#fff;border:1px solid rgba(255,20,69,0.10);border-radius:999px;padding:4px 8px;
+  box-shadow:0 8px 18px rgba(20,32,56,0.06);
+}
+.step-card:hover .num-circle{
+  transform:translateY(-4px) rotate(-4deg) scale(1.05);
+  box-shadow:0 20px 38px rgba(230,33,42,0.24), inset 0 1px 0 rgba(255,255,255,0.42);
+}
+.step-card h4{margin:0;font-size:18px;font-weight:800;color:var(--ink-2);text-align:left}
+.step-card p{margin:10px 0 0;font-size:13px;line-height:1.7;color:var(--muted-2);text-align:left}
+
+/* Section 3 — Core services: 4-col vertical cards, light & refined */
+.svc-rows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.svc-rows.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.svc-row{
+  --accent:#E0212A;
+  --accent-soft:#FF7A88;
+  --accent-tint:rgba(224,33,42,0.08);
+  position:relative;
+  display:flex;flex-direction:column;
+  background:#fff;border:1px solid rgba(20,32,56,0.06);
+  border-radius:22px;overflow:hidden;
+  box-shadow:0 10px 28px rgba(20,32,56,0.05);
+  transition:transform .4s cubic-bezier(0.16,1,0.3,1), box-shadow .4s ease, border-color .4s ease;
+}
+.svc-row:nth-child(2){--accent:#D6364F;--accent-soft:#FF8398;--accent-tint:rgba(214,54,79,0.08)}
+.svc-row:nth-child(3){--accent:#C94F43;--accent-soft:#FF9682;--accent-tint:rgba(201,79,67,0.08)}
+.svc-row:nth-child(4){--accent:#B73C50;--accent-soft:#FF8198;--accent-tint:rgba(183,60,80,0.08)}
+.svc-row:hover{
+  transform:translateY(-6px);
+  border-color:rgba(20,32,56,0.04);
+  box-shadow:0 22px 48px rgba(20,32,56,0.09);
+}
+.svc-row.reverse .svc-text,.svc-row.reverse .svc-art{order:initial}
+.svc-art{
+  order:-1;position:relative;height:148px;overflow:hidden;
+  background:#fbfcfe;
+  border-bottom:1px solid rgba(20,32,56,0.04);
+  display:grid;place-items:center;
+}
+.svc-art::before{
+  content:'';position:absolute;left:50%;top:0;
+  width:240px;height:160px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center, var(--accent-tint) 0%, transparent 70%);
+  pointer-events:none;
+}
+.svc-art .ic-big{
+  position:relative;z-index:2;
+  width:76px;height:76px;border-radius:22px;
+  background:linear-gradient(160deg, var(--accent) 0%, var(--accent-soft) 100%);
+  display:grid;place-items:center;color:#fff;font-size:30px;
+  box-shadow:0 14px 28px rgba(20,32,56,0.10),
+             inset 0 1px 0 rgba(255,255,255,0.35);
+  transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.svc-row:hover .ic-big{transform:scale(1.08) rotate(-4deg)}
+/* keep the dot decorations very subtle */
+.svc-art .deco{position:absolute;border-radius:999px;background:var(--accent-tint)}
+.svc-art .deco.d1{width:10px;height:10px;top:18px;right:24px;opacity:0.7}
+.svc-art .deco.d2{width:6px;height:6px;bottom:22px;left:26px;opacity:0.5}
+.svc-art .deco.d3{width:4px;height:4px;top:30%;right:18%;opacity:0.7}
+.svc-text{padding:22px 22px 26px}
+.svc-text > .lbl{
+  display:inline-flex;align-items:center;
+  padding:4px 11px;border-radius:999px;
+  background:var(--accent-tint);color:var(--accent);
+  font-size:11px;font-weight:700;letter-spacing:0.10em;
+  margin-bottom:12px;text-transform:uppercase;
+}
+.svc-text h3{margin:0 0 14px;font-size:18px;font-weight:800;color:var(--ink-2);letter-spacing:0.01em;line-height:1.4}
+.svc-text p{margin:0 0 18px;font-size:14px;line-height:1.75;color:var(--muted-2)}
+.svc-text .pts{display:flex;flex-wrap:wrap;gap:6px}
+.svc-text .pts span{
+  display:inline-flex;align-items:center;
+  padding:5px 11px;border-radius:999px;
+  background:#f5f6fa;
+  font-size:12px;font-weight:600;color:var(--muted-2);
+  transition:background .3s ease, color .3s ease;
+}
+.svc-text .pts span i{display:none}
+.svc-row:hover .pts span{background:var(--accent-tint);color:var(--accent)}
+
+/* Section 4 — Delivery: horizontal feature panel */
+.deliv-panel{
+  background:linear-gradient(135deg,#FFF7F9 0%,#FFFFFF 50%,#F8FAFD 100%);
+  border:1px solid var(--line);
+  border-radius:24px;padding:28px;color:var(--ink);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;
+  position:relative;overflow:hidden;
+  box-shadow:0 16px 42px rgba(20,32,56,0.06);
+}
+.deliv-panel::before{
+  content:'';position:absolute;right:-120px;top:-140px;width:360px;height:360px;
+  border-radius:999px;background:radial-gradient(circle, rgba(255,20,69,0.10), transparent 70%);
+}
+.deliv-item{position:relative;z-index:1;background:#fff;border:1px solid rgba(233,237,245,0.9);border-radius:18px;padding:28px;transition:transform .35s ease, box-shadow .35s ease}
+.deliv-item:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(20,32,56,0.08)}
+.deliv-item .ic{
+  width:56px;height:56px;border-radius:16px;
+  background:var(--red-light);color:var(--red-deep);
+  display:grid;place-items:center;font-size:22px;margin-bottom:18px;
+  border:1px solid rgba(255,20,69,0.08);
+  transition:background .3s ease,color .3s ease,transform .3s ease;
+}
+.deliv-item:hover .ic{background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;transform:rotate(-6deg) scale(1.05)}
+.deliv-item h4{margin:0;font-size:18px;font-weight:800;color:var(--ink-2)}
+.deliv-item p{margin:8px 0 0;font-size:14px;line-height:1.7;color:var(--muted-2)}
+
+/* Section 5 — Products: 2-col with hover reveal */
+.product-list-v2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.product-v2{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px;
+  display:grid;grid-template-columns:72px 1fr auto;gap:22px;align-items:center;
+  transition:transform .3s, box-shadow .3s, background .3s;
+  overflow:hidden;cursor:pointer;
+}
+.product-v2::after{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(90deg, rgba(255,240,242,0.5), transparent);
+  transition:width .4s ease;z-index:0;
+}
+.product-v2:hover::after{width:100%}
+.product-v2:hover{transform:translateY(-4px);box-shadow:0 20px 44px rgba(20,32,56,0.08)}
+.product-v2 > *{position:relative;z-index:1}
+.product-v2 .ic{
+  width:72px;height:72px;border-radius:16px;
+  background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;
+  display:grid;place-items:center;font-size:26px;
+  transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.product-v2:hover .ic{transform:rotate(-6deg) scale(1.08)}
+.product-v2 h4{margin:0;font-size:18px;font-weight:800;color:var(--ink-2)}
+.product-v2 .desc{margin:6px 0 0;font-size:13px;line-height:1.7;color:var(--muted-2)}
+.product-v2 .go{
+  width:38px;height:38px;border-radius:999px;background:var(--bg-soft);color:var(--ink-2);
+  display:grid;place-items:center;font-size:13px;
+  transition:transform .3s, background .3s, color .3s;
+}
+.product-v2:hover .go{background:var(--red);color:#fff;transform:translateX(4px)}
+
+/* Section 6 — Case strip (full-width) */
+.case-snap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.case-snap a{display:block}
+.case-snap .card{
+  position:relative;overflow:hidden;border-radius:18px;color:#fff;
+  height:260px;display:flex;align-items:flex-end;padding:24px;
+  transition:transform .35s ease, box-shadow .35s ease;
+}
+.case-snap a:hover .card{transform:translateY(-6px);box-shadow:0 22px 48px rgba(20,32,56,0.18)}
+.case-snap .card::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,0.05) 30%,rgba(0,0,0,0.78) 100%);z-index:1}
+.case-snap .card > *{position:relative;z-index:2}
+.case-snap .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+  transition:transform .55s ease}
+.case-snap a:hover .card img{transform:scale(1.05)}
+.case-snap h5{margin:0;font-size:18px;font-weight:700;color:#fff;line-height:1.4}
+.case-snap p{margin:6px 0 0;font-size:12px;color:rgba(255,255,255,0.85)}
+.case-snap .tag{
+  position:absolute;top:18px;left:18px;z-index:2;
+  padding:4px 10px;border-radius:999px;background:rgba(255,255,255,0.20);
+  font-size:11px;font-weight:600;backdrop-filter:blur(6px);
+}
+.cases-wrap{display:grid;grid-template-columns:240px 1fr;gap:20px}
+.case-tabs{display:flex;flex-direction:column;gap:10px}
+.case-tab{
+  text-align:left;padding:18px 20px;border-radius:14px;background:#F4F5F7;color:var(--ink-2);
+  font-size:14px;font-weight:600;cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+  transition:background .2s, color .2s, transform .2s;
+  position:relative;
+  flex:1;
+}
+.case-tab:hover{background:#EAECEF}
+.case-tab.active{background:var(--red);color:#fff;box-shadow:0 6px 16px rgba(20,32,56,0.14)}
+.case-tab i{font-size:18px;opacity:0.75}
+.case-tab.active i{opacity:1}
+.case-panel{
+  position:relative;border-radius:18px;overflow:hidden;background:#1c1c24;min-height:380px;
+  display:flex;align-items:center;padding:40px;color:#fff;
+  cursor:pointer;transition:box-shadow .35s;
+}
+.case-panel:hover{
+  box-shadow:0 24px 56px rgba(20,32,56,0.14);
+}
+.case-panel-arrow{
+  position:absolute;right:36px;bottom:36px;width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.2);display:grid;place-items:center;
+  font-size:20px;color:#fff;opacity:0;transform:translateX(-10px);
+  transition:all .35s ease;z-index:3;
+}
+.case-panel:hover .case-panel-arrow{
+  opacity:1;transform:translateX(0);background:var(--red);border-color:var(--red);
+}
+.case-panel::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 60%,rgba(0,0,0,0.05) 100%);
+}
+.case-content{position:relative;z-index:2;max-width:560px}
+.case-content h3{margin:0 0 18px;font-size:24px;font-weight:800;line-height:1.4}
+.case-content .pts{display:flex;flex-direction:column;gap:12px}
+.case-content .pt{display:flex;gap:12px;align-items:flex-start}
+.case-content .pt::before{
+  content:'';width:3px;height:18px;background:var(--red);border-radius:999px;flex:0 0 auto;margin-top:4px;
+}
+.case-content .pt p{margin:0;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.9)}
+
+
+.step-card .mini-tags{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.step-card .mini-tags span{background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;padding:10px 8px;text-align:center;font-size:12px;color:var(--ink-2);font-weight:600}
+.delivery-tags{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:start;padding-bottom:32px}
+.delivery-col{display:grid;gap:16px;transition:transform .3s ease}
+.delivery-col:nth-child(even){transform:translateY(32px)}
+.delivery-col span{
+  background:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.9);
+  border-radius:14px;padding:16px 14px;text-align:center;
+  font-size:14px;font-weight:700;color:var(--ink-2);
+  box-shadow:0 12px 24px rgba(20,32,56,0.06);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  transition:transform .25s,color .25s,border-color .25s,box-shadow .25s;
+}
+.delivery-col span:hover{
+  transform:translateY(-4px);color:var(--red-deep);
+  border-color:rgba(255,20,69,0.3);box-shadow:0 16px 32px rgba(20,32,56,0.1)
+}
+/* Section 5 — Typical Products: refined table with chip categories */
+.consult-table{
+  position:relative;
+  background:#fff;border:1px solid rgba(20,32,56,0.06);
+  border-radius:24px;overflow:hidden;
+  box-shadow:0 18px 44px rgba(20,32,56,0.06);
+}
+.consult-table table{width:100%;border-collapse:collapse;border-spacing:0}
+.consult-table thead{
+  background:linear-gradient(135deg, var(--red-deep) 0%, var(--red-soft) 100%);
+}
+.consult-table th{
+  padding:18px 22px;border:0;
+  color:#fff;font-weight:800;font-size:13px;letter-spacing:0.10em;
+  text-align:left;text-transform:uppercase;
+}
+.consult-table th:first-child{text-align:center;width:160px}
+.consult-table th:nth-last-child(2){width:280px}
+.consult-table td{
+  padding:20px 22px;border-bottom:1px solid rgba(20,32,56,0.05);
+  font-size:14px;line-height:1.75;color:var(--muted-2);
+  vertical-align:middle;text-align:left;
+  transition:background .3s ease;
+}
+.consult-table tbody tr:nth-child(even){background:rgba(20,32,56,0.015)}
+.consult-table tbody tr:hover{background:rgba(255,20,69,0.03)}
+.consult-table tbody tr:last-child td{border-bottom:0}
+.consult-table td.merged-cat {
+  background: #FAFAFA;
+  color: var(--red);
+  font-weight: 700;
+  border-right: 1px solid rgba(20,32,56,0.05);
+  font-size: 14px;
+  text-align: center;
+}
+.consult-table td:nth-last-child(2){font-weight:700;color:var(--ink-2)}
+
+@media (max-width:1080px){
+  .svc-rows.four,.delivery-tags{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .delivery-col:nth-child(even){transform:translateY(0)}
+  .delivery-col:nth-child(2n){transform:translateY(24px)}
+}
+@media (max-width:640px){
+  .svc-rows.four,.delivery-tags{grid-template-columns:1fr}
+  .step-card .mini-tags{grid-template-columns:1fr}
+  .delivery-col:nth-child(even),.delivery-col:nth-child(2n){transform:translateY(0)}
+}
+
+@media (max-width:1080px){
+  .svg-flow{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:24px}
+  .svg-flow .line-svg,.svg-flow .dot{display:none}
+  .svc-rows{grid-template-columns:1fr}
+  .deliv-panel{grid-template-columns:1fr;padding:36px}
+  .product-list-v2{grid-template-columns:1fr}
+  .case-snap{grid-template-columns:1fr}
+  .cases-wrap{grid-template-columns:1fr}
+  .case-tabs{flex-direction:row;flex-wrap:wrap}
+}
+@media (max-width:640px){
+  .svg-flow{grid-template-columns:1fr}
+  .case-panel{padding:24px;min-height:320px}
+}
+</style>
+</head>
+<body data-page="consulting" id="top">
+
+<nav class="nav" id="site-nav"></nav>
+
+<section class="hero consulting-hero" data-screen-label="01 Hero">
+  <div class="container reveal in">
+    <span class="hero-eyebrow"><span class="dot"></span>人才咨询</span>
+    <h1>企业组织与人才发展咨询</h1>
+    <p class="hero-sub">为企业提供数字化转型与人才发展支持，驱动业务增长，助力团队能力升级。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#cta">了解详情 <i class="fas fa-arrow-right"></i></a>
+      <a class="btn btn-ghost" href="#steps">查看咨询流程</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 方案定位及建设流程 ─── -->
+<section class="section" id="steps" data-screen-label="02 Steps">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>方案定位及建设流程<span class="bar"></span></h2>
+      <p>面向数智化转型企业，提供全层级、全链条的人才发展咨询闭环服务</p>
+    </div>
+    <div class="svg-flow reveal delay-1" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div class="step-card"><div class="num-circle">01</div><h4>数智组织发展</h4><p>围绕组织战略与业务场景，完成前置诊断与发展定位。</p><div class="mini-tags"><span>战略对齐</span><span>组织诊断</span><span>业务分析</span><span>场景梳理</span></div></div>
+      <div class="step-card"><div class="num-circle">02</div><h4>数智人才发展体系建设</h4><p>建设岗位任职资格、能力模型、学习地图与认证体系。</p><div class="mini-tags"><span>岗位任职资格</span><span>能力模型</span><span>人才盘点</span><span>学习地图</span></div></div>
+      <div class="step-card"><div class="num-circle">03</div><h4>数智资源落地</h4><p>配套课程、考试运营与平台支撑，推动标准落地。</p><div class="mini-tags"><span>课程开发</span><span>试题建设</span><span>考试运营</span><span>平台支撑</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 核心服务 — 左右交错三行 ─── -->
+<section class="section alt" data-screen-label="03 Services">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>核心服务<span class="bar"></span></h2>
+      <p>端到端咨询服务，助力企业数智化升级</p>
+    </div>
+    <div class="svc-rows four reveal delay-1">
+      <div class="svc-row">
+        <div class="svc-art">
+          <span class="deco d1"></span><span class="deco d2"></span><span class="deco d3"></span>
+          <div class="ic-big"><i class="fas fa-sitemap"></i></div>
+        </div>
+        <div class="svc-text">
+          <span class="lbl">标准建设</span>
+          <h3>人才标准建设</h3>
+          <div class="pts">
+            <span>能力模型</span><span>任职资格</span><span>胜任力</span>
+            <span>学习地图</span><span>人才画像</span><span>梯队规划</span>
+          </div>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-art">
+          <span class="deco d1"></span><span class="deco d2"></span><span class="deco d3"></span>
+          <div class="ic-big"><i class="fas fa-clipboard-check"></i></div>
+        </div>
+        <div class="svc-text">
+          <span class="lbl">评估体系</span>
+          <h3>人才评估体系</h3>
+          <div class="pts">
+            <span>人才测评</span><span>人才盘点</span>
+            <span>认证体系</span><span>认证运营</span>
+          </div>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-art">
+          <span class="deco d1"></span><span class="deco d2"></span><span class="deco d3"></span>
+          <div class="ic-big"><i class="fas fa-photo-video"></i></div>
+        </div>
+        <div class="svc-text">
+          <span class="lbl">资源建设</span>
+          <h3>资源建设服务</h3>
+          <div class="pts">
+            <span>定制课程</span><span>精品微课</span>
+            <span>教材开发</span><span>试题题库</span><span>AI 内容生产</span>
+          </div>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-art">
+          <span class="deco d1"></span><span class="deco d2"></span><span class="deco d3"></span>
+          <div class="ic-big"><i class="fas fa-chalkboard-teacher"></i></div>
+        </div>
+        <div class="svc-text">
+          <span class="lbl">内训师</span>
+          <h3>内训师体系建设</h3>
+          <div class="pts">
+            <span>选拔认证</span><span>TTT 赋能</span>
+            <span>经验萃取</span><span>授课技巧</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 交付成果 — 浅色 panel ─── -->
+<section class="section" id="delivery-section" data-screen-label="04 Delivery" style="background: radial-gradient(circle at center, rgba(255,20,69,0.04) 0%, rgba(255,255,255,0) 70%);">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>交付成果<span class="bar"></span></h2>
+      <p>输出标准化成果，确保咨询价值可衡量</p>
+    </div>
+    <div class="delivery-tags reveal delay-1"><div class="delivery-col"><span>能力图谱</span><span>学习地图</span><span>人才画像</span><span>胜任力模型</span><span>关键岗位梳理</span></div><div class="delivery-col"><span>课程体系</span><span>岗位能力字典</span><span>培训大纲设计</span><span>讲师培养方案</span><span>精品微课资源</span></div><div class="delivery-col"><span>人才九宫格</span><span>测评报告</span><span>人才发展报告</span><span>潜力评估分析</span><span>关键人才继任计划</span></div><div class="delivery-col"><span>任职资格标准</span><span>认证体系</span><span>考核评价指标</span><span>晋升通道设计</span><span>定级标准手册</span></div></div>
+  </div>
+</section>
+
+<!-- ─── 典型咨询产品 ─── -->
+<section class="section alt" data-screen-label="05 Products">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>典型咨询产品<span class="bar"></span></h2>
+      <p>聚焦核心业务痛点，提供针对性解决方案</p>
+    </div>
+    <div class="consult-table reveal delay-1">
+      <table>
+        <thead>
+          <tr>
+            <th>类别</th>
+            <th>咨询产品服务</th>
+            <th>服务内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="3" class="merged-cat">人才标准</td><td>人才梯队建设服务</td><td>建立以能力为核心的人才标准、培养体系、认证体系、人才识别与管理全链路机制。</td></tr>
+          <tr><td>人才发展标准建设工作坊</td><td>通过工作坊建设岗位/角色人才画像、能力图谱、学习地图、认证标准等人才发展体系标准。</td></tr>
+          <tr><td>任职资格/胜任力标准建设工作坊</td><td>敏捷构建岗位/角色任职资格与胜任力标准，支撑人才发展、晋升和招聘等场景。</td></tr>
+          
+          <tr><td rowspan="3" class="merged-cat">人才评估</td><td>认证体系建设服务</td><td>围绕内部岗位人才认证、企业社会化认证产品、能力认证等场景，构建认证体系和配套资源。</td></tr>
+          <tr><td>人才技能测评咨询服务</td><td>借助智能测评平台快速测评岗位技能，生成测评报告，识别技能差距。</td></tr>
+          <tr><td>人才盘点咨询服务</td><td>通过软硬素质 + 360 测评模型盘点关键人才，形成九宫格落位。</td></tr>
+          
+          <tr><td rowspan="3" class="merged-cat">资源建设</td><td>定制课程/试题/教材开发服务</td><td>为企业定制精品课程、微课、试题与教材，支撑内训、认证等场景。</td></tr>
+          <tr><td>精品课程开发工作坊</td><td>现场辅导企业内部核心骨干、内训师开发精品课程。</td></tr>
+          <tr><td>试题开发工作坊</td><td>现场辅导开发试题，并承担全流程运营把控试题质量。</td></tr>
+          
+          <tr><td rowspan="3" class="merged-cat">内训师</td><td>内训师体系建设咨询服务</td><td>规划建设内训师体系，包含选拔、赋能、认证和大赛等。</td></tr>
+          <tr><td>经验萃取工作坊</td><td>萃取核心人员经验，掌握经验萃取技巧，赋能业务发展。</td></tr>
+          <tr><td>授课技巧培训</td><td>培训内训师授课技巧与引导技术，支撑内训师队伍建设。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 客户案例 (tabs) ─── -->
+<section class="section" data-screen-label="06 Cases">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>客户案例<span class="bar"></span></h2>
+      <p>携手行业标杆，共创数智未来</p>
+    </div>
+    <div class="cases-wrap reveal delay-1">
+      <div class="case-tabs" id="consulting-case-tabs"></div>
+      <a href="case-detail-1.html" class="case-panel" id="consulting-case-panel">
+        <div class="case-content" id="consulting-case-content"></div>
+        <div class="case-panel-arrow"><i class="fas fa-arrow-right"></i></div>
+      </a>
+    </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="cases.html" class="btn btn-ghost" style="background:#fff;border-color:var(--line);box-shadow:var(--shadow-card);">查看更多案例 <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="cta" data-screen-label="07 CTA">
+  <div class="container reveal">
+    <div class="cta-strip">
+      <div><h3>联系高级顾问，获取企业专属咨询方案</h3><p>专业团队为您提供定制化落地支持。</p></div>
+      <div class="actions">
+        <a class="btn btn-white" href="#">立即咨询 <i class="fas fa-arrow-right"></i></a>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<aside class="side" id="site-side"></aside>
+<script src="assets/site.js"></script>
+<script>
+const consultingCaseData = [
+  { name:'某股份行', title:'金融科技融合培训项目', p1:'覆盖线上学习、线下工作坊、项目辅导和复盘总结。', p2:'业务与技术人员组队推进真实金融科技创新项目。', p3:'沉淀实践案例、成熟度评估模型和行动手册。', bg:'assets/case_bg/case-1.jpeg', link: 'case-detail.html?id=1' },
+  { name:'某国有行', title:'大数据应用建模实战培训', p1:'面向管理者及跨条线团队。', p2:'围绕真实业务分组开展理论学习、行动学习、课后辅导和答辩路演。', p3:'形成课题报告和汇报成果。', bg:'assets/case_bg/case-2.jpg', link: 'case-detail.html?id=2' },
+  { name:'某国有行', title:'金融业务 AI 落地场景识别', p1:'切入银行对公和信贷核心场景。', p2:'完成流程梳理、痛点识别、机会点挖掘。', p3:'产出技术需求分析和试点规划。', bg:'assets/case_bg/case-3.jpg', link: 'case-detail.html?id=3' },
+  { name:'某能源企业', title:'AI 专业人才体系化培养项目', p1:'包含角色划分、能力模型。', p2:'覆盖线上筛选、线下实训和训后实践。', p3:'形成从人员盘点、能力提升到实践转化的完整路径。', bg:'assets/case_bg/case-4.jpg', link: 'case-detail.html?id=4' },
+  { name:'某保险公司', title:'大模型调优训练营', p1:'面向数据中心技术人员。', p2:'覆盖大模型部署、开发框架、垂直领域微调。', p3:'掌握模型剪枝和压缩等关键工程环节。', bg:'assets/case_bg/case-5.jpg', link: 'case-detail.html?id=5' },
+];
+const consultingCaseIcons = ['fa-broadcast-tower','fa-broadcast-tower','fa-broadcast-tower','fa-building-columns','fa-building-columns'];
+const consultingTabsEl = document.getElementById('consulting-case-tabs');
+consultingTabsEl.innerHTML = consultingCaseData.map((c,i) =>
+  `<button class="case-tab ${i===0?'active':''}" data-i="${i}"><i class="fas ${consultingCaseIcons[i]}"></i>${c.name}</button>`
+).join('');
+function renderConsultingCase(i){
+  const d = consultingCaseData[i];
+  document.getElementById('consulting-case-content').innerHTML = `
+    <h3>${d.title}</h3>
+    <div class="pts">
+      <div class="pt"><p>${d.p1}</p></div>
+      <div class="pt"><p>${d.p2}</p></div>
+      <div class="pt"><p>${d.p3}</p></div>
+    </div>`;
+  const panel = document.getElementById('consulting-case-panel');
+  if(d.link) { panel.href = d.link; } else { panel.removeAttribute('href'); }
+  panel.style.backgroundImage = `linear-gradient(135deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 60%,rgba(0,0,0,0.05) 100%), url('${d.bg}')`;
+  panel.style.backgroundSize = 'cover';
+  panel.style.backgroundPosition = 'center';
+}
+consultingTabsEl.addEventListener('click', e => {
+  const b = e.target.closest('.case-tab'); if(!b) return;
+  consultingTabsEl.querySelectorAll('.case-tab').forEach(t => t.classList.remove('active'));
+  b.classList.add('active');
+  renderConsultingCase(+b.dataset.i);
+});
+renderConsultingCase(0);
+</script>
+</body>
+</html>

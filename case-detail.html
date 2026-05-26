@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>客户案例详情 — 51CTO 企业学院</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.case-hero{
+  padding-top:140px;padding-bottom:80px;position:relative;overflow:hidden;color:#fff;
+}
+.case-hero::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.35) 60%,rgba(0,0,0,0.15) 100%);z-index:1}
+.case-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.case-hero .container{position:relative;z-index:2}
+.case-hero .breadcrumbs{font-size:13px;opacity:0.86;margin-bottom:18px}
+.case-hero .breadcrumbs a{color:rgba(255,255,255,0.88)}
+.case-hero .breadcrumbs a:hover{color:#fff}
+.case-hero .tag{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;
+  background:rgba(255,255,255,0.18);color:#fff;font-size:12px;font-weight:600;backdrop-filter:blur(8px);
+  margin-bottom:14px;
+}
+.case-hero h1{
+  font-size:42px;font-weight:800;margin:0 0 16px;line-height:1.3;max-width:780px;
+  background: linear-gradient(90deg, #ffffff 0%, #ff99a8 10%, #ffffff 50%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.case-hero p{margin:0;font-size:16px;color:rgba(255,255,255,0.88);line-height:1.8;max-width:680px}
+.case-hero .meta{display:flex;gap:24px;margin-top:24px;flex-wrap:wrap}
+.case-hero .meta span{font-size:13px;color:rgba(255,255,255,0.86)}
+.case-hero .meta span b{color:#fff;font-weight:700;margin-right:6px}
+
+.case-summary{
+  display:grid;grid-template-columns:2fr 1fr;gap:32px;
+  background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px;box-shadow:var(--shadow-card);
+  margin-top:-60px;position:relative;z-index:3;
+}
+.case-summary h2{margin:0 0 16px;font-size:22px;font-weight:800;color:var(--ink-2)}
+.case-summary p{font-size:15px;line-height:1.85;color:var(--muted-2);margin:0 0 14px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.metric{background:#FBFBFD;border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
+.metric .v{font-family:Inter,sans-serif;font-weight:800;color:var(--red-deep);font-size:26px;line-height:1}
+.metric .l{margin-top:8px;font-size:12px;color:var(--muted-2)}
+
+.body-grid{display:grid;grid-template-columns:1fr 320px;gap:36px;margin-top:12px}
+.body-main h3{margin:24px 0 14px;font-size:20px;font-weight:800;color:var(--ink-2);display:flex;align-items:center;gap:10px}
+.body-main h3:first-child{margin-top:0}
+.body-main h3::before{content:'';width:4px;height:18px;border-radius:999px;background:var(--red)}
+.body-main p{font-size:15px;line-height:1.85;color:var(--ink-2);margin:0 0 12px}
+.body-main ul{padding-left:24px;margin:0 0 16px}
+.body-main li{margin:8px 0;font-size:14px;color:var(--ink-2);line-height:1.7}
+
+.aside-card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;
+  box-shadow:var(--shadow-card);margin-bottom:18px;
+}
+.aside-card h4{margin:0 0 12px;font-size:15px;font-weight:800;color:var(--ink-2)}
+.aside-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.aside-card ul li{font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.aside-card ul li i{color:var(--red);font-size:11px}
+.aside-cta{
+  border-radius:16px;padding:24px;color:#fff;
+  background:linear-gradient(135deg,#E6212A,#FF6B8A);
+  box-shadow:var(--shadow-red);text-align:center;
+}
+.aside-cta h4{margin:0 0 8px;font-size:18px;font-weight:800}
+.aside-cta p{margin:0 0 14px;font-size:13px;line-height:1.6;opacity:0.92}
+
+@media (max-width:1080px){
+  .case-summary{grid-template-columns:1fr}
+  .body-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body data-page="cases" id="top">
+
+<nav class="nav" id="site-nav"></nav>
+
+<section class="case-hero" data-screen-label="01 Hero">
+  <img src="assets/case_bg/case-1.jpeg" alt="" id="hero-bg">
+  <div class="container">
+    <div class="breadcrumbs">
+      <a href="cases.html">客户案例</a> <i class="fas fa-chevron-right" style="font-size:10px;margin:0 6px"></i> <span id="hero-breadcrumb">案例详情</span>
+    </div>
+    <span class="tag" id="hero-tag"><i class="fas fa-tag"></i>典型案例</span>
+    <h1 id="hero-title"></h1>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0" data-screen-label="02 Summary">
+  <div class="container">
+    <div class="case-summary">
+      <div>
+        <h2>案例摘要</h2>
+        <div id="summary-content"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:16px" data-screen-label="03 Body">
+  <div class="container">
+    <div class="body-grid">
+      <div class="body-main reveal in" id="body-content">
+        <!-- Dynamic content injected here -->
+      </div>
+      <aside>
+        <div class="aside-card">
+          <h4>更多案例</h4>
+          <ul id="aside-cases-list">
+            <!-- Dynamic content injected here -->
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" data-screen-label="04 More Cases">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>更多客户案例<span class="bar"></span></h2>
+      <p>2000+ 头部企业的人才发展伙伴，等你来对比、来选择。</p>
+    </div>
+    <div class="section-action reveal delay-1" style="text-align: center; margin-top: 24px;">
+      <a href="cases.html" class="btn btn-primary">返回案例列表 <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="site-footer"></footer>
+<aside class="side" id="site-side"></aside>
+<style>
+#aside-cases-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.aside-case-item {
+  display: block;
+  text-decoration: none;
+  background: #fbfbfd;
+  border: 1px solid rgba(20,32,56,0.05);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.aside-case-item:hover {
+  background: #fff;
+  border-color: rgba(255,20,69,0.15);
+  box-shadow: 0 8px 24px rgba(20,32,56,0.06);
+  transform: translateY(-2px);
+}
+.aside-case-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--red);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.aside-case-item:hover::before {
+  opacity: 1;
+}
+.aside-case-title {
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s;
+}
+.aside-case-item:hover .aside-case-title {
+  color: var(--red-deep);
+}
+.aside-case-meta {
+  color: var(--muted-2);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.aside-case-meta i {
+  color: var(--red);
+  opacity: 0.6;
+}
+</style>
+<script src="assets/site.js"></script>
+<script src="assets/cases_data.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id') || '1';
+    const caseItem = window.CASES_DATA.find(c => c.id === id) || window.CASES_DATA[0];
+    
+    document.title = caseItem.title + " — 51CTO 企业学院";
+    document.getElementById('hero-title').textContent = caseItem.title;
+    
+    document.getElementById('summary-content').innerHTML = caseItem.summary;
+    
+    let bodyHtml = '';
+    if(caseItem.bg) bodyHtml += '<h3>客户背景</h3>' + caseItem.bg;
+    if(caseItem.challenge) bodyHtml += '<h3>项目挑战</h3>' + caseItem.challenge;
+    if(caseItem.solution) bodyHtml += '<h3>解决方案</h3>' + caseItem.solution;
+    if(caseItem.outcome) bodyHtml += '<h3>项目成果</h3>' + caseItem.outcome;
+    if(caseItem.value) bodyHtml += '<h3>客户价值</h3>' + caseItem.value;
+    
+    document.getElementById('body-content').innerHTML = bodyHtml;
+    
+    const bgNum = (parseInt(id) % 7) + 1;
+    let bgFile = `assets/case_bg/case-${bgNum}.`;
+    bgFile += (bgNum === 1 || bgNum === 7) ? 'jpeg' : (bgNum === 6 ? 'png' : 'jpg');
+    document.getElementById('hero-bg').src = bgFile;
+    
+    const asideList = document.getElementById('aside-cases-list');
+    const otherCases = window.CASES_DATA.filter(c => c.id !== id);
+    const shuffled = otherCases.sort(() => 0.5 - Math.random()).slice(0, 5);
+    asideList.innerHTML = shuffled.map(c => `
+      <li>
+        <a href="case-detail.html?id=${c.id}" class="aside-case-item">
+          <div class="aside-case-title">${c.title}</div>
+          <div class="aside-case-meta"><i class="fas fa-file-alt"></i> 查看详情</div>
+        </a>
+      </li>
+    `).join('');
+  });
+</script>
+</body>
+</html>

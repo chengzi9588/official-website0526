@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="assets/site.css">
 <style>
 /* Page-specific overrides */
-.home-hero{padding-top:168px;padding-bottom:56px;background:linear-gradient(180deg,
+.home-hero{min-height:500px;background:linear-gradient(180deg,
   rgba(255,255,255,1) 0%,
   rgba(248,250,253,1) 60%,
   rgba(243,246,250,1) 100%);
@@ -51,7 +51,7 @@
     rgba(248,250,253,0.55) 92%,
     rgba(243,246,250,1) 100%);
 }
-.home-hero .container > .reveal:not(.industry-cards){max-width:800px}
+.home-hero .container > .hero-copy:not(.industry-cards){max-width:800px}
 @media (max-width:1080px){
   .home-hero .hero-video-wrap{width:48%;right:3%;height:auto;top:0;}
   .home-hero .hero-video-wrap::before{
@@ -63,13 +63,12 @@
 }
 @media (max-width:768px){
   .home-hero .hero-video-wrap{display:none}
-  .home-hero .container > .reveal:not(.industry-cards){max-width:none}
+  .home-hero .container > .hero-copy:not(.industry-cards){max-width:none}
 }
 .home-hero::before{
   /* keep faint grid, dimmer over the image */
   opacity:0.5;
 }
-.home-hero h1{font-size:48px}
 .industry-cards{
   position:relative;z-index:2;
   margin-top:54px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;
@@ -550,7 +549,6 @@
 .cta-trust i{color:#22c55e;font-size:14px}
 
 @media (max-width:1080px){
-  .home-hero h1{font-size:42px}
   .industry-cards,.services-panel{grid-template-columns:repeat(2,minmax(0,1fr))}
   .courses{grid-template-columns:repeat(2,minmax(0,1fr))}
   .experts{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -563,7 +561,6 @@
 }
 @media (max-width:640px){
   .home-hero{padding-top:110px;padding-bottom:56px}
-  .home-hero h1{font-size:34px}
   .industry-cards,.services-panel,.courses,.experts,.cert-board{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stat + .stat::before{display:none}
@@ -586,7 +583,7 @@
     </video>
   </div>
   <div class="container">
-    <div class="reveal in">
+    <div class="hero-copy reveal in">
       <span class="hero-eyebrow"><span class="dot"></span>51CTO</span>
       <h1>数智化人才发展解决方案领导者</h1>
       <p class="hero-sub">2000 + 企业的数智化人才培养伙伴</p>

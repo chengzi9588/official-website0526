@@ -36,7 +36,7 @@
 .case-hero .meta span b{color:#fff;font-weight:700;margin-right:6px}
 
 .case-summary{
-  display:grid;grid-template-columns:2fr 1fr;gap:32px;
+  display:grid;grid-template-columns:1fr;gap:32px;
   background:#fff;border:1px solid var(--line);border-radius:20px;padding:36px;box-shadow:var(--shadow-card);
   margin-top:-60px;position:relative;z-index:3;
 }
@@ -48,12 +48,18 @@
 .metric .l{margin-top:8px;font-size:12px;color:var(--muted-2)}
 
 .body-grid{display:grid;grid-template-columns:1fr 320px;gap:36px;margin-top:12px}
+.body-grid aside { position: sticky; top: 96px; align-self: start; }
 .body-main h3{margin:24px 0 14px;font-size:20px;font-weight:800;color:var(--ink-2);display:flex;align-items:center;gap:10px}
 .body-main h3:first-child{margin-top:0}
 .body-main h3::before{content:'';width:4px;height:18px;border-radius:999px;background:var(--red)}
 .body-main p{font-size:15px;line-height:1.85;color:var(--ink-2);margin:0 0 12px}
 .body-main ul{padding-left:24px;margin:0 0 16px}
 .body-main li{margin:8px 0;font-size:14px;color:var(--ink-2);line-height:1.7}
+.case-detail-picture{
+  margin-top:32px;border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);box-shadow:var(--shadow-card);
+}
+.case-detail-picture img{width:100%;height:auto;display:block}
 
 .aside-card{
   background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;
@@ -92,7 +98,7 @@
   </div>
 </section>
 
-<section class="section" style="padding-top:0" data-screen-label="02 Summary">
+<section class="section" style="padding-top:0; padding-bottom:32px;" data-screen-label="02 Summary">
   <div class="container">
     <div class="case-summary">
       <div>
@@ -103,7 +109,7 @@
   </div>
 </section>
 
-<section class="section" style="padding-top:16px" data-screen-label="03 Body">
+<section class="section" style="padding-top:0" data-screen-label="03 Body">
   <div class="container">
     <div class="body-grid">
       <div class="body-main reveal in" id="body-content">
@@ -117,18 +123,6 @@
           </ul>
         </div>
       </aside>
-    </div>
-  </div>
-</section>
-
-<section class="section alt" data-screen-label="04 More Cases">
-  <div class="container">
-    <div class="section-head reveal">
-      <h2><span class="bar"></span>更多客户案例<span class="bar"></span></h2>
-      <p>2000+ 头部企业的人才发展伙伴，等你来对比、来选择。</p>
-    </div>
-    <div class="section-action reveal delay-1" style="text-align: center; margin-top: 24px;">
-      <a href="cases.html" class="btn btn-primary">返回案例列表 <i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
 </section>
@@ -222,6 +216,11 @@
     if(caseItem.solution) bodyHtml += '<h3>解决方案</h3>' + caseItem.solution;
     if(caseItem.outcome) bodyHtml += '<h3>项目成果</h3>' + caseItem.outcome;
     if(caseItem.value) bodyHtml += '<h3>客户价值</h3>' + caseItem.value;
+
+    const caseNum = parseInt(id, 10);
+    if(caseNum >= 1 && caseNum <= 15){
+      bodyHtml += `<div class="case-detail-picture"><img src="assets/case_picture/${caseNum}.png" alt="${caseItem.title}"></div>`;
+    }
     
     document.getElementById('body-content').innerHTML = bodyHtml;
     

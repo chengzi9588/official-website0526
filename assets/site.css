@@ -47,11 +47,11 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
   -webkit-backdrop-filter:saturate(140%) blur(16px);
   border-bottom:1px solid rgba(233,237,245,0.6);
 }
-.nav .container{display:flex;align-items:center;gap:24px}
+.nav .container{display:flex;align-items:center;gap:24px;height:100%}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink)}
 .brand img{height:30px;width:auto}
 .brand .name{font-size:18px;color:var(--red);font-weight:800;letter-spacing:0.02em}
-.menu{display:flex;gap:18px;flex:1;justify-content:center}
+.menu{display:flex;gap:18px;flex:1;justify-content:center;height:100%;align-items:center}
 .menu a,
 .nav-drop-trigger{
   position:relative;font-size:14px;color:#1f2937;font-weight:500;
@@ -65,7 +65,7 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
   content:'';position:absolute;left:50%;bottom:-6px;width:18px;height:2px;border-radius:999px;
   background:var(--red);transform:translateX(-50%);
 }
-.nav-drop{position:relative;display:flex;align-items:center}
+.nav-drop{position:relative;display:flex;align-items:center;height:100%}
 .nav-drop-trigger i{font-size:10px;transition:transform .2s ease}
 .nav-drop:hover .nav-drop-trigger i{transform:rotate(180deg)}
 .nav-drop-menu{
@@ -119,7 +119,7 @@ button{font:inherit;border:0;background:none;cursor:pointer;color:inherit}
 .nav-drop-copy strong{font-size:14px;line-height:1.35;color:inherit}
 .nav-drop-copy em{font-style:normal;font-size:12px;line-height:1.4;color:var(--muted-2);font-weight:500}
 .nav-drop-card:hover .nav-drop-copy em,.nav-drop-card.active-child .nav-drop-copy em{color:#8a4b56}
-.nav-tail{display:flex;align-items:center;gap:14px}
+.nav-tail{display:flex;align-items:center;gap:14px;height:100%}
 .phone-chip{
   display:inline-flex;align-items:center;gap:8px;
   padding:6px 12px;border-radius:6px;border:1px solid var(--red);

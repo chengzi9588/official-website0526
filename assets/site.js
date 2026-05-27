@@ -72,10 +72,10 @@ function renderNav(activeKey){
         <div class="nav-right-drop">
           <a class="nav-right-trigger" href="#" onclick="return false;">51CTO <i class="fas fa-chevron-down"></i></a>
           <div class="nav-right-menu">
-            <a href="#" target="_blank">51CTO学堂</a>
-            <a href="#" target="_blank">51CTO精培</a>
-            <a href="#" target="_blank">51CTO媒体</a>
-            <a href="#" target="_blank">51CTO博客</a>
+            <a href="https://edu.51cto.com/" target="_blank" rel="noopener noreferrer">51CTO学堂</a>
+            <a href="https://e.51cto.com/" target="_blank" rel="noopener noreferrer">51CTO精培</a>
+            <a href="https://www.51cto.com/" target="_blank" rel="noopener noreferrer">51CTO媒体</a>
+            <a href="https://blog.51cto.com/" target="_blank" rel="noopener noreferrer">51CTO博客</a>
           </div>
         </div>
       </div>
@@ -102,17 +102,17 @@ function renderFooter(){
       <div class="footer-col">
         <h5>友情链接</h5>
         <ul>
-          <li><a href="#" target="_blank">51CTO官网</a></li>
-          <li><a href="#" target="_blank">51CTO学堂</a></li>
-          <li><a href="#" target="_blank">51CTO博客</a></li>
-          <li><a href="#" target="_blank">51CTO精培</a></li>
+          <li><a href="https://www.51cto.com/" target="_blank" rel="noopener noreferrer">51CTO官网</a></li>
+          <li><a href="https://edu.51cto.com/" target="_blank" rel="noopener noreferrer">51CTO学堂</a></li>
+          <li><a href="https://blog.51cto.com/" target="_blank" rel="noopener noreferrer">51CTO博客</a></li>
+          <li><a href="https://e.51cto.com/" target="_blank" rel="noopener noreferrer">51CTO精培</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>关于我们</h5>
         <ul>
-          <li><a href="#">公司介绍</a></li>
-          <li><a href="#">加入我们</a></li>
+          <li><a href="about.html">公司介绍</a></li>
+          <li><a href="about.html">加入我们</a></li>
         </ul>
       </div>
       <div class="footer-col footer-contact">

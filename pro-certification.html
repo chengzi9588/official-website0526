@@ -240,38 +240,109 @@ html{scroll-behavior:smooth}
 .cert-course:nth-child(7){animation-delay:.47s}
 .cert-course:nth-child(8){animation-delay:.54s}
 .cert-course:hover{transform:translateY(-8px);box-shadow:0 22px 42px rgba(20,32,56,.12)}
+/* ── 课程卡片背景：纯 CSS 多层渐变 + 低透纹理（装饰层 opacity ≤ 20%）── */
 .cert-course .img{
-  height:130px;display:flex;align-items:center;justify-content:center;padding:0 22px;
-  position:relative;overflow:hidden;
+  height:96px;display:block;
+  position:relative;overflow:hidden;isolation:isolate;
+  background-color:#e8eef5;
+  background-repeat:no-repeat;
+  background-size:22px 22px, 22px 22px, 100% 100%;
 }
+/* 默认纹理：细网格（B 端信息密度高、最克制） */
 .cert-course .img::before{
-  content:'';position:absolute;inset:0;opacity:.22;
-  background-image:radial-gradient(circle at 2px 2px,white 1px,transparent 0);
-  background-size:16px 16px;
-  transition:transform .6s ease, opacity .4s ease;
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:.14;
+  background-image:
+    linear-gradient(rgba(255,255,255,.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.10) 1px, transparent 1px);
+  background-size:22px 22px;
+  transition:opacity .4s ease, transform .6s ease;
 }
-.cert-course:hover .img::before{transform:scale(1.15);opacity:.32}
+.cert-course:hover .img::before{opacity:.18;transform:scale(1.04)}
+/* 柔光点缀（低透，不抢文字） */
 .cert-course .img::after{
-  content:'';position:absolute;right:-40px;top:-40px;width:110px;height:110px;border-radius:50%;
-  background:rgba(255,255,255,.10);filter:blur(8px);
-  transition:transform .6s ease;
+  content:'';position:absolute;right:-28%;top:-35%;width:72%;height:72%;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.14) 0%, transparent 68%);
+  opacity:.16;filter:blur(10px);z-index:0;pointer-events:none;
+  transition:opacity .4s ease, transform .6s ease;
 }
-.cert-course:hover .img::after{transform:scale(1.6) translate(-10px,10px)}
+.cert-course:hover .img::after{opacity:.20;transform:translate(-6px,6px) scale(1.05)}
 .cert-course .img h3{
-  margin:0;position:relative;z-index:1;
-  color:#fff;font-size:16px;font-weight:800;line-height:1.4;text-align:center;
-  text-shadow:0 2px 6px rgba(0,0,0,.18);
-  transition:transform .4s ease;
+  margin:0;
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:12px;
+  z-index:2;
+  color:#0f172a;
+  font-size:14px;
+  font-weight:700;
+  line-height:1.4;
+  text-align:left;
+  text-shadow:0 1px 0 rgba(255,255,255,.45);
 }
-.cert-course:hover .img h3{transform:translateY(-2px)}
-.cert-course.g1 .img{background:linear-gradient(135deg,#2563eb,#312e81)}
-.cert-course.g2 .img{background:linear-gradient(135deg,#14b8a6,#0e7490)}
-.cert-course.g3 .img{background:linear-gradient(135deg,#10b981,#065f46)}
-.cert-course.g4 .img{background:linear-gradient(135deg,#8b5cf6,#5b21b6)}
-.cert-course.g5 .img{background:linear-gradient(135deg,#6366f1,#6d28d9)}
-.cert-course.g6 .img{background:linear-gradient(135deg,#06b6d4,#1e40af)}
-.cert-course.g7 .img{background:linear-gradient(135deg,#0ea5e9,#3730a3)}
-.cert-course.g8 .img{background:linear-gradient(135deg,#3b82f6,#0e7490)}
+/* 国家职称类 · 浅蓝绿 */
+.cert-course.cat-national .img{
+  background-image:
+    linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px),
+    linear-gradient(148deg, #99f6e4 0%, #5eead4 38%, #7dd3fc 100%);
+}
+/* 厂商 · 华为 */
+.cert-course.cat-vendor-huawei .img{
+  background-image:
+    linear-gradient(rgba(255,255,255,.32) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.32) 1px, transparent 1px),
+    linear-gradient(145deg, #fecaca 0%, #fca5a5 42%, #bfdbfe 100%);
+}
+/* 厂商 · 阿里云 */
+.cert-course.cat-vendor-aliyun .img{
+  background-image:
+    linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px),
+    linear-gradient(145deg, #fed7aa 0%, #fdba74 40%, #93c5fd 100%);
+}
+/* 国际认证 · 浅紫蓝 */
+.cert-course.cat-international .img{
+  background-image:
+    linear-gradient(rgba(255,255,255,.32) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.32) 1px, transparent 1px),
+    linear-gradient(148deg, #c7d2fe 0%, #a5b4fc 42%, #bae6fd 100%);
+}
+/* 训练营 */
+.cert-course.cat-camp .img{
+  background-image:
+    linear-gradient(rgba(255,255,255,.38) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.38) 1px, transparent 1px),
+    linear-gradient(148deg, #cbd5e1 0%, #e2e8f0 55%, #f1f5f9 100%);
+}
+
+/* HOT：暖色轻叠层（≤20%） */
+.cert-course:has(> .ribbon:not(.new)) .img{
+  box-shadow:inset 0 0 0 999px rgba(251,146,60,.12);
+}
+/* NEW：青绿轻叠层 */
+.cert-course:has(> .ribbon.new) .img{
+  box-shadow:inset 0 0 0 999px rgba(45,212,191,.14);
+}
+/* 高等级 · 玻璃拟态边框（卡片级，不改文案区） */
+.cert-course.tier-premium{
+  border-color:rgba(255,255,255,.55);
+  background:linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+  box-shadow:
+    0 6px 18px rgba(20,32,56,.06),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+.cert-course.tier-premium .img{
+  border-bottom:1px solid rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28);
+}
+.cert-course.tier-premium:has(> .ribbon:not(.new)) .img{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28), inset 0 0 0 999px rgba(251,146,60,.12);
+}
+.cert-course.tier-premium:has(> .ribbon.new) .img{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28), inset 0 0 0 999px rgba(45,212,191,.14);
+}
 .cert-course .body{padding:14px 18px 18px;position:relative}
 .cert-course .body h4{margin:0 0 6px;font-size:14px;font-weight:700;color:var(--ink-2);line-height:1.5;transition:color .3s ease}
 .cert-course:hover .body h4{color:var(--red)}
@@ -623,7 +694,7 @@ html{scroll-behavior:smooth}
         </div>
         <div class="cert-cat">
           <div class="cat-hd">
-            <div class="cat-hd-left"><span class="cat-ic"><i class="fas fa-briefcase"></i></span><h3>智能办公</h3></div>
+            <div class="cat-hd-left"><span class="cat-ic"><i class="fas fa-briefcase"></i></span><h3>职能办公</h3></div>
           </div>
           <div class="cert-tags">
             <span class="pill">经济专业技术资格（人力资源管理）</span>
@@ -654,20 +725,20 @@ html{scroll-behavior:smooth}
       </div>
     </div>
     <div class="cert-course-grid reveal delay-1" id="course-cert">
-      <div class="cert-course g1"><span class="ribbon">HOT</span><div class="img"><h3>软考 - 信息系统项目管理师</h3></div><div class="body"><h4>软考 - 信息系统项目管理师</h4><div class="meta">认证等级：国家高级职称</div></div></div>
-      <div class="cert-course g2"><div class="img"><h3>华为 HCIE-AI 解决方案架构师</h3></div><div class="body"><h4>华为 HCIE-AI 解决方案架构师</h4><div class="meta">认证等级：厂商专家级</div></div></div>
-      <div class="cert-course g3"><div class="img"><h3>软考中级 - 信息安全工程师</h3></div><div class="body"><h4>软考中级 - 信息安全工程师</h4><div class="meta">认证等级：国家中级职称</div></div></div>
-      <div class="cert-course g4"><span class="ribbon new">NEW</span><div class="img"><h3>阿里云 ACP - 人工智能大模型工程师</h3></div><div class="body"><h4>人工智能大模型工程师</h4><div class="meta">认证等级：厂商专业级</div></div></div>
-      <div class="cert-course g5"><div class="img"><h3>软考 - 系统集成项目管理工程师</h3></div><div class="body"><h4>系统集成项目管理工程师</h4><div class="meta">认证等级：国家中级职称</div></div></div>
-      <div class="cert-course g6"><div class="img"><h3>DAMA-CDGA 数据治理工程师</h3></div><div class="body"><h4>DAMA-CDGA 数据治理工程师</h4><div class="meta">认证等级：国际专业级</div></div></div>
-      <div class="cert-course g7"><div class="img"><h3>ITSS 服务工程师</h3></div><div class="body"><h4>ITSS 服务工程师</h4><div class="meta">认证等级：国家级专业认证</div></div></div>
-      <div class="cert-course g8"><span class="ribbon">HOT</span><div class="img"><h3>PMP 国际项目管理师</h3></div><div class="body"><h4>PMP 国际项目管理师</h4><div class="meta">认证等级：国际专业认证</div></div></div>
+      <div class="cert-course cat-national tier-premium"><span class="ribbon">HOT</span><div class="img"><h3>软考 - 信息系统项目管理师</h3></div><div class="body"><h4>软考 - 信息系统项目管理师</h4><div class="meta">认证等级：国家高级职称</div></div></div>
+      <div class="cert-course cat-vendor-huawei tier-premium"><div class="img"><h3>华为 HCIE-AI 解决方案架构师</h3></div><div class="body"><h4>华为 HCIE-AI 解决方案架构师</h4><div class="meta">认证等级：厂商专家级</div></div></div>
+      <div class="cert-course cat-national"><div class="img"><h3>软考中级 - 信息安全工程师</h3></div><div class="body"><h4>软考中级 - 信息安全工程师</h4><div class="meta">认证等级：国家中级职称</div></div></div>
+      <div class="cert-course cat-vendor-aliyun"><span class="ribbon new">NEW</span><div class="img"><h3>阿里云 ACP - 人工智能大模型工程师</h3></div><div class="body"><h4>阿里云 ACP - 人工智能大模型工程师</h4><div class="meta">认证等级：厂商专业级</div></div></div>
+      <div class="cert-course cat-national"><div class="img"><h3>软考 - 系统集成项目管理工程师</h3></div><div class="body"><h4>软考 - 系统集成项目管理工程师</h4><div class="meta">认证等级：国家中级职称</div></div></div>
+      <div class="cert-course cat-international"><div class="img"><h3>DAMA-CDGA 数据治理工程师</h3></div><div class="body"><h4>DAMA-CDGA 数据治理工程师</h4><div class="meta">认证等级：国际专业级</div></div></div>
+      <div class="cert-course cat-national"><div class="img"><h3>ITSS 服务工程师</h3></div><div class="body"><h4>ITSS 服务工程师</h4><div class="meta">认证等级：国家级专业认证</div></div></div>
+      <div class="cert-course cat-international tier-premium"><span class="ribbon">HOT</span><div class="img"><h3>PMP 国际项目管理师</h3></div><div class="body"><h4>PMP 国际项目管理师</h4><div class="meta">认证等级：国际专业认证</div></div></div>
     </div>
     <div class="cert-course-grid reveal delay-1" id="course-camp" style="display:none">
-      <div class="cert-course g1"><span class="ribbon new">NEW</span><div class="img"><h3>人人学 AI 人才认证训练营</h3></div><div class="body"><h4>人人学 AI 人才认证训练营</h4><div class="meta">打造研发、产品、应用三位一体的全栈 AI 人才认证体系</div></div></div>
-      <div class="cert-course g2"><div class="img"><h3>BASIC6 科创人才认证训练营</h3></div><div class="body"><h4>BASIC6 科创人才认证训练营</h4><div class="meta">构建覆盖多能力域的创新科技人才培养认证标准</div></div></div>
-      <div class="cert-course g3"><div class="img"><h3>数智化人才认证训练营</h3></div><div class="body"><h4>数智化人才认证训练营</h4><div class="meta">培育具备数智思维与新质生产力的复合型人才</div></div></div>
-      <div class="cert-course g4"><div class="img"><h3>效能管理人才认证训练营</h3></div><div class="body"><h4>效能管理人才认证训练营</h4><div class="meta">融合管理、敏捷、保质、提效四大维度的专业认证</div></div></div>
+      <div class="cert-course cat-camp"><span class="ribbon new">NEW</span><div class="img"><h3>人人学 AI 人才认证训练营</h3></div><div class="body"><h4>人人学 AI 人才认证训练营</h4><div class="meta">打造研发、产品、应用三位一体的全栈 AI 人才认证体系</div></div></div>
+      <div class="cert-course cat-camp"><div class="img"><h3>BASIC6 科创人才认证训练营</h3></div><div class="body"><h4>BASIC6 科创人才认证训练营</h4><div class="meta">构建覆盖多能力域的创新科技人才培养认证标准</div></div></div>
+      <div class="cert-course cat-camp"><div class="img"><h3>数智化人才认证训练营</h3></div><div class="body"><h4>数智化人才认证训练营</h4><div class="meta">培育具备数智思维与新质生产力的复合型人才</div></div></div>
+      <div class="cert-course cat-camp"><div class="img"><h3>效能管理人才认证训练营</h3></div><div class="body"><h4>效能管理人才认证训练营</h4><div class="meta">融合管理、敏捷、保质、提效四大维度的专业认证</div></div></div>
     </div>
   </div>
 </section>

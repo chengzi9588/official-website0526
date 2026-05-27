@@ -242,7 +242,7 @@ html{scroll-behavior:smooth}
 .cert-course:hover{transform:translateY(-8px);box-shadow:0 22px 42px rgba(20,32,56,.12)}
 /* ── 课程卡片背景：纯 CSS 多层渐变 + 低透纹理（装饰层 opacity ≤ 20%）── */
 .cert-course .img{
-  height:96px;display:block;
+  height:150px;display:block;
   position:relative;overflow:hidden;isolation:isolate;
   background-color:#e8eef5;
   background-repeat:no-repeat;
@@ -272,13 +272,14 @@ html{scroll-behavior:smooth}
   position:absolute;
   left:16px;
   right:16px;
-  bottom:12px;
+  top:50%;
+  transform:translateY(-50%);
   z-index:2;
   color:#0f172a;
-  font-size:14px;
+  font-size:16px;
   font-weight:700;
   line-height:1.4;
-  text-align:left;
+  text-align:center;
   text-shadow:0 1px 0 rgba(255,255,255,.45);
 }
 /* 国家职称类 · 浅蓝绿 */
@@ -347,6 +348,19 @@ html{scroll-behavior:smooth}
 .cert-course .body h4{margin:0 0 6px;font-size:14px;font-weight:700;color:var(--ink-2);line-height:1.5;transition:color .3s ease}
 .cert-course:hover .body h4{color:var(--red)}
 .cert-course .body .meta{font-size:12.5px;color:var(--muted-2);line-height:1.5}
+.cert-course .body .meta-level{
+  display:inline-block;font-size:11px;font-weight:700;color:var(--red);
+  padding:4px 14px;border-radius:20px;margin-top:10px;
+  border:1px solid rgba(255,20,69,.25);
+  background:linear-gradient(135deg,rgba(255,20,69,.04),rgba(255,107,138,.06));
+  letter-spacing:.04em;
+  transition:background .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.cert-course:hover .body .meta-level{
+  background:linear-gradient(135deg,rgba(255,20,69,.10),rgba(255,107,138,.12));
+  border-color:rgba(255,20,69,.40);
+  box-shadow:0 4px 12px rgba(255,20,69,.12);
+}
 .cert-course .body .view{
   display:inline-flex;align-items:center;gap:6px;margin-top:10px;
   font-size:12px;font-weight:700;color:var(--red);
@@ -536,6 +550,7 @@ html{scroll-behavior:smooth}
   .cert-cta-inner{flex-direction:column;text-align:center}
   .cert-cta .copy{text-align:center}
 }
+
 </style>
 </head>
 <body data-page="pro-certification" id="top">
@@ -725,20 +740,20 @@ html{scroll-behavior:smooth}
       </div>
     </div>
     <div class="cert-course-grid reveal delay-1" id="course-cert">
-      <div class="cert-course cat-national tier-premium"><span class="ribbon">HOT</span><div class="img"><h3>软考 - 信息系统项目管理师</h3></div><div class="body"><h4>软考 - 信息系统项目管理师</h4><div class="meta">认证等级：国家高级职称</div></div></div>
-      <div class="cert-course cat-vendor-huawei tier-premium"><div class="img"><h3>华为 HCIE-AI 解决方案架构师</h3></div><div class="body"><h4>华为 HCIE-AI 解决方案架构师</h4><div class="meta">认证等级：厂商专家级</div></div></div>
-      <div class="cert-course cat-national"><div class="img"><h3>软考中级 - 信息安全工程师</h3></div><div class="body"><h4>软考中级 - 信息安全工程师</h4><div class="meta">认证等级：国家中级职称</div></div></div>
-      <div class="cert-course cat-vendor-aliyun"><span class="ribbon new">NEW</span><div class="img"><h3>阿里云 ACP - 人工智能大模型工程师</h3></div><div class="body"><h4>阿里云 ACP - 人工智能大模型工程师</h4><div class="meta">认证等级：厂商专业级</div></div></div>
-      <div class="cert-course cat-national"><div class="img"><h3>软考 - 系统集成项目管理工程师</h3></div><div class="body"><h4>软考 - 系统集成项目管理工程师</h4><div class="meta">认证等级：国家中级职称</div></div></div>
-      <div class="cert-course cat-international"><div class="img"><h3>DAMA-CDGA 数据治理工程师</h3></div><div class="body"><h4>DAMA-CDGA 数据治理工程师</h4><div class="meta">认证等级：国际专业级</div></div></div>
-      <div class="cert-course cat-national"><div class="img"><h3>ITSS 服务工程师</h3></div><div class="body"><h4>ITSS 服务工程师</h4><div class="meta">认证等级：国家级专业认证</div></div></div>
-      <div class="cert-course cat-international tier-premium"><span class="ribbon">HOT</span><div class="img"><h3>PMP 国际项目管理师</h3></div><div class="body"><h4>PMP 国际项目管理师</h4><div class="meta">认证等级：国际专业认证</div></div></div>
+      <div class="cert-course cat-national tier-premium"><span class="ribbon">HOT</span><div class="img"><h3>软考 - 信息系统项目管理师</h3></div><div class="body"><div class="meta">系统掌握项目管理十大知识领域与五大过程组，覆盖立项、规划、执行、监控到收尾全流程，助力企业培养具备高级项目管理能力的复合型人才。</div><div class="meta meta-level">认证等级：国家高级职称</div></div></div>
+      <div class="cert-course cat-vendor-huawei tier-premium"><div class="img"><h3>华为 HCIE-AI 解决方案架构师</h3></div><div class="body"><div class="meta">深入学习AI全栈技术架构与行业解决方案设计，掌握大模型训练、推理部署及端到端优化技能，获取华为认证最高级别的AI专家资质证书。</div><div class="meta meta-level">认证等级：厂商专家级</div></div></div>
+      <div class="cert-course cat-national"><div class="img"><h3>软考中级 - 信息安全工程师</h3></div><div class="body"><div class="meta">系统学习信息安全基础理论、密码学应用、网络安全攻防与等级保护等核心技术，掌握风险评估与安全管理方法，通过国家软考中级认证。</div><div class="meta meta-level">认证等级：国家中级职称</div></div></div>
+      <div class="cert-course cat-vendor-aliyun"><span class="ribbon new">NEW</span><div class="img"><h3>阿里云 ACP - 人工智能大模型工程师</h3></div><div class="body"><div class="meta">掌握阿里云大模型平台核心能力，涵盖模型训练微调、提示词工程、RAG检索增强生成等前沿技术，获得阿里云人工智能专业级认证。</div><div class="meta meta-level">认证等级：厂商专业级</div></div></div>
+      <div class="cert-course cat-national"><div class="img"><h3>软考 - 系统集成项目管理工程师</h3></div><div class="body"><div class="meta">聚焦系统集成项目全生命周期管理，涵盖需求分析、招投标管理、合同执行与项目验收等关键环节，通过国家软考中级项目管理方向认证。</div><div class="meta meta-level">认证等级：国家中级职称</div></div></div>
+      <div class="cert-course cat-international"><div class="img"><h3>DAMA-CDGA 数据治理工程师</h3></div><div class="body"><div class="meta">系统掌握国际权威数据治理框架DMBOK核心知识，覆盖数据架构、数据质量、数据安全与元数据管理等关键领域，获取全球认可的数据治理专业认证。</div><div class="meta meta-level">认证等级：国际专业级</div></div></div>
+      <div class="cert-course cat-national"><div class="img"><h3>ITSS 服务工程师</h3></div><div class="body"><div class="meta">学习IT服务管理国家标准体系，覆盖服务规划设计、部署运营与持续改进全流程，掌握ITSS方法论与核心工具，获得国家级IT服务专业资格认证。</div><div class="meta meta-level">认证等级：国家级专业认证</div></div></div>
+      <div class="cert-course cat-international tier-premium"><span class="ribbon">HOT</span><div class="img"><h3>PMP 国际项目管理师</h3></div><div class="body"><div class="meta">系统学习PMI项目管理知识体系，覆盖范围、进度、成本、质量等十大管理领域，辅以敏捷与混合方法论，获取全球最具权威的项目管理国际认证。</div><div class="meta meta-level">认证等级：国际专业认证</div></div></div>
     </div>
     <div class="cert-course-grid reveal delay-1" id="course-camp" style="display:none">
-      <div class="cert-course cat-camp"><span class="ribbon new">NEW</span><div class="img"><h3>人人学 AI 人才认证训练营</h3></div><div class="body"><h4>人人学 AI 人才认证训练营</h4><div class="meta">打造研发、产品、应用三位一体的全栈 AI 人才认证体系</div></div></div>
-      <div class="cert-course cat-camp"><div class="img"><h3>BASIC6 科创人才认证训练营</h3></div><div class="body"><h4>BASIC6 科创人才认证训练营</h4><div class="meta">构建覆盖多能力域的创新科技人才培养认证标准</div></div></div>
-      <div class="cert-course cat-camp"><div class="img"><h3>数智化人才认证训练营</h3></div><div class="body"><h4>数智化人才认证训练营</h4><div class="meta">培育具备数智思维与新质生产力的复合型人才</div></div></div>
-      <div class="cert-course cat-camp"><div class="img"><h3>效能管理人才认证训练营</h3></div><div class="body"><h4>效能管理人才认证训练营</h4><div class="meta">融合管理、敏捷、保质、提效四大维度的专业认证</div></div></div>
+      <div class="cert-course cat-camp"><span class="ribbon new">NEW</span><div class="img"><h3>人人学 AI 人才认证训练营</h3></div><div class="body"><div class="meta">专为企业全员AI素养提升打造，覆盖AI基础认知、提示词技巧与AI工具实操等模块，通过分阶段认证考核，培养企业AI应用先锋人才。</div></div></div>
+      <div class="cert-course cat-camp"><div class="img"><h3>BASIC6 科创人才认证训练营</h3></div><div class="body"><div class="meta">围绕区块链、人工智能、信息安全、云计算、物联网、大数据六大前沿技术领域，构建系统化科创人才培养标准与多层级认证体系。</div></div></div>
+      <div class="cert-course cat-camp"><div class="img"><h3>数智化人才认证训练营</h3></div><div class="body"><div class="meta">聚焦企业数字化转型核心能力，涵盖数据分析、数字思维重塑与新技术应用等模块，培育具备数智化思维与新质生产力的复合型人才。</div></div></div>
+      <div class="cert-course cat-camp"><div class="img"><h3>效能管理人才认证训练营</h3></div><div class="body"><div class="meta">融合精益管理、敏捷实践、质量保障与效能提升四大维度，通过实战演练与多层级认证考核，打造企业高效能管理人才队伍。</div></div></div>
     </div>
   </div>
 </section>
@@ -891,6 +906,7 @@ document.querySelectorAll('.cert-tags .pill').forEach(p => {
     );
   });
 });
+
 </script>
 </body>
 </html>

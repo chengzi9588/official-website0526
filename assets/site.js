@@ -180,4 +180,146 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFooter();
   renderSide();
   initReveal();
+  injectTrialModal();
+  injectPhoneModal();
 });
+
+/* ─── 申请试用弹窗（全站注入） ─── */
+function injectTrialModal(){
+  var el = document.createElement('div');
+  el.className = 'trial-overlay';
+  el.id = 'trialOverlay';
+  el.innerHTML = `<div class="trial-dialog">
+    <button class="trial-close" id="trialClose"><i class="fas fa-times"></i></button>
+    <div class="trial-hd">
+      <div class="trial-icon"><i class="fas fa-hand-sparkles"></i></div>
+      <h3>欢迎体验</h3>
+      <p>填写以下信息，将有专业顾问联系您</p>
+    </div>
+    <div class="trial-bd">
+      <div class="trial-field">
+        <label>如何称呼您？</label>
+        <div class="trial-input">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="请输入您的姓名" id="trialName">
+        </div>
+      </div>
+      <div class="trial-field">
+        <label>联系方式</label>
+        <div class="trial-input">
+          <i class="fas fa-mobile-alt"></i>
+          <input type="tel" placeholder="请输入手机号码" id="trialPhone">
+        </div>
+      </div>
+      <div class="trial-field">
+        <label>公司名称</label>
+        <div class="trial-input">
+          <i class="fas fa-building"></i>
+          <input type="text" placeholder="请输入公司名称" id="trialCompany">
+        </div>
+      </div>
+      <button class="trial-submit" id="trialSubmit">
+        <i class="fas fa-paper-plane"></i> 立即申请
+      </button>
+    </div>
+  </div>`;
+  document.body.appendChild(el);
+
+  var ov = el;
+  var dg = document.getElementById('trialClose');
+  var sb = document.getElementById('trialSubmit');
+
+  function open(){ ov && ov.classList.add('open'); }
+  function close(){ ov && ov.classList.remove('open'); }
+
+  // 点击 .nav-cta 打开
+  document.body.addEventListener('click', function(e){
+    if(e.target.closest('.nav-cta')){ e.preventDefault(); open(); }
+  });
+
+  // 关闭按钮
+  dg && dg.addEventListener('click', close);
+
+  // 点击遮罩关闭
+  ov && ov.addEventListener('click', function(e){ if(e.target === ov) close(); });
+
+  // ESC 关闭
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+
+  // 提交
+  sb && sb.addEventListener('click', function(){
+    var name = document.getElementById('trialName').value.trim();
+    var phone = document.getElementById('trialPhone').value.trim();
+    var company = document.getElementById('trialCompany').value.trim();
+    if(!name){ alert('请输入您的称呼'); return; }
+    if(!phone){ alert('请输入联系方式'); return; }
+    if(!company){ alert('请输入公司名称'); return; }
+    alert('感谢您的申请，' + name + '！我们将尽快与您联系。');
+    close();
+    document.getElementById('trialName').value = '';
+    document.getElementById('trialPhone').value = '';
+    document.getElementById('trialCompany').value = '';
+  });
+}
+
+/* ─── 电话咨询弹窗（全站注入） ─── */
+function injectPhoneModal(){
+  var el = document.createElement('div');
+  el.className = 'phone-overlay';
+  el.id = 'phoneOverlay';
+  el.innerHTML = `<div class="phone-dialog">
+    <button class="phone-close" id="phoneClose"><i class="fas fa-times"></i></button>
+    <div class="phone-hd">
+      <div class="phone-icon"><i class="fas fa-phone-alt"></i></div>
+      <h3>电话咨询</h3>
+      <p>欢迎致电，我们将竭诚为您服务</p>
+    </div>
+    <div class="phone-bd">
+      <div class="phone-number" id="phoneNumber">
+        <i class="fas fa-phone-alt"></i>
+        <span>400-101-1651</span>
+      </div>
+      <p class="phone-tip">周一至周五 10:00-19:00</p>
+      <button class="phone-copy-btn" id="phoneCopyBtn">
+        <i class="far fa-copy"></i> 复制号码
+      </button>
+    </div>
+  </div>`;
+  document.body.appendChild(el);
+
+  var ov = el;
+  var dg = document.getElementById('phoneClose');
+  var cp = document.getElementById('phoneCopyBtn');
+
+  function open(){ ov && ov.classList.add('open'); }
+  function close(){ ov && ov.classList.remove('open'); }
+
+  // 点击侧边栏"电话咨询"打开
+  document.body.addEventListener('click', function(e){
+    var item = e.target.closest('.side-item');
+    if(item && item.textContent.includes('电话咨询')){ e.preventDefault(); open(); }
+  });
+
+  // 关闭按钮
+  dg && dg.addEventListener('click', close);
+
+  // 点击遮罩关闭
+  ov && ov.addEventListener('click', function(e){ if(e.target === ov) close(); });
+
+  // ESC 关闭
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+
+  // 复制号码
+  cp && cp.addEventListener('click', function(){
+    navigator.clipboard.writeText('400-101-1651').then(function(){
+      cp.innerHTML = '<i class="fas fa-check"></i> 已复制';
+      cp.style.background = 'linear-gradient(135deg,#10b981,#059669)';
+      setTimeout(function(){
+        cp.innerHTML = '<i class="far fa-copy"></i> 复制号码';
+        cp.style.background = 'linear-gradient(135deg,var(--red),#e6212a)';
+      }, 2000);
+    }).catch(function(){
+      alert('复制失败，请手动记录：400-101-1651');
+    });
+  });
+}

@@ -408,6 +408,7 @@ section[data-screen-label="05 Platform"]::before{
   gap:18px;
 }
 .platform-tabs-shell .platform-show{
+  position:relative;
   display:grid;grid-template-columns:minmax(0,.56fr) minmax(0,1.44fr);
   gap:18px;align-items:center;
   background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;
@@ -415,14 +416,22 @@ section[data-screen-label="05 Platform"]::before{
 }
 .platform-tabs-shell .platform-show.active{animation:platform-panel-in .34s ease both}
 .platform-tabs-shell .platform-show + .platform-show{
-  padding-top:18px;
-  border-top:1px solid rgba(20,32,56,0.06);
+  margin-top:14px;
+  padding-top:34px;
+  border-top:0;
 }
 @keyframes platform-panel-in{
   from{opacity:0;transform:translateY(10px)}
   to{opacity:1;transform:translateY(0)}
 }
-.platform-tabs-shell .platform-show .anti-cheat-wrapper{order:1;align-items:flex-start;text-align:left}
+.platform-tabs-shell .platform-show .anti-cheat-wrapper{
+  order:1;
+  justify-self:center;
+  width:max-content;
+  max-width:100%;
+  align-items:flex-start;
+  text-align:left;
+}
 .platform-tabs-shell .platform-show .report-visual{order:2;width:100%}
 .platform-tabs-shell .anti-cheat-wrapper,
 .platform-tabs-shell .report-visual,
@@ -435,7 +444,7 @@ section[data-screen-label="05 Platform"]::before{
 }
 .platform-tabs-shell .anti-cheat-list{align-items:flex-start!important}
 .platform-tabs-shell .anti-cheat-box{margin:10px 0 14px!important;padding:8px 0!important}
-.platform-tabs-shell .anti-cheat-wrapper{padding-left:44px}
+.platform-tabs-shell .anti-cheat-wrapper{padding-left:0}
 .platform-tabs-shell .platform-show.desc-right .report-visual{
   order:1;
   grid-column:1;
@@ -466,7 +475,7 @@ section[data-screen-label="05 Platform"]::before{
   color:var(--ink-2);
   transform:none;
   zoom:.9;
-  margin:-3% 0;
+  margin:0 0 -3%;
 }
 .report-card{
   background:rgba(255,255,255,0.92);

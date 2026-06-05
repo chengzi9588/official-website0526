@@ -342,21 +342,30 @@ body[data-page="index"] .section-action{margin-top:28px!important}
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   color:var(--ink-2);
   font-size:14px;font-weight:600;cursor:pointer;
-  display:flex;align-items:center;gap:12px;
+  display:flex;align-items:center;
   box-shadow:0 4px 12px rgba(28,39,64,0.05),inset 0 1px 0 rgba(255,255,255,0.95);
-  transition:background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  transition:background .4s ease, color .4s ease, transform .4s ease, box-shadow .4s ease, border-color .4s ease;
   position:relative;
   flex:1;
+  overflow:hidden;
+  outline:none;
 }
+.case-tab::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, var(--red-deep) 0%, #ff9eb0 100%);
+  opacity:0;transition:opacity .4s ease;z-index:0;
+}
+.case-tab span{position:relative;z-index:1;display:flex;align-items:center;gap:12px;width:100%;}
 .case-tab:hover{
   background:rgba(255,255,255,0.78);
   box-shadow:0 8px 18px rgba(28,39,64,0.07),inset 0 1px 0 rgba(255,255,255,0.98);
 }
 .case-tab.active{
-  background:linear-gradient(135deg, #FC2412 0%, #FF1445 100%);
   color:#fff;border-color:transparent;
-  box-shadow:0 4px 12px rgba(252,36,18,0.22),inset 0 1px 0 rgba(255,255,255,0.20);
+  box-shadow:0 8px 20px rgba(230,33,42,0.15);
+  background:transparent;
 }
+.case-tab.active::before{opacity:1;}
 .case-tab i{font-size:18px;opacity:0.75}
 .case-tab.active i{opacity:1}
 .case-panel{
@@ -1297,22 +1306,37 @@ body[data-page="index"] .cta-strip .btn-white:hover{box-shadow:0 8px 18px rgba(2
       else if (c.name.includes('能源')) iconClass = 'fa-bolt';
       else if (c.name.includes('保险')) iconClass = 'fa-shield-halved';
     }
-    return `<button class="case-tab ${i===0?'active':''}" data-i="${i}"><i class="fas ${iconClass}"></i>${c.name}</button>`;
+    return `<button class="case-tab ${i===0?'active':''}" data-i="${i}"><span><i class="fas ${iconClass}"></i>${c.name}</span></button>`;
   }).join('');
   function renderCase(i){
     const d = caseData[i];
-    document.getElementById('case-content').innerHTML = `
-      <h3>${d.title}</h3>
-      <div class="pts">
-        <div class="pt"><p>${d.p1}</p></div>
-        <div class="pt"><p>${d.p2}</p></div>
-        <div class="pt"><p>${d.p3}</p></div>
-      </div>`;
+    const content = document.getElementById('case-content');
     const panel = document.getElementById('case-panel');
-    if(d.link) { panel.href = d.link; } else { panel.removeAttribute('href'); }
-    panel.style.backgroundImage = `linear-gradient(135deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 60%,rgba(0,0,0,0.05) 100%), url('${d.bg}')`;
-    panel.style.backgroundSize = 'cover';
-    panel.style.backgroundPosition = 'center';
+    
+    content.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    panel.style.transition = 'background-image 0.4s ease, box-shadow 0.35s';
+    
+    content.style.opacity = '0';
+    content.style.transform = 'translateY(10px)';
+    
+    setTimeout(() => {
+      content.innerHTML = `
+        <h3>${d.title}</h3>
+        <div class="pts">
+          <div class="pt"><p>${d.p1}</p></div>
+          <div class="pt"><p>${d.p2}</p></div>
+          <div class="pt"><p>${d.p3}</p></div>
+        </div>`;
+      if(d.link) { panel.href = d.link; } else { panel.removeAttribute('href'); }
+      panel.style.backgroundImage = `linear-gradient(135deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 60%,rgba(0,0,0,0.05) 100%), url('${d.bg}')`;
+      panel.style.backgroundSize = 'cover';
+      panel.style.backgroundPosition = 'center';
+      
+      requestAnimationFrame(() => {
+        content.style.opacity = '1';
+        content.style.transform = 'translateY(0)';
+      });
+    }, 250);
   }
   tabsEl.addEventListener('click', e => {
     const b = e.target.closest('.case-tab'); if(!b) return;

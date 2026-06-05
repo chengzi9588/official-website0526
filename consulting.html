@@ -16,7 +16,7 @@
 /* Section 2 — Steps: SVG horizontal flow */
 .svg-flow{
   position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;
-  padding:44px 0 24px;
+  padding:32px 0 8px;
 }
 #steps .svg-flow{grid-template-columns:repeat(3,minmax(0,1fr))}
 .svg-flow .line-svg{
@@ -309,21 +309,30 @@ section[data-screen-label="03 Services"] .section-head{margin-bottom:56px}
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   color:var(--ink-2);
   font-size:14px;font-weight:600;cursor:pointer;
-  display:flex;align-items:center;gap:12px;
+  display:flex;align-items:center;
   box-shadow:0 4px 12px rgba(28,39,64,0.05),inset 0 1px 0 rgba(255,255,255,0.95);
-  transition:background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  transition:background .4s ease, color .4s ease, transform .4s ease, box-shadow .4s ease, border-color .4s ease;
   position:relative;
   flex:1;
+  overflow:hidden;
+  outline:none;
 }
+.case-tab::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, var(--red-deep) 0%, #ff9eb0 100%);
+  opacity:0;transition:opacity .4s ease;z-index:0;
+}
+.case-tab span{position:relative;z-index:1;display:flex;align-items:center;gap:12px;width:100%;}
 .case-tab:hover{
   background:rgba(255,255,255,0.78);
   box-shadow:0 8px 18px rgba(28,39,64,0.07),inset 0 1px 0 rgba(255,255,255,0.98);
 }
 .case-tab.active{
-  background:linear-gradient(135deg, #FC2412 0%, #FF1445 100%);
   color:#fff;border-color:transparent;
-  box-shadow:0 4px 12px rgba(252,36,18,0.22),inset 0 1px 0 rgba(255,255,255,0.20);
+  box-shadow:0 8px 20px rgba(230,33,42,0.15);
+  background:transparent;
 }
+.case-tab.active::before{opacity:1;}
 .case-tab i{font-size:18px;opacity:0.75}
 .case-tab.active i{opacity:1}
 .case-panel{
@@ -549,7 +558,6 @@ section[data-screen-label="03 Services"] .section-head{margin-bottom:56px}
 .svc-art .ic-big,
 .product-v2,
 .case-snap .card,
-.case-tab,
 .case-panel,
 .consult-table,
 .step-card:hover,
@@ -557,8 +565,6 @@ section[data-screen-label="03 Services"] .section-head{margin-bottom:56px}
 .svc-row:hover,
 .product-v2:hover,
 .case-snap a:hover .card,
-.case-tab:hover,
-.case-tab.active,
 .case-panel:hover{
   box-shadow:none;
 }
@@ -597,7 +603,7 @@ section[data-screen-label="03 Services"] .section-head{margin-bottom:56px}
 <section class="section" id="steps" data-screen-label="02 Steps">
   <div class="container">
     <div class="section-head reveal">
-      <h2><span class="bar"></span>方案定位及建设流程<span class="bar"></span></h2>
+      <h2><span class="bar"></span>一站式咨询服务体系<span class="bar"></span></h2>
       <p>面向数智化转型企业，提供全层级、全链条的人才发展咨询闭环服务</p>
     </div>
     <div class="svg-flow reveal delay-1">
@@ -605,7 +611,7 @@ section[data-screen-label="03 Services"] .section-head{margin-bottom:56px}
       <div class="step-card" data-num="02"><div class="step-img"><img src="assets/consulting/step-2.png" alt=""></div><h4>数智人才发展体系建设</h4><p>建设岗位任职资格、能力模型、学习地图与认证体系。</p><div class="mini-tags"><span>岗位任职资格</span><span>能力模型</span><span>人才盘点</span><span>学习地图</span></div></div>
       <div class="step-card" data-num="03"><div class="step-img"><img src="assets/consulting/step-3.png" alt=""></div><h4>数智资源落地</h4><p>配套课程、考试运营与平台支撑，推动标准落地。</p><div class="mini-tags"><span>课程开发</span><span>试题建设</span><span>考试运营</span><span>平台支撑</span></div></div>
     </div>
-    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 16px;">
       <a href="#" class="btn btn-light js-trial-btn" data-type="material" style="padding: 0 40px; height: 48px; font-size: 16px;">获取完整流程指南 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
     </div>
   </div>
@@ -837,22 +843,37 @@ consultingTabsEl.innerHTML = consultingCaseData.map((c,i) => {
     else if (c.name.includes('能源')) iconClass = 'fa-bolt';
     else if (c.name.includes('保险')) iconClass = 'fa-shield-halved';
   }
-  return `<button class="case-tab ${i===0?'active':''}" data-i="${i}"><i class="fas ${iconClass}"></i>${c.name}</button>`;
+  return `<button class="case-tab ${i===0?'active':''}" data-i="${i}"><span><i class="fas ${iconClass}"></i>${c.name}</span></button>`;
 }).join('');
 function renderConsultingCase(i){
   const d = consultingCaseData[i];
-  document.getElementById('consulting-case-content').innerHTML = `
-    <h3>${d.title}</h3>
-    <div class="pts">
-      <div class="pt"><p>${d.p1}</p></div>
-      <div class="pt"><p>${d.p2}</p></div>
-      <div class="pt"><p>${d.p3}</p></div>
-    </div>`;
+  const content = document.getElementById('consulting-case-content');
   const panel = document.getElementById('consulting-case-panel');
-  if(d.link) { panel.href = d.link; } else { panel.removeAttribute('href'); }
-  panel.style.backgroundImage = `linear-gradient(135deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 60%,rgba(0,0,0,0.05) 100%), url('${d.bg}')`;
-  panel.style.backgroundSize = 'cover';
-  panel.style.backgroundPosition = 'center';
+  
+  content.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  panel.style.transition = 'background-image 0.4s ease, box-shadow 0.35s';
+  
+  content.style.opacity = '0';
+  content.style.transform = 'translateY(10px)';
+  
+  setTimeout(() => {
+    content.innerHTML = `
+      <h3>${d.title}</h3>
+      <div class="pts">
+        <div class="pt"><p>${d.p1}</p></div>
+        <div class="pt"><p>${d.p2}</p></div>
+        <div class="pt"><p>${d.p3}</p></div>
+      </div>`;
+    if(d.link) { panel.href = d.link; } else { panel.removeAttribute('href'); }
+    panel.style.backgroundImage = `linear-gradient(135deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.25) 60%,rgba(0,0,0,0.05) 100%), url('${d.bg}')`;
+    panel.style.backgroundSize = 'cover';
+    panel.style.backgroundPosition = 'center';
+    
+    requestAnimationFrame(() => {
+      content.style.opacity = '1';
+      content.style.transform = 'translateY(0)';
+    });
+  }, 250);
 }
 consultingTabsEl.addEventListener('click', e => {
   const b = e.target.closest('.case-tab'); if(!b) return;

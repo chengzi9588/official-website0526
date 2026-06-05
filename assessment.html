@@ -464,20 +464,21 @@ section[data-screen-label="05 Platform"]::before{
   border-radius:8px;
   padding:12px;
   color:var(--ink-2);
-  transform:scale(0.9);
-  transform-origin:center center;
+  transform:none;
+  zoom:.9;
+  margin:-3% 0;
 }
 .report-card{
   background:rgba(255,255,255,0.92);
   border:1px solid rgba(233,237,245,0.9);
   border-radius:8px;
-  padding:12px;
+  padding:22px;
   overflow:hidden;
 }
 .report-card + .report-card{margin-top:0}
 .report-title{
   display:flex;align-items:center;gap:8px;
-  margin:0 0 9px;font-size:15px;font-weight:800;color:var(--ink);
+  margin:0 0 18px;font-size:15px;font-weight:800;color:var(--ink);
 }
 .report-title::before{content:'';width:3px;height:18px;border-radius:999px;background:var(--red)}
 .report-note{margin:0 0 10px;font-size:11px;line-height:1.55;color:var(--muted-2)}
@@ -491,7 +492,7 @@ section[data-screen-label="05 Platform"]::before{
 .detect-list{display:grid;gap:6px}
 .detect-item{
   display:grid;grid-template-columns:24px minmax(0,1fr) 52px;gap:10px;align-items:center;
-  padding:8px;border:1px solid #eef1f6;border-radius:8px;background:#fff;
+  padding:16px;border:1px solid #eef1f6;border-radius:8px;background:#fff;
 }
 .detect-item i{color:#a8b0bd}
 .detect-item strong{display:block;font-size:12px;color:var(--ink-2)}
@@ -511,11 +512,13 @@ section[data-screen-label="05 Platform"]::before{
   padding:0 16px;height:34px;font-size:12px;
 }
 .rule-tip{margin-top:8px;padding:9px;border-radius:8px;background:#FFF4F6;font-size:10px;line-height:1.45;color:#8A3A45}
-.camera-panel{text-align:center;padding:12px 8px;display:flex;flex-direction:column;align-items:center;}
+.camera-panel{text-align:center;padding:22px;display:flex;flex-direction:column;align-items:center;}
+.camera-panel .camera-box{margin-top:auto}
+.camera-panel .panel-bottom-action{margin-bottom:auto}
 .camera-panel h4{margin:0 0 10px}
-.camera-panel .report-title{align-self:flex-start;margin:0 0 9px}
+.camera-panel .report-title{align-self:flex-start;margin:0 0 18px}
 .camera-box{
-  width:260px;max-width:100%;height:128px;
+  width:260px;max-width:100%;height:156px;
   border-radius:8px;
   margin:0 auto 10px;
   position:relative;overflow:hidden;
@@ -525,8 +528,8 @@ section[data-screen-label="05 Platform"]::before{
 .camera-box img{
   width:100%;height:100%;object-fit:contain;object-position:center top;display:block;
   background:transparent;
-  transform:scale(1.55);
-  transform-origin:center 8%;
+  transform:scale(1.38);
+  transform-origin:center top;
 }
 .camera-box::after{
   content:'';position:absolute;inset:0;pointer-events:none;
@@ -534,7 +537,9 @@ section[data-screen-label="05 Platform"]::before{
 .camera-select{display:inline-flex;gap:10px;align-items:center;font-size:12px;color:#4b5563;margin-bottom:10px}
 .panel-bottom-action{margin-top:12px;text-align:center}
 .select-box{padding:8px 12px;border:1px solid #dce2ec;border-radius:6px;color:#6b7280;background:#fff}
-.screen-alert{padding:14px;display:flex;flex-direction:column}
+.screen-alert{padding:22px;display:flex;flex-direction:column}
+.screen-alert p{margin-top:auto}
+.screen-alert .panel-bottom-action{margin-bottom:auto}
 .screen-alert h4{margin:0 0 12px;font-size:18px;color:#394356}
 .screen-alert h4::before{content:'!';display:inline-grid;place-items:center;width:22px;height:22px;margin-right:10px;border-radius:50%;background:var(--red);color:#fff;font-size:14px}
 .screen-alert h4.report-title{font-size:15px;color:var(--ink);font-weight:800}
@@ -546,8 +551,40 @@ section[data-screen-label="05 Platform"]::before{
 .camera-panel h4.report-title{
   font-size:15px;color:var(--ink);font-weight:800;
 }
-.screen-alert p{margin:0;font-size:13px;line-height:1.7;color:#394356}
+.screen-alert p{margin:auto 0 0;font-size:13px;line-height:1.7;color:#394356}
 .screen-alert em{font-style:normal;color:var(--red);font-size:18px;font-weight:800}
+.env-check-panel,
+.screen-record-panel{
+  display:flex;
+  flex-direction:column;
+}
+.env-check-panel .detect-list{
+  margin-top:auto;
+}
+.env-check-panel > div:last-child{
+  margin-bottom:auto;
+}
+.screen-record-panel .report-note{
+  margin-top:auto;
+}
+.screen-record-panel > div:last-child{
+  margin-bottom:auto;
+}
+.skill-level-panel,
+.skill-quadrant-panel{
+  display:flex;
+  flex-direction:column;
+}
+.skill-level-panel .report-note{
+  margin-top:auto;
+}
+.skill-level-panel .skill-stack{
+  margin-bottom:auto;
+}
+.skill-quadrant-panel .quadrant{
+  margin-top:auto!important;
+  margin-bottom:auto;
+}
 .model-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}
 .radar-wrap{text-align:center}
 .radar-label{display:inline-block;padding:6px 14px;background:#f5f5f5;font-weight:800;color:#333;margin-bottom:8px}
@@ -559,12 +596,18 @@ section[data-screen-label="05 Platform"]::before{
 .skill-line{height:3px;background:var(--red-soft);position:relative}
 .skill-line::after{content:'';position:absolute;left:38%;top:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid var(--red-deep)}
 .skill-level{padding:5px 9px;background:#f0f1f5;border-radius:5px;font-size:12px;color:#6b7280}
-.model-library{display:grid;gap:10px}
+.model-library{
+  display:grid;gap:8px;
+  padding:22px;
+}
+.model-library .report-title{
+  margin-bottom:6px;
+}
 .model-library .model-list{
   display:grid;grid-template-columns:1fr;gap:8px;
 }
 .model-card{
-  position:relative;padding:12px 14px;border-radius:8px;
+  position:relative;padding:13px 20px;border-radius:8px;
   background:#fff;border:1px solid rgba(233,237,245,0.95);
   min-height:64px;overflow:hidden;
 }
@@ -885,7 +928,7 @@ section[data-screen-label="05 Platform"]::before{
         <a class="btn btn-primary js-trial-btn" href="#" data-type="consult" style="padding: 12px 40px;">立即咨询 <i class="fas fa-arrow-right"></i></a>
       </div>
       <div class="report-visual">
-        <div class="report-card">
+        <div class="report-card env-check-panel">
           <h4 class="report-title">防作弊环境检测</h4>
           <div class="detect-list">
             <div class="detect-item"><i class="fas fa-video"></i><div><strong>摄像头检测</strong><span>测评全程会开启摄像头实时监控，请检查摄像头是否可以正常打开</span></div><button>检测</button></div>
@@ -907,7 +950,7 @@ section[data-screen-label="05 Platform"]::before{
           <p>你已离开当前页面1次，离开超过<em>3</em>次后会标识考试异常，可能会影响你的成绩。答题过程中请不要离开当前页面。</p>
           <div class="panel-bottom-action"><span class="visual-action-btn">我已知晓</span></div>
         </div>
-        <div class="report-card">
+        <div class="report-card screen-record-panel">
           <h4 class="report-title">切屏行为记录</h4>
           <p class="report-note">AIGC应用基础：1次　完成时间：2026-02-10 14:39:13</p>
           <div style="display:grid;grid-template-columns:12px 1fr;gap:14px;align-items:start;margin-top:14px">
@@ -958,7 +1001,7 @@ section[data-screen-label="05 Platform"]::before{
             <span class="matrix-tag muted" style="left:235px;bottom:34px">API接口集成</span>
           </div>
         </div>
-        <div class="report-card">
+        <div class="report-card skill-level-panel">
           <h4 class="report-title">技能水平</h4>
           <p class="report-note">下面展示了 2026数据类大模型测评 所要求的所有技能以及您的掌握水平。</p>
           <div class="skill-stack">
@@ -994,7 +1037,7 @@ section[data-screen-label="05 Platform"]::before{
             <div class="bar-line"><span>未达标</span><div class="bar-bg"></div><strong>0人</strong></div>
           </div>
         </div>
-        <div class="report-card">
+        <div class="report-card skill-quadrant-panel">
           <h4 class="report-title">技能分析与培养建议</h4>
           <div class="quadrant">
             <span class="quad-label" style="left:8px;top:10px">低相似-高水平</span><span class="quad-label" style="right:8px;top:10px">高相似-高水平</span>

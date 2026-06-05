@@ -9,6 +9,7 @@
 <style>
 .case-hero{
   padding-top:140px;padding-bottom:80px;position:relative;overflow:hidden;color:#fff;
+  min-height: 500px;
 }
 .case-hero::before{content:'';position:absolute;inset:0;
   background:linear-gradient(135deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.35) 60%,rgba(0,0,0,0.15) 100%);z-index:1}
@@ -66,6 +67,54 @@
 .aside-card ul li{font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
 .aside-card ul li i{color:var(--red);font-size:11px}
 
+/* 留资入口样式 */
+.case-bottom-cta {
+  margin-top: 48px;
+  padding: 32px 40px;
+  background: linear-gradient(135deg, #fff8fa 0%, #f7faff 100%);
+  border: 1px solid rgba(255,20,69,0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 12px 28px rgba(255,20,69,0.04);
+}
+.case-bottom-cta .cta-text h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: var(--ink-2);
+}
+.case-bottom-cta .cta-text h3::before {
+  display: none;
+}
+.case-bottom-cta .cta-text p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted-2);
+}
+.cta-aside {
+  background: linear-gradient(180deg, #fff 0%, #fff8fa 100%);
+  border-color: rgba(255,20,69,0.15);
+  text-align: center;
+}
+.cta-aside-ic {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--red-soft));
+  color: #fff; font-size: 20px; display: grid; place-items: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 16px rgba(255,20,69,0.2);
+}
+.cta-aside h4 {
+  font-size: 18px; margin-bottom: 8px;
+}
+.cta-aside p {
+  font-size: 13px; color: var(--muted-2); margin: 0 0 20px; line-height: 1.6;
+}
+@media (max-width:640px){
+  .case-bottom-cta { flex-direction: column; text-align: center; padding: 24px; }
+}
+
 @media (max-width:1080px){
   .case-summary{grid-template-columns:1fr}
   .body-grid{grid-template-columns:1fr}
@@ -101,10 +150,29 @@
 <section class="section" style="padding-top:0" data-screen-label="03 Body">
   <div class="container">
     <div class="body-grid">
-      <div class="body-main reveal in" id="body-content">
-        <!-- Dynamic content injected here -->
+      <div class="body-main reveal in">
+        <div id="body-content">
+          <!-- Dynamic content injected here -->
+        </div>
+        
+        <!-- 正文底部留资入口 -->
+        <div class="case-bottom-cta">
+          <div class="cta-text">
+            <h3>想要实现类似的业务效果？</h3>
+            <p>与 51CTO 资深专家探讨，获取专属企业解决方案。</p>
+          </div>
+          <a class="btn btn-primary js-trial-btn" href="#" data-type="consult">免费获取方案 <i class="fas fa-arrow-right"></i></a>
+        </div>
       </div>
       <aside>
+        <!-- 侧边栏留资入口 -->
+        <div class="aside-card cta-aside">
+          <div class="cta-aside-ic"><i class="fas fa-headset"></i></div>
+          <h4>获取专属解决方案</h4>
+          <p>量身定制企业数智化人才培养计划</p>
+          <a class="btn btn-primary js-trial-btn" href="#" data-type="consult" style="width:100%; justify-content:center;">立即咨询</a>
+        </div>
+        
         <div class="aside-card">
           <h4>更多案例</h4>
           <ul id="aside-cases-list">
@@ -218,17 +286,39 @@
     bgFile += (bgNum === 1 || bgNum === 7) ? 'jpeg' : (bgNum === 6 ? 'png' : 'jpg');
     document.getElementById('hero-bg').src = bgFile;
     
+    const iconMapping = {
+      '某股份行': 'fa-building-columns',
+      '某国有行': 'fa-landmark-flag',
+      '某能源企业': 'fa-bolt',
+      '某保险公司': 'fa-shield-halved',
+      '某能源科技公司': 'fa-solar-panel',
+      '某银行': 'fa-piggy-bank',
+      '某大型云服务商': 'fa-cloud',
+      '中国联通集团': 'fa-tower-cell',
+      '中国移动某省公司': 'fa-satellite-dish'
+    };
+
     const asideList = document.getElementById('aside-cases-list');
     const otherCases = window.CASES_DATA.filter(c => c.id !== id);
     const shuffled = otherCases.sort(() => 0.5 - Math.random()).slice(0, 5);
-    asideList.innerHTML = shuffled.map(c => `
+    asideList.innerHTML = shuffled.map(c => {
+      // Find the tag for this case from cases.html definition or default to fa-file-alt
+      // Since we don't have tags in CASES_DATA directly, we'll try to infer from title or just use a default
+      let iconClass = 'fa-file-alt';
+      if (c.title.includes('银行') || c.title.includes('股份行') || c.title.includes('国有行')) iconClass = 'fa-building-columns';
+      else if (c.title.includes('能源')) iconClass = 'fa-bolt';
+      else if (c.title.includes('保险')) iconClass = 'fa-shield-halved';
+      else if (c.title.includes('云服务')) iconClass = 'fa-cloud';
+      else if (c.title.includes('联通') || c.title.includes('移动') || c.title.includes('通信')) iconClass = 'fa-satellite-dish';
+      
+      return `
       <li>
         <a href="case-detail.html?id=${c.id}" class="aside-case-item">
           <div class="aside-case-title">${c.title}</div>
-          <div class="aside-case-meta"><i class="fas fa-file-alt"></i> 查看详情</div>
+          <div class="aside-case-meta"><i class="fas ${iconClass}"></i> 查看详情</div>
         </a>
       </li>
-    `).join('');
+    `}).join('');
   });
 </script>
 </body>

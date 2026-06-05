@@ -5,46 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>关于我们 — 51CTO 企业学院</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@800;900&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 <style>
-/* Hero with image — both edges blended into the page background */
+/* Hero with image */
 .about-hero{
   min-height:500px;
-  background:linear-gradient(180deg,
-    rgba(255,255,255,1) 0%,
-    rgba(248,250,253,1) 60%,
-    rgba(243,246,250,1) 100%);
+  background:#f8fbfd url('assets/hero/consulting-hero.png') center / cover no-repeat;
 }
-.about-hero::before{
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: url('assets/about-hero.png') right 5% bottom / auto 88% no-repeat;
-  -webkit-mask-image: 
-    linear-gradient(to right, transparent 0%, transparent 45%, black 75%, black 100%),
-    linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: 
-    linear-gradient(to right, transparent 0%, transparent 45%, black 75%, black 100%),
-    linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-  mask-composite: intersect;
-}
-.about-hero .container{position:relative;z-index:3}
+.about-hero::before{display:none}
+.about-hero .container{position:relative;z-index:2;width:100%}
 .about-hero .hero-copy{max-width:600px}
 .about-hero .hero-sub{max-width:620px}
 
-@media (max-width:1080px){
-  .about-hero{min-height:340px;padding-top:108px}
-}
 @media (max-width:768px){
   .about-hero .hero-copy{max-width:none}
 }
 
 .intro{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;
-  background:#fff;border:1px solid var(--line);border-radius:24px;padding:48px;box-shadow:var(--shadow-card)}
+  background:#fff;border:1px solid var(--line);border-radius:24px;padding:48px;box-shadow:none}
 .intro h3{margin:0 0 16px;font-size:24px;font-weight:800;color:var(--ink-2)}
 .intro p{margin:0 0 14px;font-size:15px;line-height:1.85;color:var(--muted-2)}
 .intro-stats{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
@@ -57,6 +38,67 @@
     radial-gradient(circle at 30% 30%, rgba(148,163,184,0.10), transparent 50%),
     linear-gradient(135deg,#FFE3E9,#F5F8FE);
   display:grid;place-items:center;font-weight:800;color:var(--red-deep);font-size:32px;letter-spacing:0.04em;
+}
+.about-mvv-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+  margin-top:28px;
+}
+.about-mvv-card{
+  position:relative;
+  min-height:140px;
+  border-radius:10px;
+  padding:32px 36px;
+  color:#fff;
+  overflow:hidden;
+  background:linear-gradient(135deg,#FF4B68 0%,#FF768D 100%);
+  border:none;
+  box-shadow:0 16px 30px rgba(255,107,138,0.16);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.about-mvv-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 36px rgba(255,107,138,0.22);
+}
+.about-mvv-card::before{
+  content:'';
+  position:absolute;
+  right:-34px;
+  bottom:-34px;
+  width:130px;
+  height:130px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.25);
+  opacity:.8;
+}
+.about-mvv-card h3{
+  margin:0;
+  font-size:24px;
+  font-weight:800;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.about-mvv-card h3::before{
+  content:'';
+  display:block;
+  width:4px;
+  height:20px;
+  background:#fff;
+  border-radius:999px;
+}
+.about-mvv-card p{
+  margin:16px 0 0 16px;
+  padding:0;
+  border:none;
+  font-size:15px;
+  line-height:1.7;
+  color:rgba(255,255,255,0.95);
 }
 
 .vv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
@@ -82,16 +124,200 @@
 .timeline{
   position:relative;display:grid;grid-template-columns:1fr;gap:24px;padding-left:40px;
 }
-.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;
+.timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:1px;
   background:repeating-linear-gradient(180deg,rgba(255,20,69,0.3) 0 6px, transparent 6px 12px)}
-.tl-item{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 24px;
-  transition:transform .25s, box-shadow .25s, border-color .25s}
-.tl-item:hover{transform:translateX(4px);box-shadow:var(--shadow-card)}
-.tl-item::before{content:'';position:absolute;left:-39px;top:24px;width:18px;height:18px;border-radius:999px;
-  background:#fff;border:3px solid var(--red);box-shadow:0 0 0 4px rgba(20,32,56,0.06)}
-.tl-item .year{font-family:Inter,sans-serif;font-weight:800;font-size:22px;color:var(--red-deep);line-height:1}
+.tl-item{position:relative;background:rgba(255,255,255,0.58);border:1px solid rgba(255,255,255,0.96);border-radius:14px;padding:20px 170px 20px 24px;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.95);
+  transition:transform .25s, box-shadow .25s, border-color .25s, background .25s}
+.tl-item:hover{transform:translateX(4px);background:rgba(255,255,255,0.76);box-shadow:inset 0 1px 0 rgba(255,255,255,0.98)}
+.tl-item::before{content:'';position:absolute;left:-36px;top:27px;width:12px;height:12px;border-radius:999px;
+  background:#fff;border:2px solid var(--red);box-shadow:0 0 0 4px rgba(255,20,69,0.08);
+  animation:timeline-breathe 2.6s ease-in-out infinite}
+@keyframes timeline-breathe{
+  0%,100%{box-shadow:0 0 0 4px rgba(255,20,69,0.08);transform:scale(1)}
+  50%{box-shadow:0 0 0 10px rgba(255,20,69,0);transform:scale(1.12)}
+}
+.tl-item .year{
+  position:absolute;right:24px;top:50%;transform:translateY(-50%);
+  font-family:Inter,sans-serif;font-weight:900;font-size:58px;line-height:1;letter-spacing:-0.06em;
+  color:rgba(230,33,42,0.08);pointer-events:none;z-index:0;
+}
+.tl-item:hover .year{color:rgba(230,33,42,0.13)}
 .tl-item h4{margin:8px 0 4px;font-size:16px;font-weight:700;color:var(--ink-2)}
 .tl-item p{margin:0;font-size:14px;line-height:1.7;color:var(--muted-2)}
+.tl-item h4,.tl-item p{position:relative;z-index:1}
+
+section[data-screen-label="05 Timeline"]{
+  background:linear-gradient(180deg, rgba(251,251,253,0.92) 0%, rgba(245,248,252,0.88) 100%);
+}
+section[data-screen-label="05 Timeline"]::before{
+  background:url('assets/bg/section-courses.jpg') center / cover no-repeat!important;
+  opacity:0.45!important;
+}
+
+.about-vm-wrap,
+section[data-screen-label="05 Timeline"]{display:none}
+body[data-page="about"] .section.alt.about-mission-module,
+body[data-page="about"] .section.alt.about-values-module,
+body[data-page="about"] .section.alt.about-journey{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:transparent!important;
+}
+body[data-page="about"] .section.alt.about-mission-module::before,
+body[data-page="about"] .section.alt.about-values-module::before,
+body[data-page="about"] .section.alt.about-journey::before{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:url('assets/bg/section-cases.png') center / 100% auto no-repeat!important;
+  opacity:.25!important;pointer-events:none;
+}
+body[data-page="about"] .section.alt.about-mission-module::after,
+body[data-page="about"] .section.alt.about-values-module::after,
+body[data-page="about"] .section.alt.about-journey::after{
+  display:none;
+}
+.about-value-cards{
+  display:grid;grid-template-columns:1fr;gap:18px;
+  width:100%;margin:0;
+}
+.about-value-card{
+  position:relative;min-height:158px;padding:34px 44px;border-radius:8px;overflow:visible;
+  background:rgba(255,255,255,0.66);border:1px solid rgba(255,255,255,0.98);
+  color:var(--ink-2);box-shadow:inset 0 1px 0 rgba(255,255,255,0.96);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  transition:transform .35s cubic-bezier(0.16,1,0.3,1),border-color .35s ease;
+}
+.about-value-card::before{
+  content:'';display:block;position:absolute;inset:0;border-radius:inherit;overflow:hidden;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(20,32,56,0.05), transparent 46%),
+    linear-gradient(180deg,#fff 0%,#fbfcff 100%);
+  pointer-events:none;z-index:1;
+}
+.about-value-card::after{
+  display:none;
+}
+.about-value-card:hover{transform:translateY(-6px);border-color:rgba(230,33,42,0.10)}
+.about-value-illust{
+  position:absolute;right:22px;top:-22px;z-index:3;
+  width:132px;height:132px;display:grid;place-items:center;pointer-events:none;
+  transition:transform .55s cubic-bezier(0.34,1.56,0.64,1);
+}
+.about-value-illust img{max-width:132px;max-height:128px;width:auto;height:auto;object-fit:contain;display:block;filter:none}
+.about-value-card:hover .about-value-illust{transform:translateY(-6px) scale(1.06) rotate(-4deg)}
+.about-value-card h3{position:relative;z-index:2;margin:0;font-size:28px;font-weight:800;letter-spacing:.02em;max-width:calc(100% - 138px)}
+.about-value-card h3::after{content:'';display:block;width:100%;height:1px;background:rgba(20,32,56,0.08);margin:20px 0 18px}
+.about-value-card p{position:relative;z-index:2;margin:0;font-size:17px;line-height:1.7;color:var(--muted-2);max-width:calc(100% - 138px)}
+.about-value-tags{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;max-width:calc(100% - 138px)}
+.about-value-tags span{
+  display:inline-flex;padding:4px 9px;border-radius:999px;
+  background:#f5f6fa;border:1px solid rgba(20,32,56,0.05);
+  color:var(--muted-2);font-size:13px;font-weight:700;
+}
+.about-mission-module .about-value-card{
+  min-height:170px;
+  display:flex;
+  align-items:center;
+}
+.about-mission-module .about-value-card p{
+  margin:0;
+  max-width:calc(100% - 186px);
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  font-family:"Manrope","OPPO Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:clamp(26px,2.8vw,38px);
+  font-weight:900;
+  line-height:1.24;
+  letter-spacing:.01em;
+  color:#1f2f48;
+  text-shadow:0 1px 0 rgba(255,255,255,0.7);
+}
+.about-values-module .about-value-card{
+  min-height:170px;
+  display:flex;
+  align-items:center;
+}
+.about-values-module .about-value-tags{
+  margin-top:0;
+  gap:10px;
+  max-width:calc(100% - 186px);
+}
+.about-values-module .about-value-tags span{
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(20,32,56,0.10);
+  background:rgba(255,255,255,0.92);
+  box-shadow:none;
+  color:#31425f;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.01em;
+}
+.about-mission-module .section-head,
+.about-values-module .section-head,
+.about-journey .section-head{margin-bottom:34px}
+.about-timeline-shell{width:100%;margin:0}
+.about-years{
+  position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;
+  padding:34px 24px 0;
+}
+.about-years::before{
+  content:'';position:absolute;left:32px;right:32px;top:43px;height:1px;
+  background:rgba(230,33,42,0.24);
+}
+.about-year-btn{
+  position:relative;z-index:1;border:0;background:transparent;color:var(--ink-2);
+  display:block;min-width:58px;padding:28px 0 0;
+  font-family:"Manrope","OPPO Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:18px;line-height:1;font-weight:900;letter-spacing:-0.02em;cursor:pointer;
+}
+.about-year-btn::after{
+  content:'';position:absolute;left:50%;top:5px;transform:translateX(-50%);
+  width:8px;height:8px;border-radius:999px;background:rgba(230,33,42,0.58);
+  box-shadow:0 0 0 3px rgba(255,20,69,0.08);
+  transition:transform .25s ease,background .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.about-year-btn.active{color:var(--red-deep)}
+.about-year-btn.active::after{
+  top:3px;width:12px;height:12px;background:#fff;
+  border:2px solid var(--red);
+  box-shadow:0 0 0 6px rgba(255,20,69,0.10);
+  animation:about-year-breathe 2.4s ease-in-out infinite;
+}
+@keyframes about-year-breathe{
+  0%,100%{box-shadow:0 0 0 6px rgba(255,20,69,0.10);transform:translateX(-50%) scale(1)}
+  50%{box-shadow:0 0 0 12px rgba(255,20,69,0);transform:translateX(-50%) scale(1.12)}
+}
+.about-story-card{
+  position:relative;min-height:210px;border-radius:8px;padding:48px 56px;
+  background:rgba(255,255,255,0.66);border:1px solid rgba(255,255,255,0.98);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.96);
+  overflow:hidden;
+}
+.about-story-card::before{
+  content:'';position:absolute;right:-64px;bottom:-112px;width:360px;height:220px;border-radius:999px 999px 0 0;
+  background:linear-gradient(90deg,rgba(255,20,69,0.04),rgba(255,20,69,0.13));
+  animation:about-card-orb 9s ease-in-out infinite alternate;
+  transform-origin:center;
+}
+@keyframes about-card-orb{
+  0%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(-24px,-10px,0) scale(1.06)}
+  100%{transform:translate3d(14px,-18px,0) scale(1.03)}
+}
+.about-story-panel{position:relative;z-index:1;display:none;animation:about-story-in .32s ease both}
+.about-story-panel.active{display:block}
+@keyframes about-story-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.about-story-panel .year{
+  font-family:"Manrope","OPPO Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:42px;font-weight:900;line-height:1;color:var(--red-deep);
+  letter-spacing:-.04em;margin-bottom:18px;
+}
+.about-story-panel h4{margin:0;font-size:22px;font-weight:800;color:var(--ink-2)}
+.about-story-panel p{margin:12px 0 0;font-size:15px;line-height:1.8;color:var(--muted-2);max-width:760px}
 
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .contact-card{
@@ -106,8 +332,41 @@
 
 @media (max-width:1080px){
   .intro{grid-template-columns:1fr;padding:32px}
+  .about-mvv-grid{grid-template-columns:1fr;gap:14px}
   .vv-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
+  .about-value-cards{max-width:none}
+  .about-years{overflow-x:auto;justify-content:flex-start;padding-bottom:6px}
+  .about-years::before{left:32px;right:auto;width:max(860px, calc(100% - 64px))}
+  .about-year-btn{flex:0 0 72px}
+}
+@media (max-width:640px){
+  .tl-item{padding:20px 24px 74px}
+  .tl-item .year{right:20px;top:auto;bottom:14px;transform:none;font-size:46px}
+  .about-mvv-card{padding:24px 20px;min-height:auto}
+  .about-mvv-card h3{font-size:20px}
+  .about-mvv-card p{margin:10px 0 0 16px;font-size:14px}
+  .about-value-cards{grid-template-columns:1fr;gap:16px;margin-bottom:0}
+  .about-value-card{padding:24px 24px;min-height:132px}
+  .about-value-card h3{font-size:23px}
+  .about-value-illust{right:12px;top:-16px;width:96px;height:96px}
+  .about-value-illust img{max-width:96px;max-height:92px}
+  .about-value-card h3,.about-value-card p,.about-value-tags{max-width:calc(100% - 92px)}
+  .about-mission-module .about-value-card p{
+    font-size:clamp(20px,5.2vw,30px);
+    max-width:calc(100% - 102px);
+  }
+  .about-values-module .about-value-tags{
+    max-width:calc(100% - 102px);
+    gap:8px;
+  }
+  .about-values-module .about-value-tags span{
+    padding:6px 10px;
+    font-size:12px;
+  }
+  .about-story-card{padding:30px 24px;min-height:190px}
+  .about-story-panel .year{font-size:34px}
+  .about-story-panel h4{font-size:18px}
 }
 </style>
 </head>
@@ -116,13 +375,12 @@
 <nav class="nav" id="site-nav"></nav>
 
 <section class="hero about-hero" data-screen-label="01 Hero">
-  <div class="container">
-    <div class="hero-copy reveal in">
-      <span class="hero-eyebrow"><span class="dot"></span>关于我们</span>
+  <div class="container reveal in">
+    <div class="hero-copy">
       <h1>关于我们</h1>
       <p class="hero-sub">企业数智化人才成长伙伴，共建数智竞争力</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#site-footer">联系我们 <i class="fas fa-arrow-right"></i></a>
+        <a class="btn btn-primary js-phone-btn" href="#">联系我们 <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
@@ -138,6 +396,53 @@
       <div>
         <p>51CTO（北京无忧创想信息技术有限公司）成立于 2005 年，以服务一亿数智化人才终身成长为己任，是中国知名的数智化人才学习平台和技术社区，并以规模大、用户多、技术门类全等特点为市场充分认可。</p>
         <p>历经 20 余年发展，51CTO 已为数千万学习用户持续提供服务，与超过 25000 家国内外企业建立了深度合作，覆盖科技与互联网、运营商、金融、能源、制造、医疗、房地产、教育、出版等行业，成为支撑中国数智人才发展的重要力量。</p>
+      </div>
+    </div>
+    <div class="about-mvv-grid reveal delay-2">
+      <article class="about-mvv-card mvv-mission">
+        <h3>公司使命</h3>
+        <p>帮助一亿数智化人才终身成长</p>
+      </article>
+      <article class="about-mvv-card mvv-vision">
+        <h3>公司愿景与价值观</h3>
+        <p>做更好的自己，互相成就，超越客户期望</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section alt about-journey" data-screen-label="03 Journey">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2><span class="bar"></span>发展历程<span class="bar"></span></h2>
+      <p>每一步，都源于对技术与人才的热爱</p>
+    </div>
+
+    <div class="about-timeline-shell reveal delay-1">
+      <div class="about-story-card">
+        <article class="about-story-panel active" data-about-story="2025"><div class="year">2025年</div><h4>全国信标委人才标准工作组首批成员单位，工信部人才中心产业人才基地建设机构</h4><p>深度参与国家级人才标准与产业人才基地建设。</p></article>
+        <article class="about-story-panel" data-about-story="2024"><div class="year">2024年</div><h4>首批通过“中国企业教育培训菁英联盟认证”</h4><p>培训服务能力和交付品质持续获得行业认可。</p></article>
+        <article class="about-story-panel" data-about-story="2023"><div class="year">2023年</div><h4>联合发布国内首个元宇宙智能算法人才团体标准，企业数字化人才认证项目上线</h4><p>参与人才标准建设，推动认证项目规模化落地。</p></article>
+        <article class="about-story-panel" data-about-story="2022"><div class="year">2022年</div><h4>荣获首批“企业人才培训基地”称号</h4><p>企业人才培养能力获得权威认可。</p></article>
+        <article class="about-story-panel" data-about-story="2021"><div class="year">2021年</div><h4>数字化专业人才发展创新成果编入《中国企业培训蓝皮书 XIII》</h4><p>企业人才发展实践获得行业研究收录。</p></article>
+        <article class="about-story-panel" data-about-story="2020"><div class="year">2020年</div><h4>鸿蒙社区成为华为官方唯一综合技术社区，在线学习平台 2.0 上线</h4><p>平台能力升级，进一步连接技术社区与企业学习场景。</p></article>
+        <article class="about-story-panel" data-about-story="2019"><div class="year">2019年</div><h4>获得高成资本 C 轮融资，成为 PMI 双授权机构</h4><p>资本与权威资质进一步夯实业务发展基础。</p></article>
+        <article class="about-story-panel" data-about-story="2017"><div class="year">2017年</div><h4>武汉分公司成立，企培事业部成立</h4><p>企业培训服务进入体系化建设阶段。</p></article>
+        <article class="about-story-panel" data-about-story="2015"><div class="year">2015年</div><h4>51CTO 学院成立，用户突破 1600 万</h4><p>在线学习业务快速发展，形成规模化技术人才学习平台。</p></article>
+        <article class="about-story-panel" data-about-story="2005"><div class="year">2005年</div><h4>51CTO.com 成立，快速成长为中国领先的技术社区</h4><p>开启技术社区服务，持续沉淀 IT 技术内容与开发者生态。</p></article>
+      </div>
+
+      <div class="about-years" role="tablist" aria-label="发展历程年份切换">
+        <button class="about-year-btn active" type="button" data-about-year="2025">2025年</button>
+        <button class="about-year-btn" type="button" data-about-year="2024">2024年</button>
+        <button class="about-year-btn" type="button" data-about-year="2023">2023年</button>
+        <button class="about-year-btn" type="button" data-about-year="2022">2022年</button>
+        <button class="about-year-btn" type="button" data-about-year="2021">2021年</button>
+        <button class="about-year-btn" type="button" data-about-year="2020">2020年</button>
+        <button class="about-year-btn" type="button" data-about-year="2019">2019年</button>
+        <button class="about-year-btn" type="button" data-about-year="2017">2017年</button>
+        <button class="about-year-btn" type="button" data-about-year="2015">2015年</button>
+        <button class="about-year-btn" type="button" data-about-year="2005">2005年</button>
       </div>
     </div>
   </div>
@@ -278,9 +583,38 @@
   </div>
 </section>
 
+<section class="section alt" id="cta" data-screen-label="06 CTA">
+  <div class="cta-banner reveal">
+    <div class="cta-deco"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="container cta-banner-inner">
+      <div class="cta-banner-copy">
+        <h3>开启您的数智化人才发展之旅</h3>
+        <p>携手 51CTO，共同打造企业数智化转型的人才引擎。</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white js-trial-btn" href="#" data-type="consult">立即咨询 <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <img class="cta-banner-illust" src="assets/bg/cta-banner.png" alt="">
+    </div>
+  </div>
+</section>
 
 <footer class="site-footer" id="site-footer"></footer>
 <aside class="side" id="site-side"></aside>
 <script src="assets/site.js"></script>
+<script>
+function setAboutYear(btn){
+  var year = btn.getAttribute('data-about-year');
+  document.querySelectorAll('.about-year-btn').forEach(function(item){ item.classList.toggle('active', item === btn); });
+  document.querySelectorAll('.about-story-panel').forEach(function(panel){
+    panel.classList.toggle('active', panel.getAttribute('data-about-story') === year);
+  });
+}
+document.querySelectorAll('.about-year-btn').forEach(function(btn){
+  btn.addEventListener('mouseenter', function(){ setAboutYear(btn); });
+  btn.addEventListener('focus', function(){ setAboutYear(btn); });
+  btn.addEventListener('click', function(){ setAboutYear(btn); });
+});
+</script>
 </body>
 </html>

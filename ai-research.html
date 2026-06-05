@@ -9,7 +9,7 @@
 <style>
 .ai-research-hero{
   min-height:500px;
-  background:#f8fbfd url('assets/ai-research-hero.png') center top / 2105px 500px no-repeat;
+  background:#f8fbfd url('assets/hero/ai-research-hero.png') center / cover no-repeat;
 }
 .ai-research-hero::before{display:none}
 /* Section 2 — Intro: split layout */
@@ -42,7 +42,7 @@
   transition:transform .35s, box-shadow .35s;overflow:hidden;cursor:default;
 }
 .pos-card::before{
-  content:attr(data-step);position:absolute;right:18px;top:18px;
+  content:attr(data-step);position:absolute;left:30px;top:76px;z-index:2;
   font-family:Inter,sans-serif;font-weight:800;font-size:48px;color:rgba(230,33,42,0.08);
   line-height:1;letter-spacing:-0.04em;transition:transform .4s ease, color .4s ease;
 }
@@ -66,7 +66,7 @@
     radial-gradient(circle at 22% 30%,rgba(255,20,69,0.08),transparent 30%),
     linear-gradient(135deg,#fff 0%,#f8fbff 100%);
   border:1px solid rgba(20,32,56,0.06);
-  box-shadow:0 20px 58px rgba(20,32,56,0.07);
+  box-shadow:none;
   overflow:hidden;
 }
 .act-grid::before{
@@ -81,7 +81,7 @@
 .act-feat,.act-mini{
   position:relative;z-index:1;border-radius:24px;padding:26px 24px;
   background:rgba(255,255,255,0.86);border:1px solid rgba(20,32,56,0.07);
-  box-shadow:0 12px 30px rgba(20,32,56,0.05);overflow:hidden;cursor:pointer;
+  box-shadow:none;overflow:hidden;cursor:pointer;
   transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s,background .35s;
 }
 .act-feat{
@@ -95,7 +95,7 @@
   content:'';position:absolute;right:-56px;top:-56px;width:128px;height:128px;border-radius:40px;
   border:1px solid rgba(230,33,42,0.08);transform:rotate(18deg);transition:transform .45s ease,opacity .35s;
 }
-.act-feat:hover,.act-mini:hover{transform:translateY(-8px);box-shadow:0 24px 54px rgba(20,32,56,0.11);border-color:rgba(230,33,42,0.14);background:#fff}
+.act-feat:hover,.act-mini:hover{transform:translateY(-8px);box-shadow:none;border-color:rgba(230,33,42,0.14);background:#fff}
 .act-feat:hover::after,.act-mini:hover::after{transform:rotate(28deg) scale(1.08);opacity:.9}
 .act-feat .glyph,.act-mini .ic{
   width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,#fff0f2,#fff);
@@ -117,14 +117,9 @@
   content:'';position:absolute;left:26px;top:0;width:1px;height:26px;
   background:linear-gradient(180deg,rgba(230,33,42,0.28),transparent);
 }
-.visit-marquee{margin-top:30px;display:grid;gap:24px}
-.visit-row{
-  display:flex;width:max-content;gap:24px;animation:visit-scroll 60s linear infinite;
-}
-.visit-row.rev{animation-direction:reverse;animation-duration:70s}
-.visit-marquee:hover .visit-row{animation-play-state:paused}
+.visit-grid{margin-top:30px;display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
 .visit-chip{
-  flex:0 0 auto;min-width:160px;padding:24px 28px;border-radius:24px;
+  flex:0 0 auto;min-width:130px;padding:16px 20px;border-radius:18px;
   background:rgba(255,255,255,0.92);border:1px solid rgba(20,32,56,0.07);
   box-shadow:0 10px 24px rgba(20,32,56,0.06);
   display:flex;align-items:center;justify-content:center;gap:9px;
@@ -132,7 +127,6 @@
 }
 .visit-chip::before{content:'';width:7px;height:7px;border-radius:999px;background:rgba(230,33,42,0.34)}
 .visit-chip:hover{transform:translateY(-5px);color:var(--red-deep);border-color:rgba(230,33,42,0.16);box-shadow:0 16px 32px rgba(20,32,56,0.10)}
-@keyframes visit-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 /* 生态合作伙伴 logo 卡片 */
 .partner-lite{
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:28px;
@@ -145,14 +139,14 @@
   background:linear-gradient(180deg,#fbfcfe 0%,#ffffff 100%);
   border:1px solid rgba(20,32,56,0.07);
   border-radius:20px;
-  box-shadow:0 6px 18px rgba(20,32,56,0.04);
+  box-shadow:none;
   transition:transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s ease, border-color .35s ease, background .35s ease;
 }
 .partner-lite .partner-card:hover{
   transform:translateY(-5px);
   background:#ffffff;
   border-color:rgba(20,32,56,0.12);
-  box-shadow:0 14px 32px rgba(20,32,56,0.08);
+  box-shadow:none;
 }
 .partner-logo{
   height:54px;width:100%;
@@ -185,37 +179,121 @@
 }
 
 /* Section 5 — 核心成员：浅色大卡，左图右文 */
-.research-experts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:stretch}
+section[data-screen-label="05 Members"]{overflow:visible}
+
+/* Experts Carousel */
+.experts-carousel-wrap {
+  position: relative;
+  margin: 0 -24px;
+  padding: 0 24px;
+}
+.experts-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+.experts-carousel::-webkit-scrollbar { 
+  display: none;
+}
+.expert-page {
+  flex: 0 0 100%;
+  min-width: 100%;
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  padding: 20px 0;
+}
+.expert-nav-btn {
+  position: absolute;
+  top: calc(50% - 24px);
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(20,32,56,0.06);
+  z-index: 10;
+  cursor: pointer;
+  transition: all .3s ease;
+  outline: none;
+}
+.expert-nav-btn:hover {
+  color: var(--red);
+  border-color: var(--red);
+  box-shadow: 0 6px 16px rgba(230,33,42,0.12);
+}
+.expert-nav-btn.prev {
+  left: -20px;
+}
+.expert-nav-btn.next {
+  right: -20px;
+}
+.expert-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.expert-dots .dot {
+  width: 32px;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(20,32,56,0.1);
+  transition: background .3s, width .3s;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+.expert-dots .dot.active {
+  background: var(--red);
+  width: 48px;
+}
+@media (max-width: 1080px) {
+  .expert-page { grid-template-columns: 1fr; }
+  .expert-nav-btn.prev { left: 0px; }
+  .expert-nav-btn.next { right: 0px; }
+}
+
+
 .research-expert{
   position:relative;display:grid;grid-template-columns:200px 1fr;gap:0;
-  min-height:300px;border-radius:24px;overflow:hidden;
+  min-height:210px;border-radius:24px;overflow:visible;
   background:#ffffff;
-  border:1px solid rgba(20,32,56,0.07);
-  box-shadow:0 8px 22px rgba(20,32,56,0.05);
+  border:0;
+  box-shadow:none;
   transition:transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s ease, border-color .35s ease;
 }
 .research-expert:hover{
   transform:translateY(-6px);
-  border-color:rgba(20,32,56,0.12);
-  box-shadow:0 20px 40px rgba(20,32,56,0.10);
+  border-color:transparent;
+  box-shadow:none;
 }
 .member-photo{
-  position:relative;background:
-    radial-gradient(circle at 50% 38%,#ffffff 0%,#f3f5f9 70%,#eaeef4 100%);
-  overflow:hidden;
+  position:relative;overflow:visible;
+  isolation:isolate;
 }
-.member-photo::before{
-  content:'';position:absolute;inset:14px;border-radius:18px;
-  background:linear-gradient(180deg,#fafbfd 0%,#eef2f7 100%);
-  border:1px solid rgba(20,32,56,0.04);
+.member-photo::after{
+  display:none;
 }
 .member-photo .img{
-  position:absolute;left:0;right:0;top:6px;bottom:0;
-  background-size:auto 96%;background-position:center bottom;background-repeat:no-repeat;
+  position:absolute;left:-8px;right:-8px;bottom:0;top:auto;
+  height:238px;
+  background-size:auto 100%;background-position:center bottom;background-repeat:no-repeat;
   transition:transform .6s cubic-bezier(.16,1,.3,1);
   z-index:1;
+  filter:drop-shadow(0 14px 24px rgba(20,32,56,0.14));
 }
-.research-expert:hover .member-photo .img{transform:scale(1.05)}
+.research-expert:hover .member-photo .img{transform:translateY(-4px) scale(1.04)}
 .member-photo .badge{
   position:absolute;top:14px;left:14px;z-index:2;
   padding:5px 11px;border-radius:999px;
@@ -223,59 +301,77 @@
   font-size:11px;font-weight:700;color:var(--ink-2);letter-spacing:.04em;
 }
 .member-body{
-  padding:26px 28px;display:flex;flex-direction:column;justify-content:center;gap:10px;
+  padding:24px 30px;display:flex;flex-direction:column;justify-content:center;gap:12px;
   background:#ffffff;
+  border-radius:0 24px 24px 0;
 }
 .member-body .head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .member-body h4{
-  margin:0;font-size:24px;font-weight:800;color:var(--ink);letter-spacing:.02em;
-  position:relative;padding-left:14px;
+  margin:0;font-size:25px;font-weight:800;color:var(--ink);letter-spacing:.02em;
+  position:relative;padding-left:0;line-height:1.2;
 }
 .member-body h4::before{
-  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
-  width:4px;height:22px;border-radius:999px;background:var(--ink);
-  transition:background .3s ease, height .3s ease;
+  display:none;
 }
-.research-expert:hover .member-body h4::before{background:var(--ink-2);height:26px}
 .member-body .role{
-  margin:2px 0 4px;font-size:13px;line-height:1.55;color:var(--muted-2);font-weight:500;
+  align-self:flex-start;margin:0;
+  padding:5px 11px;border-radius:999px;
+  background:#f4f6f9;border:1px solid rgba(20,32,56,0.06);
+  font-size:12px;line-height:1.45;color:var(--muted-3);font-weight:700;
 }
 .member-body .blurb{
-  margin:8px 0 0;font-size:13.5px;line-height:1.75;color:var(--muted-3);
+  margin:2px 0 0;padding-left:14px;border-left:3px solid #e6eaf0;
+  font-size:13.5px;line-height:1.75;color:var(--muted-3);
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
 .member-body .skills{
-  margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:4px;display:flex;flex-wrap:wrap;gap:8px;
 }
 .member-body .skill{
   display:inline-flex;align-items:center;gap:6px;
-  padding:5px 12px;border-radius:999px;
-  background:#f3f5f9;border:1px solid rgba(20,32,56,0.06);
-  color:var(--ink-2);font-size:12px;font-weight:600;
+  padding:5px 10px;border-radius:999px;
+  background:#f7f8fa;border:1px solid rgba(20,32,56,0.05);
+  color:var(--muted-3);font-size:12px;font-weight:600;
   transition:background .3s ease, color .3s ease, transform .3s ease;
 }
-.member-body .skill:hover{transform:translateY(-2px);background:#e9edf3;color:var(--ink)}
+.member-body .skill:hover{transform:translateY(-2px);background:#edf0f5;color:var(--ink)}
 
 /* Section 6 — Entry */
 .entry{
-  position:relative;background:linear-gradient(135deg,#FFF7F9 0%,#FFFFFF 52%,#F8FAFD 100%);
-  border:1px solid var(--line);border-radius:24px;padding:42px;
+  position:relative;background:rgba(255,255,255,0.55);
+  border:1px solid rgba(255,255,255,1);border-radius:24px;padding:42px;
   display:grid;grid-template-columns:1fr 1.1fr;gap:34px;align-items:stretch;
-  box-shadow:0 16px 42px rgba(20,32,56,0.06);overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.95);overflow:hidden;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
 }
-.entry::before{content:'';position:absolute;right:-120px;top:-120px;width:320px;height:320px;border-radius:999px;background:radial-gradient(circle,rgba(255,20,69,0.10),transparent 70%)}
+.entry::before{display:none}
 .entry > *{position:relative;z-index:1}
 .entry h3{margin:0 0 18px;font-size:22px;font-weight:800;color:var(--ink-2);display:flex;align-items:center;gap:10px}
 .entry h3::before{content:'';width:10px;height:10px;border-radius:999px;background:var(--red);box-shadow:0 0 0 6px rgba(255,20,69,0.08)}
-.entry-conditions{background:#fff;border:1px solid rgba(233,237,245,0.9);border-radius:20px;padding:26px}
+.entry-conditions{
+  background:rgba(255,255,255,0.62);
+  border:1px solid rgba(255,255,255,0.95);
+  border-radius:20px;padding:26px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.95);
+}
 .entry-conditions ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
 .entry-conditions li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--ink-2);line-height:1.7}
 .entry-conditions .icn{color:var(--red-deep);background:var(--red-light);width:26px;height:26px;border-radius:9px;display:grid;place-items:center;font-size:11px;flex:0 0 auto;margin-top:1px}
-.entry-flow{background:#fff;border:1px solid rgba(233,237,245,0.9);border-radius:20px;padding:26px}
+.entry-flow{
+  background:rgba(255,255,255,0.62);
+  border:1px solid rgba(255,255,255,0.95);
+  border-radius:20px;padding:26px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.95);
+}
 .entry-flow ol{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.entry-flow li{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:flex-start;position:relative}
+.entry-flow li{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:center;position:relative}
 .entry-flow li + li::before{content:'';position:absolute;left:20px;top:-14px;width:2px;height:14px;background:linear-gradient(180deg,rgba(255,20,69,0.30),rgba(255,20,69,0))}
 .entry-flow .step{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;display:grid;place-items:center;font-family:Inter,sans-serif;font-weight:800;font-size:14px;box-shadow:0 12px 24px rgba(230,33,42,0.18)}
-.entry-flow .txt{font-size:14px;color:var(--ink-2);line-height:1.7;padding-top:2px}
+.entry-flow li.done::before{background:linear-gradient(180deg,rgba(255,20,69,0.30),rgba(34,197,94,0.24))}
+.entry-flow li.done .step{background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 12px 24px rgba(34,197,94,0.18);font-size:16px}
+.entry-flow .txt{font-size:14px;color:var(--ink-2);line-height:1.7;padding-top:0}
 
 @media (max-width:1080px){
   .intro,.entry{grid-template-columns:1fr;padding:32px}
@@ -283,18 +379,193 @@
   .act-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .act-grid::before{display:none}
   .act-feat{grid-row:auto;grid-column:span 2;min-height:280px}
-  .research-experts{grid-template-columns:1fr}
+  .expert-page{grid-template-columns:1fr}
   .research-expert{grid-template-columns:180px 1fr}
 }
 @media (max-width:640px){
   .pos-grid,.act-grid{grid-template-columns:1fr}
+  body[data-page="ai-research"] .pos-card{padding:34px 22px 22px 126px}
   .act-feat{grid-column:auto}
-  .research-experts{grid-template-columns:1fr;gap:16px}
+  .expert-page{grid-template-columns:1fr;gap:16px}
   .research-expert{grid-template-columns:1fr;min-height:auto}
   .member-photo{height:240px}
-  .member-photo .img{background-size:auto 92%}
+  .member-photo .img{height:248px;left:0;right:0;background-size:auto 100%}
+  .member-body{border-radius:0 0 24px 24px}
   .member-body{padding:22px 22px 26px}
   .member-body h4{font-size:22px}
+}
+
+/* 计划走访交流企业 — section background same as homepage 合作客户 */
+.visit-section{
+  position:relative;isolation:isolate;
+  background:linear-gradient(180deg, rgba(251,251,253,0.92) 0%, rgba(245,248,252,0.88) 100%);
+}
+.visit-section::before{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:url('assets/bg/section-clients.jpg') center / 100% auto no-repeat;
+  opacity:0.25;pointer-events:none;
+}
+
+/* ═══════════ Premium polish & clearer hierarchy (page-scoped) ═══════════ */
+body[data-page="ai-research"] .section{padding:54px 0}
+
+/* Section headers — refined flanking accents + tighter type scale */
+body[data-page="ai-research"] .section-head{margin-bottom:26px}
+body[data-page="ai-research"] .section-head h2{
+  font-size:32px;font-weight:800;letter-spacing:0.01em;color:var(--ink);gap:16px;
+}
+body[data-page="ai-research"] .section-head h2 .bar{
+  width:26px;height:3px;border-radius:999px;border:0;box-shadow:none;
+  background:linear-gradient(90deg, rgba(255,20,69,0), var(--red));
+}
+body[data-page="ai-research"] .section-head h2 .bar:last-child{
+  background:linear-gradient(90deg, var(--red), rgba(255,20,69,0));
+}
+body[data-page="ai-research"] .section-head p{
+  font-size:15.5px;color:var(--muted-2);margin-top:8px;letter-spacing:0.02em;font-weight:400;
+}
+@media (max-width:640px){
+  body[data-page="ai-research"] .section-head{margin-bottom:22px}
+}
+
+/* 关于 AI 智研会 — elevated statement block */
+body[data-page="ai-research"] #intro .intro{
+  position:relative;max-width:920px;margin:0 auto;
+  padding:58px 56px 52px!important;
+  background:linear-gradient(160deg,#ffffff 0%,#fbfcff 58%,#fff6f8 100%);
+  border:1px solid rgba(20,32,56,0.06);
+  box-shadow:none;
+}
+body[data-page="ai-research"] #intro .intro::before{
+  content:'';position:absolute;left:50%;top:30px;transform:translateX(-50%);
+  width:48px;height:4px;border-radius:999px;
+  background:linear-gradient(90deg,var(--red),var(--red-soft));
+}
+body[data-page="ai-research"] #intro .intro p{
+  font-size:20px!important;line-height:1.9!important;color:var(--ink-2)!important;
+  font-weight:500;max-width:760px;margin:14px auto 0!important;
+}
+
+/* 核心定位 — layered surface + reveal accent stroke + deeper icon */
+body[data-page="ai-research"] .pos-card{
+  background:linear-gradient(180deg,#ffffff 0%,#fcfdff 100%);
+  border:1px solid rgba(20,32,56,0.06);
+  box-shadow:0 10px 30px rgba(20,32,56,0.05);
+  min-height:150px;
+  padding:32px 22px 22px 126px;
+  overflow:visible;
+}
+body[data-page="ai-research"] .pos-card::after{
+  content:'';position:absolute;left:0;top:0;width:100%;height:3px;z-index:2;
+  background:linear-gradient(90deg,var(--red),var(--red-soft));
+  transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+body[data-page="ai-research"] .pos-card:hover::after{transform:scaleX(1)}
+body[data-page="ai-research"] .pos-card .ic{
+  position:absolute;left:14px;top:-18px;z-index:3;
+  width:92px;height:92px;border-radius:0;margin:0;
+  background:transparent;border:0;color:inherit;font-size:0;
+  box-shadow:none;
+}
+body[data-page="ai-research"] .pos-card .ic img{
+  width:88px;height:88px;object-fit:contain;display:block;
+}
+body[data-page="ai-research"] .pos-card:hover .ic{transform:translateY(-5px) rotate(-4deg) scale(1.06)}
+body[data-page="ai-research"] .pos-card h4{font-size:20px}
+body[data-page="ai-research"] .pos-card p{margin-top:8px;font-size:13px;line-height:1.65}
+
+/* Activity feature icon — soft depth */
+body[data-page="ai-research"] .act-feat .glyph{box-shadow:0 14px 28px rgba(230,33,42,0.12)}
+
+/* 核心成员 — sharpen text hierarchy */
+body[data-page="ai-research"] .member-body h4{font-size:22px}
+body[data-page="ai-research"] .member-body .role{color:var(--muted-3);font-weight:700}
+
+/* 准入机制 — glass panels */
+body[data-page="ai-research"] .entry{box-shadow:inset 0 1px 0 rgba(255,255,255,0.95)}
+body[data-page="ai-research"] .entry-conditions,
+body[data-page="ai-research"] .entry-flow{box-shadow:inset 0 1px 0 rgba(255,255,255,0.95)}
+
+/* 核心定位 — background same as homepage 资质认证 */
+body[data-page="ai-research"] .section[data-screen-label="03 Position"]::before{
+  background-image:url('assets/bg/section-cert.jpg')!important;
+  background-size:100% auto!important;
+  opacity:0.25!important;
+}
+/* 准入机制 — background same as homepage 客户案例 */
+body[data-page="ai-research"] .section[data-screen-label="07 Entry"]{
+  position:relative;isolation:isolate;
+  background:linear-gradient(180deg, rgba(251,251,253,0.92) 0%, rgba(245,248,252,0.88) 100%);
+}
+body[data-page="ai-research"] .section[data-screen-label="07 Entry"]::before{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:url('assets/bg/section-cases.png') center / 100% auto no-repeat;
+  opacity:0.25;pointer-events:none;
+}
+
+/* Bottom CTA banner */
+#cta{padding:140px 0 0 !important; margin-bottom: 0 !important; overflow:visible; background:transparent !important;}
+.cta-banner{
+  position:relative;color:#fff;
+  background:linear-gradient(120deg, #FC2412 0%, #FF1445 55%, #E31136 100%);
+  overflow:visible;
+}
+.cta-banner::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(620px 420px at 88% 120%, rgba(255,255,255,0.30), rgba(255,255,255,0) 60%),
+    radial-gradient(520px 380px at 12% -30%, rgba(255,255,255,0.22), rgba(255,255,255,0) 62%),
+    radial-gradient(360px 360px at 60% 50%, rgba(255,80,90,0.30), rgba(255,80,90,0) 70%);
+}
+.cta-deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cta-deco span{position:absolute;display:block}
+.cta-deco span:nth-child(1){width:220px;height:220px;right:30%;top:-90px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.28)}
+.cta-deco span:nth-child(2){width:130px;height:130px;left:8%;bottom:-60px;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.32), rgba(255,255,255,0) 70%)}
+.cta-deco span:nth-child(3){width:64px;height:64px;left:44%;top:22%;border:1.5px solid rgba(255,255,255,0.30);transform:rotate(28deg)}
+.cta-deco span:nth-child(4){width:26px;height:26px;left:18%;top:30%;background:rgba(255,255,255,0.16);transform:rotate(45deg)}
+.cta-deco span:nth-child(5){right:44%;bottom:20%;width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-bottom:36px solid rgba(255,255,255,0.16);transform:rotate(-12deg)}
+.cta-banner-inner{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:flex-start;gap:18px;
+  padding:34px 24px;min-height:128px;
+}
+.cta-banner-copy h3{
+  margin:0;font-size:30px;font-weight:700;line-height:1.3;color:#fff;letter-spacing:0.02em;
+}
+.cta-banner-copy p{margin:12px 0 0;font-size:15px;color:rgba(255,255,255,0.88)}
+.cta-banner .actions{position:relative;z-index:3}
+.cta-banner .btn-white{
+  background:transparent;color:#fff;
+  padding:13px 30px;font-size:16px;font-weight:700;
+  border-radius:999px;letter-spacing:0.02em;
+  border:1.5px solid rgba(255,255,255,0.9);box-shadow:none;
+  transition:background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.cta-banner .btn-white i{margin-left:6px;transition:transform .25s ease}
+.cta-banner .btn-white:hover{
+  background:#fff;color:#E31136;border-color:#fff;
+  box-shadow:0 10px 24px rgba(15,15,40,0.22);transform:translateY(-2px);
+}
+.cta-banner .btn-white:hover i{transform:translateX(4px)}
+.cta-banner-illust{
+  position:absolute;right:3%;bottom:0;
+  width:auto;height:320px;
+  pointer-events:none;z-index:2;
+  filter:drop-shadow(0 16px 30px rgba(20,32,56,0.22));
+}
+@media (max-width:1080px){
+  .cta-banner-illust{height:280px;right:1%}
+  #cta{padding-top:120px !important}
+}
+@media (max-width:820px){
+  .cta-banner-illust{height:230px;right:0;opacity:0.92}
+  .cta-banner-copy{max-width:58%}
+  #cta{padding-top:96px !important}
+}
+@media (max-width:640px){
+  .cta-banner-copy{max-width:none}
+  .cta-banner-copy h3{font-size:24px}
+  .cta-banner-illust{display:none}
 }
 </style>
 </head>
@@ -304,13 +575,12 @@
 
 <section class="hero ai-research-hero" data-screen-label="01 Hero">
   <div class="container reveal in">
-    <span class="hero-eyebrow"><span class="dot"></span>AI 智研会</span>
     <h1>AI 智研会</h1>
     <p class="hero-sub">产业 AI 实践高端智囊社群，共探 AI 落地最佳实践</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#intro">立即加入 <i class="fas fa-arrow-right"></i></a>
-      <a class="btn btn-ghost" href="#intro">了解更多</a>
-    </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary js-trial-btn" href="#" data-type="consult">立即加入 <i class="fas fa-arrow-right"></i></a>
+        <a class="btn btn-ghost" href="#intro">了解更多</a>
+      </div>
   </div>
 </section>
 
@@ -333,9 +603,12 @@
       <p>搭建 AI 领域资源与服务枢纽</p>
     </div>
     <div class="pos-grid reveal delay-1">
-      <div class="pos-card" data-step="01"><div class="ic"><i class="fas fa-brain"></i></div><h4>高端智库</h4><p>汇聚 AI 领域顶尖专家，提供权威行业洞察、前瞻趋势研判，为企业 AI 战略决策提供智力支持。</p></div>
-      <div class="pos-card" data-step="02"><div class="ic"><i class="fas fa-flask"></i></div><h4>实战研究所</h4><p>深度解析真实业务场景，沉淀可复用落地方法论，通过“AI问诊”工作坊解决企业应用痛点。</p></div>
-      <div class="pos-card" data-step="03"><div class="ic"><i class="fas fa-network-wired"></i></div><h4>生态连接器</h4><p>链动技术商与需求方，构建 AI 产业生态圈，促进产学研深度融合。</p></div>
+      <div class="pos-card" data-step="01"><div class="ic"><img src="assets/ai-research/position-1.png" alt=""></div><h4>高端智库</h4><p>汇聚 AI 领域顶尖专家，提供权威行业洞察、前瞻趋势研判，为企业 AI 战略决策提供智力支持。</p></div>
+      <div class="pos-card" data-step="02"><div class="ic"><img src="assets/ai-research/position-2.png" alt=""></div><h4>实战研究所</h4><p>深度解析真实业务场景，沉淀可复用落地方法论，通过“AI问诊”工作坊解决企业应用痛点。</p></div>
+      <div class="pos-card" data-step="03"><div class="ic"><img src="assets/ai-research/position-3.png" alt=""></div><h4>生态连接器</h4><p>链动技术商与需求方，构建 AI 产业生态圈，促进产学研深度融合。</p></div>
+    </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="consult" style="padding: 0 40px; height: 48px; font-size: 16px;">预约专家咨询 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
     </div>
   </div>
 </section>
@@ -356,16 +629,31 @@
       <div class="act-mini"><div class="ic"><i class="fas fa-comments"></i></div><h4>私域社群</h4><p>持续连接同行专家与生态伙伴。</p></div>
       <div class="act-mini"><div class="ic"><i class="fas fa-route"></i></div><h4>标杆访学</h4><p>链接产业一线 AI 实践样本。</p></div>
     </div>
-    <div class="section-head reveal" style="margin-top:64px;margin-bottom:0"><h2><span class="bar"></span>计划走访交流企业<span class="bar"></span></h2><p>持续走进产业一线，连接真实 AI 实践现场</p></div>
-    <div class="marquee-mask visit-marquee reveal delay-1" aria-label="计划走访交流企业">
-      <div class="visit-row">
-        <span class="visit-chip">字节跳动</span><span class="visit-chip">三一重工</span><span class="visit-chip">科大讯飞</span><span class="visit-chip">智谱AI</span><span class="visit-chip">歌尔股份</span><span class="visit-chip">腾讯</span><span class="visit-chip">泸州老窖</span><span class="visit-chip">宇树科技</span><span class="visit-chip">中国广核</span><span class="visit-chip">51Talk</span><span class="visit-chip">东风汽车</span><span class="visit-chip">大兴机场</span>
-        <span class="visit-chip">字节跳动</span><span class="visit-chip">三一重工</span><span class="visit-chip">科大讯飞</span><span class="visit-chip">智谱AI</span><span class="visit-chip">歌尔股份</span><span class="visit-chip">腾讯</span><span class="visit-chip">泸州老窖</span><span class="visit-chip">宇树科技</span><span class="visit-chip">中国广核</span><span class="visit-chip">51Talk</span><span class="visit-chip">东风汽车</span><span class="visit-chip">大兴机场</span>
-      </div>
-      <div class="visit-row rev">
-        <span class="visit-chip">智谱AI</span><span class="visit-chip">腾讯</span><span class="visit-chip">宇树科技</span><span class="visit-chip">中国广核</span><span class="visit-chip">大兴机场</span><span class="visit-chip">科大讯飞</span><span class="visit-chip">三一重工</span><span class="visit-chip">东风汽车</span><span class="visit-chip">歌尔股份</span><span class="visit-chip">字节跳动</span><span class="visit-chip">泸州老窖</span><span class="visit-chip">51Talk</span>
-        <span class="visit-chip">智谱AI</span><span class="visit-chip">腾讯</span><span class="visit-chip">宇树科技</span><span class="visit-chip">中国广核</span><span class="visit-chip">大兴机场</span><span class="visit-chip">科大讯飞</span><span class="visit-chip">三一重工</span><span class="visit-chip">东风汽车</span><span class="visit-chip">歌尔股份</span><span class="visit-chip">字节跳动</span><span class="visit-chip">泸州老窖</span><span class="visit-chip">51Talk</span>
-      </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="material" style="padding: 0 40px; height: 48px; font-size: 16px;">获取详细活动日历 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="section visit-section" data-screen-label="04b Visits">
+  <div class="container">
+    <div class="section-head reveal"><h2><span class="bar"></span>计划走访交流企业<span class="bar"></span></h2><p>持续走进产业一线，连接真实 AI 实践现场</p></div>
+    <div class="visit-grid reveal delay-1" aria-label="计划走访交流企业">
+      <span class="visit-chip">字节跳动</span>
+      <span class="visit-chip">三一重工</span>
+      <span class="visit-chip">科大讯飞</span>
+      <span class="visit-chip">智谱AI</span>
+      <span class="visit-chip">歌尔股份</span>
+      <span class="visit-chip">腾讯</span>
+      <span class="visit-chip">泸州老窖</span>
+      <span class="visit-chip">宇树科技</span>
+      <span class="visit-chip">中国广核</span>
+      <span class="visit-chip">51Talk</span>
+      <span class="visit-chip">东风汽车</span>
+      <span class="visit-chip">大兴机场</span>
+    </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="consult" style="padding: 0 40px; height: 48px; font-size: 16px;">申请参与走访 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
     </div>
   </div>
 </section>
@@ -376,94 +664,219 @@
       <h2><span class="bar"></span>核心成员<span class="bar"></span></h2>
       <p>行业顶尖专家领衔，提供权威智力支持</p>
     </div>
-    <div class="research-experts reveal delay-1" id="research-experts">
-      <div class="research-expert">
-        <div class="member-photo">
-          <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
+    <div class="experts-carousel-wrap reveal delay-1">
+      <button class="expert-nav-btn prev" id="expert-prev"><i class="fas fa-chevron-left"></i></button>
+      <div class="experts-carousel" id="experts-carousel">
+        <div class="expert-page">
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>刘院长</h4></div>
+              <div class="role">原英孚创始人 · 前智谱AI首席生态官</div>
+              <p class="blurb">拥有 20 年教育及 AI 行业经验，曾主导多个大型 AI 教育产品研发与落地。</p>
+              <div class="skills"><span class="skill">大模型应用</span><span class="skill">AI 教育</span><span class="skill">数字化转型</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>陈老师</h4></div>
+              <div class="role">科大讯飞 · 数字化转型副总经理</div>
+              <p class="blurb">资深 AI 产品专家，主导过多个省级数字化转型项目。</p>
+              <div class="skills"><span class="skill">智能语音</span><span class="skill">企业服务</span><span class="skill">产品战略</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/3.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>韩老师</h4></div>
+              <div class="role">盘如科技技术 VP · 前阿里云技术总监</div>
+              <p class="blurb">15 年云计算与 AI 架构经验，精通分布式系统、机器学习平台架构及大规模数据处理。</p>
+              <div class="skills"><span class="skill">系统架构</span><span class="skill">机器学习</span><span class="skill">云计算</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/4.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>冯老师</h4></div>
+              <div class="role">百度 AI 技术生态部 · 资深算法架构师</div>
+              <p class="blurb">专注计算机视觉与深度学习领域，主导研发的图像识别算法在多个实际场景中达到行业领先水平。</p>
+              <div class="skills"><span class="skill">计算机视觉</span><span class="skill">深度学习</span><span class="skill">算法优化</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/5.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>蔡老师</h4></div>
+              <div class="role">腾讯云 · 首席 AI 布道师</div>
+              <p class="blurb">长期致力于 AI 技术普及与生态建设，拥有丰富的技术培训与企业咨询经验。</p>
+              <div class="skills"><span class="skill">生成式 AI</span><span class="skill">知识图谱</span><span class="skill">技术布道</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/6.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>马老师</h4></div>
+              <div class="role">字节跳动 · 自动驾驶实验室高级研究员</div>
+              <p class="blurb">在强化学习与多智能体系统领域有突出贡献，具备极强的技术攻坚能力。</p>
+              <div class="skills"><span class="skill">强化学习</span><span class="skill">自动驾驶</span><span class="skill">多智能体</span></div>
+            </div>
+          </div>
         </div>
-        <div class="member-body">
-          <div class="head"><h4>刘院长</h4></div>
-          <div class="role">原英孚创始人 · 前智谱AI首席生态官</div>
-          <p class="blurb">拥有 20 年教育及 AI 行业经验，曾主导多个大型 AI 教育产品研发与落地。</p>
-          <div class="skills"><span class="skill">大模型应用</span><span class="skill">AI 教育</span><span class="skill">数字化转型</span></div>
+        <div class="expert-page">
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>艾老师</h4></div>
+              <div class="role">资深算法工程师 · 10 年算法经验</div>
+              <p class="blurb">近 2 年落地多个大模型实战项目，精通自然语言处理与推荐系统。</p>
+              <div class="skills"><span class="skill">NLP</span><span class="skill">推荐系统</span><span class="skill">大模型落地</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>李老师</h4></div>
+              <div class="role">微软亚洲研究院 · 资深研究员</div>
+              <p class="blurb">在人工智能基础理论研究方面取得多项突破，研究方向涵盖多模态学习、联邦学习等前沿领域。</p>
+              <div class="skills"><span class="skill">多模态学习</span><span class="skill">基础理论</span><span class="skill">联邦学习</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>刘院长</h4></div>
+              <div class="role">原英孚创始人 · 前智谱AI首席生态官</div>
+              <p class="blurb">拥有 20 年教育及 AI 行业经验，曾主导多个大型 AI 教育产品研发与落地。</p>
+              <div class="skills"><span class="skill">大模型应用</span><span class="skill">AI 教育</span><span class="skill">数字化转型</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>陈老师</h4></div>
+              <div class="role">科大讯飞 · 数字化转型副总经理</div>
+              <p class="blurb">资深 AI 产品专家，主导过多个省级数字化转型项目。</p>
+              <div class="skills"><span class="skill">智能语音</span><span class="skill">企业服务</span><span class="skill">产品战略</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/3.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>韩老师</h4></div>
+              <div class="role">盘如科技技术 VP · 前阿里云技术总监</div>
+              <p class="blurb">15 年云计算与 AI 架构经验，精通分布式系统、机器学习平台架构及大规模数据处理。</p>
+              <div class="skills"><span class="skill">系统架构</span><span class="skill">机器学习</span><span class="skill">云计算</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/4.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>冯老师</h4></div>
+              <div class="role">百度 AI 技术生态部 · 资深算法架构师</div>
+              <p class="blurb">专注计算机视觉与深度学习领域，主导研发的图像识别算法在多个实际场景中达到行业领先水平。</p>
+              <div class="skills"><span class="skill">计算机视觉</span><span class="skill">深度学习</span><span class="skill">算法优化</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="expert-page">
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/5.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>蔡老师</h4></div>
+              <div class="role">腾讯云 · 首席 AI 布道师</div>
+              <p class="blurb">长期致力于 AI 技术普及与生态建设，拥有丰富的技术培训与企业咨询经验。</p>
+              <div class="skills"><span class="skill">生成式 AI</span><span class="skill">知识图谱</span><span class="skill">技术布道</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/6.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>马老师</h4></div>
+              <div class="role">字节跳动 · 自动驾驶实验室高级研究员</div>
+              <p class="blurb">在强化学习与多智能体系统领域有突出贡献，具备极强的技术攻坚能力。</p>
+              <div class="skills"><span class="skill">强化学习</span><span class="skill">自动驾驶</span><span class="skill">多智能体</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>艾老师</h4></div>
+              <div class="role">资深算法工程师 · 10 年算法经验</div>
+              <p class="blurb">近 2 年落地多个大模型实战项目，精通自然语言处理与推荐系统。</p>
+              <div class="skills"><span class="skill">NLP</span><span class="skill">推荐系统</span><span class="skill">大模型落地</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>李老师</h4></div>
+              <div class="role">微软亚洲研究院 · 资深研究员</div>
+              <p class="blurb">在人工智能基础理论研究方面取得多项突破，研究方向涵盖多模态学习、联邦学习等前沿领域。</p>
+              <div class="skills"><span class="skill">多模态学习</span><span class="skill">基础理论</span><span class="skill">联邦学习</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>刘院长</h4></div>
+              <div class="role">原英孚创始人 · 前智谱AI首席生态官</div>
+              <p class="blurb">拥有 20 年教育及 AI 行业经验，曾主导多个大型 AI 教育产品研发与落地。</p>
+              <div class="skills"><span class="skill">大模型应用</span><span class="skill">AI 教育</span><span class="skill">数字化转型</span></div>
+            </div>
+          </div>
+          <div class="research-expert">
+            <div class="member-photo">
+              <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
+            </div>
+            <div class="member-body">
+              <div class="head"><h4>陈老师</h4></div>
+              <div class="role">科大讯飞 · 数字化转型副总经理</div>
+              <p class="blurb">资深 AI 产品专家，主导过多个省级数字化转型项目。</p>
+              <div class="skills"><span class="skill">智能语音</span><span class="skill">企业服务</span><span class="skill">产品战略</span></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="research-expert">
-        <div class="member-photo">
-          <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
-        </div>
-        <div class="member-body">
-          <div class="head"><h4>陈老师</h4></div>
-          <div class="role">科大讯飞 · 数字化转型副总经理</div>
-          <p class="blurb">资深 AI 产品专家，主导过多个省级数字化转型项目。</p>
-          <div class="skills"><span class="skill">智能语音</span><span class="skill">企业服务</span><span class="skill">产品战略</span></div>
-        </div>
-      </div>
-      <div class="research-expert">
-        <div class="member-photo">
-          <div class="img" style="background-image:url('assets/teachers/3.png')"></div>
-        </div>
-        <div class="member-body">
-          <div class="head"><h4>韩老师</h4></div>
-          <div class="role">盘如科技技术 VP · 前阿里云技术总监</div>
-          <p class="blurb">15 年云计算与 AI 架构经验，精通分布式系统、机器学习平台架构及大规模数据处理。</p>
-          <div class="skills"><span class="skill">系统架构</span><span class="skill">机器学习</span><span class="skill">云计算</span></div>
-        </div>
-      </div>
-      <div class="research-expert">
-        <div class="member-photo">
-          <div class="img" style="background-image:url('assets/teachers/4.png')"></div>
-        </div>
-        <div class="member-body">
-          <div class="head"><h4>冯老师</h4></div>
-          <div class="role">百度 AI 技术生态部 · 资深算法架构师</div>
-          <p class="blurb">专注计算机视觉与深度学习领域，主导研发的图像识别算法在多个实际场景中达到行业领先水平。</p>
-          <div class="skills"><span class="skill">计算机视觉</span><span class="skill">深度学习</span><span class="skill">算法优化</span></div>
-        </div>
-      </div>
-      <div class="research-expert">
-        <div class="member-photo">
-          <div class="img" style="background-image:url('assets/teachers/5.png')"></div>
-        </div>
-        <div class="member-body">
-          <div class="head"><h4>蔡老师</h4></div>
-          <div class="role">腾讯云 · 首席 AI 布道师</div>
-          <p class="blurb">长期致力于 AI 技术普及与生态建设，拥有丰富的技术培训与企业咨询经验。</p>
-          <div class="skills"><span class="skill">生成式 AI</span><span class="skill">知识图谱</span><span class="skill">技术布道</span></div>
-        </div>
-      </div>
-      <div class="research-expert">
-        <div class="member-photo">
-          <div class="img" style="background-image:url('assets/teachers/6.png')"></div>
-        </div>
-        <div class="member-body">
-          <div class="head"><h4>马老师</h4></div>
-          <div class="role">字节跳动 · 自动驾驶实验室高级研究员</div>
-          <p class="blurb">在强化学习与多智能体系统领域有突出贡献，具备极强的技术攻坚能力。</p>
-          <div class="skills"><span class="skill">强化学习</span><span class="skill">自动驾驶</span><span class="skill">多智能体</span></div>
-        </div>
-      </div>
-      <div class="research-expert">
-        <div class="member-photo">
-          <div class="img" style="background-image:url('assets/teachers/1.png')"></div>
-        </div>
-        <div class="member-body">
-          <div class="head"><h4>艾老师</h4></div>
-          <div class="role">资深算法工程师 · 10 年算法经验</div>
-          <p class="blurb">近 2 年落地多个大模型实战项目，精通自然语言处理与推荐系统。</p>
-          <div class="skills"><span class="skill">NLP</span><span class="skill">推荐系统</span><span class="skill">大模型落地</span></div>
-        </div>
-      </div>
-      <div class="research-expert">
-        <div class="member-photo">
-          <div class="img" style="background-image:url('assets/teachers/2.png')"></div>
-        </div>
-        <div class="member-body">
-          <div class="head"><h4>李老师</h4></div>
-          <div class="role">微软亚洲研究院 · 资深研究员</div>
-          <p class="blurb">在人工智能基础理论研究方面取得多项突破，研究方向涵盖多模态学习、联邦学习等前沿领域。</p>
-          <div class="skills"><span class="skill">多模态学习</span><span class="skill">基础理论</span><span class="skill">联邦学习</span></div>
-        </div>
+      <button class="expert-nav-btn next" id="expert-next"><i class="fas fa-chevron-right"></i></button>
+      <div class="expert-dots" id="expert-dots">
+        <button class="dot active" data-index="0"></button>
+        <button class="dot" data-index="1"></button>
+        <button class="dot" data-index="2"></button>
       </div>
     </div>
   </div>
@@ -503,6 +916,9 @@
         <span class="partner-name">清华五道口 AI 项目<br>&amp; 数字中国项目</span>
       </div>
     </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="consult" style="padding: 0 40px; height: 48px; font-size: 16px;">申请成为生态伙伴 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
+    </div>
   </div>
 </section>
 
@@ -528,16 +944,69 @@
           <li><span class="step">02</span><span class="txt">智研会秘书处 1 对 1 沟通核实</span></li>
           <li><span class="step">03</span><span class="txt">核心成员评审委员会审议</span></li>
           <li><span class="step">04</span><span class="txt">通过审议后获得正式邀请函</span></li>
-          <li><span class="step">05</span><span class="txt">参与下一次定期活动，正式融入社群</span></li>
+          <li class="done"><span class="step"><i class="fas fa-check"></i></span><span class="txt">参与下一次定期活动，正式融入社群</span></li>
         </ol>
       </div>
     </div>
   </div>
 </section>
 
+<section class="section alt" id="cta" data-screen-label="08 CTA">
+  <div class="cta-banner reveal">
+    <div class="cta-deco"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="container cta-banner-inner">
+      <div class="cta-banner-copy">
+        <h3>加入 AI 智研会，与行业精英共探 AI 落地最佳实践</h3>
+        <p>提交申请信息，我们的专属顾问将会在1个工作日内与您联系，为您介绍入会详情。</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white js-trial-btn" href="#" data-type="consult">立即申请加入 <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <img class="cta-banner-illust" src="assets/bg/cta-banner.png" alt="">
+    </div>
+  </div>
+</section>
 
 <footer class="site-footer" id="site-footer"></footer>
 <aside class="side" id="site-side"></aside>
 <script src="assets/site.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.getElementById('experts-carousel');
+  const prevBtn = document.getElementById('expert-prev');
+  const nextBtn = document.getElementById('expert-next');
+  const dots = document.querySelectorAll('#expert-dots .dot');
+  
+  if(!carousel) return;
+
+  function updateDots() {
+    const scrollLeft = carousel.scrollLeft;
+    const width = carousel.offsetWidth;
+    const index = Math.round(scrollLeft / width);
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  carousel.addEventListener('scroll', updateDots);
+
+  prevBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -carousel.offsetWidth, behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: carousel.offsetWidth, behavior: 'smooth' });
+  });
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      const index = parseInt(e.target.getAttribute('data-index'));
+      carousel.scrollTo({ left: index * carousel.offsetWidth, behavior: 'smooth' });
+    });
+  });
+});
+</script>
+
 </body>
 </html>

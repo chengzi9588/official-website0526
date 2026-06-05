@@ -9,60 +9,108 @@
 <style>
 .assessment-hero{
   min-height:500px;
-  background:#f8fbfd url('assets/assessment-hero.png') center top / 2105px 500px no-repeat;
+  background:#f8fbfd url('assets/hero/assessment-hero.png') center / cover no-repeat;
 }
 .assessment-hero::before{display:none}
+body[data-page="assessment"]{
+  width:100%;
+  min-width:0;
+  overflow-x:hidden;
+}
+body[data-page="assessment"] .container{
+  max-width:1200px;
+}
+body[data-page="assessment"] .section{
+  padding:56px 0;
+}
+section[data-screen-label="03 Roles"]{
+  background:linear-gradient(180deg, rgba(251,251,253,0.92) 0%, rgba(245,248,252,0.88) 100%);
+}
+section[data-screen-label="03 Roles"]::before{
+  background:url('assets/bg/section-clients.jpg') center / 100% auto no-repeat!important;
+  opacity:0.25!important;
+}
+section[data-screen-label="05 Platform"]{
+  background:linear-gradient(180deg, rgba(251,251,253,0.92) 0%, rgba(245,248,252,0.88) 100%);
+}
+section[data-screen-label="05 Platform"]::before{
+  background:url('assets/bg/section-courses.jpg') center / cover no-repeat!important;
+  opacity:0.45!important;
+}
 /* Section 2 — Tech advantages: hexagonal/staggered grid */
 .tech-grid{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;
+  padding-top:28px;
 }
 .tech-card{
-  position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 22px;
-  text-align:left;transition:transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s;overflow:hidden;
+  position:relative;background:#fff;border:1px solid rgba(20,32,56,0.06);border-radius:18px;
+  min-height:168px;padding:34px 112px 26px 24px;
+  text-align:left;transition:transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s,border-color .35s;overflow:visible;
+}
+.tech-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(255,20,69,0.08), transparent 48%),
+    linear-gradient(180deg,#fff 0%,#fbfcff 100%);
+  pointer-events:none;z-index:0;
 }
 .tech-card::after{
   content:attr(data-num);position:absolute;right:18px;bottom:8px;font-family:Inter,sans-serif;
   font-weight:800;font-size:54px;color:rgba(230,33,42,0.06);line-height:1;letter-spacing:-0.04em;pointer-events:none;
   transition:color .3s, transform .35s ease;
 }
-.tech-card:hover{transform:translateY(-8px);box-shadow:0 22px 48px rgba(20,32,56,0.10)}
+.tech-card:hover{transform:translateY(-8px);box-shadow:none;border-color:rgba(230,33,42,0.10)}
 .tech-card:hover::after{color:rgba(230,33,42,0.12);transform:scale(1.1)}
 .tech-card .ic{
-  width:48px;height:48px;border-radius:14px;
-  background:linear-gradient(135deg,var(--red),var(--red-soft));color:#fff;
-  display:grid;place-items:center;font-size:20px;margin-bottom:16px;
-  transition:transform .35s cubic-bezier(0.34,1.56,0.64,1);
+  position:absolute;right:14px;top:-18px;z-index:2;
+  width:96px;height:96px;border-radius:0;background:transparent;color:inherit;
+  display:grid;place-items:center;margin:0;
+  transition:transform .55s cubic-bezier(0.34,1.56,0.64,1);
 }
-.tech-card:hover .ic{transform:rotate(-8deg) scale(1.08)}
-.tech-card h4{margin:0;font-size:16px;font-weight:700;color:var(--ink-2);position:relative;z-index:1}
-.tech-card p{margin:6px 0 0;font-size:13px;line-height:1.7;color:var(--muted-2);position:relative;z-index:1}
+.tech-card .ic img{
+  width:92px;height:92px;object-fit:contain;display:block;
+  transition:filter .35s ease;
+}
+.tech-card:hover .ic{transform:translateY(-5px) rotate(-4deg) scale(1.06)}
+.tech-card h4{margin:0;font-size:19px;font-weight:800;color:var(--ink-2);position:relative;z-index:1}
+.tech-card p{margin:10px 0 0;font-size:14px;line-height:1.75;color:var(--muted-2);position:relative;z-index:1}
 
 /* Section 3 — Role coverage: chips + center label */
 .roles-cluster{
-  position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;
+  position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;
 }
 .role-chip{
   --rc:var(--red-deep);
   --rc-soft:var(--red-soft);
   --rc-tint:rgba(255,20,69,0.08);
   position:relative;
-  background:#fff;border:1px solid rgba(20,32,56,0.06);
+  background:rgba(255,255,255,0.55);
+  border:1px solid rgba(255,255,255,1);
   border-radius:20px;
-  padding:30px 22px 26px;text-align:center;
+  padding:38px 28px 34px;text-align:center;
   overflow:hidden;isolation:isolate;cursor:default;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.95);
   transition:transform .45s cubic-bezier(0.16,1,0.3,1),
              box-shadow .45s ease,
-             border-color .45s ease;
+             border-color .45s ease,
+             background .45s ease;
+}
+.role-chip::before{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,0.62),rgba(255,255,255,0.18));
 }
 .role-chip:hover{
   transform:translateY(-8px);
-  box-shadow:0 22px 50px rgba(20,32,56,0.10);
+  background:rgba(255,255,255,0.78);
+  border-color:rgba(255,255,255,0.98);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.98);
 }
 /* Icon disk with rotating dashed halo on hover */
 .role-chip .ic{
   position:relative;
-  width:72px;height:72px;border-radius:50%;
-  margin:0 auto 16px;
+  width:82px;height:82px;border-radius:50%;
+  margin:0 auto 18px;
   display:grid;place-items:center;
   background:var(--rc-tint);color:var(--rc);
   font-size:28px;
@@ -71,27 +119,29 @@
 }
 .role-chip .ic::before{
   content:'';position:absolute;inset:-7px;border-radius:50%;
-  border:2px dashed var(--rc);opacity:0;
+  border:2px dashed #d9dde6;opacity:0;
   animation:role-spin 8s linear infinite paused;
   transition:opacity .35s ease;
 }
 @keyframes role-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .role-chip:hover .ic{transform:scale(1.08) rotate(-6deg)}
 .role-chip:hover .ic::before{opacity:0.45;animation-play-state:running}
+.role-chip .ic img{width:78px;height:78px;object-fit:contain;display:block}
 /* Title with growing underline */
 .role-chip h5{
-  position:relative;margin:0 0 6px;
-  font-size:16px;font-weight:800;color:var(--ink-2);letter-spacing:0.02em;
-  transition:color .35s ease;display:inline-block;
+  position:relative;margin:0 0 18px;
+  font-size:22px;font-weight:800;color:var(--ink-2);letter-spacing:0.02em;
+  transition:color .35s ease, transform .35s cubic-bezier(0.34,1.56,0.64,1);display:inline-block;
+  transform-origin:center bottom;
 }
 .role-chip h5::after{
-  content:'';position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);
+  content:'';position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);
   width:0;height:2px;border-radius:999px;
   background:linear-gradient(90deg, var(--rc), var(--rc-soft));
   transition:width .45s ease;
 }
-.role-chip:hover h5{color:var(--rc)}
-.role-chip:hover h5::after{width:40px}
+.role-chip:hover h5{color:var(--rc);transform:translateY(-6px) scale(1.08)}
+.role-chip:hover h5::after{width:28px}
 /* Role tag chips */
 .role-chip .role-tags{
   display:flex;flex-wrap:wrap;justify-content:center;gap:6px;
@@ -99,13 +149,13 @@
 }
 .role-chip .role-tags span{
   display:inline-flex;align-items:center;
-  padding:5px 11px;border-radius:999px;
+  padding:6px 12px;border-radius:999px;
   background:#f5f6fa;color:var(--muted-2);
-  font-size:12px;font-weight:600;
+  font-size:13px;font-weight:600;
   transition:background .35s ease, color .35s ease;
 }
 .role-chip:hover .role-tags span{
-  background:var(--rc-tint);color:var(--rc);
+  background:#f5f6fa;color:var(--muted-2);
   animation:role-tag-pop .55s ease both;
 }
 .role-chip:hover .role-tags span:nth-child(1){animation-delay:0.05s}
@@ -122,7 +172,6 @@
 /* Section 4 — Scenes: tabbed accordion */
 .scene-list{
   background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;
-  box-shadow:0 14px 40px rgba(20,32,56,0.06);
 }
 .scene-item{
   display:grid;grid-template-columns:64px 1fr auto;gap:24px;align-items:center;
@@ -169,20 +218,404 @@
 .platform-show ul{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:10px;grid-template-columns:1fr 1fr}
 .platform-show ul li{font-size:14px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
 .platform-show ul li i{color:var(--red)}
+.anti-cheat-wrapper{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 0}
+.anti-cheat-box{border:none;padding:24px 0;margin:16px 0 24px;display:inline-block;background:transparent}
+.anti-cheat-list{list-style:none!important;padding:0!important;margin:0!important;display:flex!important;flex-direction:column!important;gap:24px!important}
+.anti-cheat-list li{font-size:16px!important;color:var(--ink-2)!important;display:flex!important;align-items:center!important;gap:14px!important;justify-content:flex-start!important}
+.anti-cheat-list li::before{content:'';display:block;width:6px;height:6px;background-color:#A0A0A0;border-radius:50%}
 .platform-mock{
-  position:relative;height:340px;border-radius:18px;overflow:hidden;
+  position:relative;border-radius:18px;overflow:hidden;
   background:linear-gradient(135deg,#FFF6F8,#F5F8FE);
-  border:1px solid var(--line);box-shadow:0 18px 40px rgba(20,32,56,0.08);padding:20px;
+  padding:18px;
 }
 .mock-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.mock-card{background:#fff;border-radius:12px;padding:14px;border:1px solid rgba(0,0,0,0.04);
-  box-shadow:0 4px 12px rgba(0,0,0,0.04)}
-.mock-card .l{font-size:11px;color:var(--muted-2)}
-.mock-card .v{font-size:22px;font-weight:800;color:var(--red-deep);margin-top:6px}
-.mock-bar{height:8px;border-radius:999px;background:#FFE3E9;margin-top:6px;overflow:hidden}
+.mock-card{
+  position:relative;background:#fff;border-radius:14px;padding:16px 16px 15px;overflow:hidden;
+  min-height:118px;display:flex;flex-direction:column;
+  opacity:0;transform:translateY(16px);
+  box-shadow:0 1px 3px rgba(20,32,56,0.05);
+  transition:opacity .55s ease, transform .45s cubic-bezier(0.16,1,0.3,1), box-shadow .35s ease;
+}
+.platform-show.in .mock-card{opacity:1;transform:translateY(0)}
+.platform-show.in .mock-row:nth-child(1) .mock-card:nth-child(1){transition-delay:.08s}
+.platform-show.in .mock-row:nth-child(1) .mock-card:nth-child(2){transition-delay:.16s}
+.platform-show.in .mock-row:nth-child(2) .mock-card:nth-child(1){transition-delay:.24s}
+.platform-show.in .mock-row:nth-child(2) .mock-card:nth-child(2){transition-delay:.32s}
+/* accent strip grows on hover */
+.mock-card::before{
+  content:'';position:absolute;left:0;top:0;height:100%;width:3px;
+  background:linear-gradient(180deg,var(--red),var(--red-soft));
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .4s cubic-bezier(0.16,1,0.3,1);
+}
+/* soft corner glow */
+.mock-card::after{
+  content:'';position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,20,69,0.10), transparent 70%);
+  opacity:0;transition:opacity .4s ease;pointer-events:none;
+}
+.mock-card:hover{
+  transform:translateY(-5px);transition-delay:0s;
+  box-shadow:0 16px 34px rgba(20,32,56,0.12);
+}
+.mock-card:hover::before{transform:scaleY(1)}
+.mock-card:hover::after{opacity:1}
+.mc-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mock-card .l{font-size:12px;color:var(--muted-2);font-weight:600;letter-spacing:.02em}
+.mc-ic{
+  flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  font-size:14px;color:var(--red);background:rgba(255,20,69,0.08);
+  transition:transform .35s cubic-bezier(0.34,1.56,0.64,1), background .3s ease, color .3s ease;
+}
+.mock-card:hover .mc-ic{transform:rotate(-6deg) scale(1.08);
+  background:linear-gradient(160deg,var(--red),var(--red-soft));color:#fff}
+.mock-card .v{font-size:26px;font-weight:800;color:var(--red-deep);margin-top:10px;
+  display:flex;align-items:baseline;gap:8px;transform-origin:left;
+  transition:transform .35s cubic-bezier(0.34,1.56,0.64,1)}
+.mock-card:hover .v{transform:scale(1.04)}
+.mock-card .v .delta{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;line-height:1.4}
+.mock-card .v .delta.up{color:#1B9E5A;background:rgba(27,158,90,0.12)}
+.mock-card .v .delta.up::before{content:'\2191';margin-right:2px;font-weight:800}
+.mock-card .v .delta.down{color:#1B9E5A;background:rgba(27,158,90,0.12)}
+.mock-card .v .delta.down::before{content:'\2193';margin-right:2px;font-weight:800}
+.mc-foot{margin-top:auto;padding-top:10px;font-size:11px;color:var(--muted-2);letter-spacing:.01em}
+.mock-bar{height:8px;border-radius:999px;background:#FFE3E9;margin-top:auto;overflow:hidden}
 .mock-bar > div{height:100%;background:linear-gradient(90deg,var(--red),var(--red-soft));border-radius:999px;
   animation:bar-grow 2.2s ease-out forwards;transform-origin:left;transform:scaleX(0)}
 @keyframes bar-grow{to{transform:scaleX(1)}}
+.platform-stats{
+  padding:14px;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  column-gap:10px;row-gap:10px;
+}
+.platform-stats .mock-row{display:contents}
+.platform-stats .mock-card{
+  min-height:78px;padding:12px 13px;
+  display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;
+  align-items:center;row-gap:6px;
+}
+.platform-stats .mock-row .mock-card:nth-child(2){margin-top:16px}
+.platform-stats .mc-top{display:contents}
+.platform-stats .mc-ic{
+  grid-column:2;grid-row:1 / span 2;
+  width:28px;height:28px;border-radius:8px;font-size:12px;
+}
+.platform-stats .mock-card .l{grid-column:1;grid-row:1;font-size:11px}
+.platform-stats .mock-card .v{
+  grid-column:1;grid-row:2;
+  font-size:24px;margin-top:0;gap:6px;line-height:1.1;
+}
+.platform-stats .mock-card .v .delta{padding:1px 7px}
+.platform-stats .mc-foot{
+  grid-column:1 / -1;margin-top:0;padding-top:0;
+  font-size:10px;line-height:1.4;
+}
+.platform-stats .mock-bar{
+  grid-column:1 / -1;margin-top:0;
+}
+.platform-stats .mock-chart{
+  grid-column:1 / -1;margin-top:6px;
+}
+.platform-compact{
+  padding:32px;gap:28px;align-items:center;
+}
+.platform-compact .platform-mock{
+  padding:18px!important;gap:10px!important;
+}
+.platform-compact .mock-row{
+  gap:10px;margin-bottom:10px;
+}
+.platform-compact .mock-card{
+  min-height:64px;padding:12px 14px;
+}
+.platform-compact .mock-card .l{
+  font-size:12px;line-height:1.35;
+}
+.platform-compact .mock-card .v{
+  margin-top:4px;line-height:1.35;
+}
+.platform-compact .mock-bar{
+  margin-top:6px!important;
+}
+.platform-compact .mock-chart{
+  min-height:104px!important;height:120px;
+  padding:12px;
+}
+.platform-compact .anti-cheat-wrapper{
+  padding:0;
+}
+.platform-compact .anti-cheat-wrapper h3{
+  margin:0!important;font-size:22px;
+}
+.platform-compact .anti-cheat-box{
+  padding:16px 0!important;margin:10px 0 18px!important;
+}
+.platform-compact .anti-cheat-list{
+  gap:14px!important;
+}
+.platform-compact .anti-cheat-list li{
+  font-size:15px!important;
+}
+.platform-compact .btn{
+  padding:10px 32px!important;
+}
+.platform-tabs-shell{
+  display:block;background:rgba(255,255,255,0.55);border-radius:8px;
+  padding:20px;border:1px solid rgba(255,255,255,1);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.95);
+  overflow:hidden;
+  max-width:100%;
+}
+.platform-tab-nav{
+  counter-reset:platform-tab;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
+  padding:0;margin-bottom:16px;
+}
+.platform-tab-btn{
+  counter-increment:platform-tab;
+  min-height:62px;padding:12px 14px;border-radius:8px;
+  background:linear-gradient(180deg,#fff 0%,#FBFCFE 100%);
+  border:1px solid rgba(20,32,56,0.06);
+  color:var(--ink-2);
+  font-size:14px;font-weight:800;text-align:left;
+  display:flex;align-items:center;gap:10px;
+  transition:background .25s ease,color .25s ease,transform .25s ease,border-color .25s ease;
+}
+.platform-tab-btn::before{
+  content:'0' counter(platform-tab);
+  flex:none;width:28px;height:28px;border-radius:8px;
+  display:grid;place-items:center;
+  background:var(--red-50);color:var(--red-deep);
+  font:800 12px/1 Inter,sans-serif;
+}
+.platform-tab-btn:hover{
+  transform:translateY(-4px);
+  background:#fff;
+  border-color:rgba(255,20,69,0.18);
+}
+.platform-tab-btn.active{
+  background:linear-gradient(135deg,#FC2412 0%,#FF1445 100%);color:#fff;
+  border-color:transparent;
+}
+.platform-tab-btn.active::before{
+  background:rgba(255,255,255,0.22);color:#fff;
+}
+.platform-panels{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.platform-tabs-shell .platform-show{
+  display:grid;grid-template-columns:minmax(0,.56fr) minmax(0,1.44fr);
+  gap:18px;align-items:center;
+  background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;
+  min-width:0;
+}
+.platform-tabs-shell .platform-show.active{animation:platform-panel-in .34s ease both}
+.platform-tabs-shell .platform-show + .platform-show{
+  padding-top:18px;
+  border-top:1px solid rgba(20,32,56,0.06);
+}
+@keyframes platform-panel-in{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.platform-tabs-shell .platform-show .anti-cheat-wrapper{order:1;align-items:flex-start;text-align:left}
+.platform-tabs-shell .platform-show .report-visual{order:2;width:100%}
+.platform-tabs-shell .anti-cheat-wrapper,
+.platform-tabs-shell .report-visual,
+.platform-tabs-shell .report-card,
+.platform-tabs-shell .model-grid,
+.platform-tabs-shell .model-library,
+.platform-tabs-shell .model-analysis,
+.platform-tabs-shell .skill-stack{
+  min-width:0;
+}
+.platform-tabs-shell .anti-cheat-list{align-items:flex-start!important}
+.platform-tabs-shell .anti-cheat-box{margin:10px 0 14px!important;padding:8px 0!important}
+.platform-tabs-shell .anti-cheat-wrapper{padding-left:44px}
+.platform-tabs-shell .platform-show.desc-right .report-visual{
+  order:1;
+  grid-column:1;
+}
+.platform-tabs-shell .platform-show.desc-right .anti-cheat-wrapper{
+  order:2;
+  grid-column:2;
+  padding-left:0;
+  padding-right:44px;
+}
+/* When swapping sides, also swap column widths:
+   wide content on left, narrow description on right. */
+.platform-tabs-shell .platform-show.desc-right{
+  grid-template-columns:minmax(0,1.44fr) minmax(0,.56fr);
+}
+.platform-tabs-shell .btn{align-self:flex-start}
+.platform-tabs-shell .btn-primary{
+  height:46px!important;padding:0 24px!important;border-radius:999px;
+  background:linear-gradient(135deg,#FC2412 0%,#FF1445 100%);
+  box-shadow:0 4px 12px rgba(252,36,18,0.22);
+}
+.platform-tabs-shell .btn-primary:hover{box-shadow:0 8px 18px rgba(252,36,18,0.28)}
+.report-visual{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
+  background:linear-gradient(135deg,#FFF8FA,#FBFBFD);
+  border-radius:8px;
+  padding:12px;
+  color:var(--ink-2);
+  transform:scale(0.9);
+  transform-origin:center center;
+}
+.report-card{
+  background:rgba(255,255,255,0.92);
+  border:1px solid rgba(233,237,245,0.9);
+  border-radius:8px;
+  padding:12px;
+  overflow:hidden;
+}
+.report-card + .report-card{margin-top:0}
+.report-title{
+  display:flex;align-items:center;gap:8px;
+  margin:0 0 9px;font-size:15px;font-weight:800;color:var(--ink);
+}
+.report-title::before{content:'';width:3px;height:18px;border-radius:999px;background:var(--red)}
+.report-note{margin:0 0 10px;font-size:11px;line-height:1.55;color:var(--muted-2)}
+.report-note::before{content:'• ';color:var(--red-soft);font-weight:800}
+.match-note{font-size:10px;line-height:1.35}
+.visual-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:999px;background:var(--red-50);color:var(--red-deep);
+  font-weight:800;font-size:13px;
+}
+.detect-list{display:grid;gap:6px}
+.detect-item{
+  display:grid;grid-template-columns:24px minmax(0,1fr) 52px;gap:10px;align-items:center;
+  padding:8px;border:1px solid #eef1f6;border-radius:8px;background:#fff;
+}
+.detect-item i{color:#a8b0bd}
+.detect-item strong{display:block;font-size:12px;color:var(--ink-2)}
+.detect-item span{display:block;margin-top:3px;font-size:10px;color:#9aa3b2;line-height:1.45}
+.detect-item button,.visual-action-btn{
+  height:28px;border-radius:8px;
+  background:#f3f5f9;
+  border:1px solid #dfe5ee;
+  color:#6b7280;
+  font-size:11px;
+  font-weight:700;
+  box-shadow:none;
+  cursor:default;
+}
+.visual-action-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:0 16px;height:34px;font-size:12px;
+}
+.rule-tip{margin-top:8px;padding:9px;border-radius:8px;background:#FFF4F6;font-size:10px;line-height:1.45;color:#8A3A45}
+.camera-panel{text-align:center;padding:12px 8px;display:flex;flex-direction:column;align-items:center;}
+.camera-panel h4{margin:0 0 10px}
+.camera-panel .report-title{align-self:flex-start;margin:0 0 9px}
+.camera-box{
+  width:260px;max-width:100%;height:128px;
+  border-radius:8px;
+  margin:0 auto 10px;
+  position:relative;overflow:hidden;
+  background:transparent;
+  border:1px solid #e4eaf2;
+}
+.camera-box img{
+  width:100%;height:100%;object-fit:contain;object-position:center top;display:block;
+  background:transparent;
+  transform:scale(1.55);
+  transform-origin:center 8%;
+}
+.camera-box::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+}
+.camera-select{display:inline-flex;gap:10px;align-items:center;font-size:12px;color:#4b5563;margin-bottom:10px}
+.panel-bottom-action{margin-top:12px;text-align:center}
+.select-box{padding:8px 12px;border:1px solid #dce2ec;border-radius:6px;color:#6b7280;background:#fff}
+.screen-alert{padding:14px;display:flex;flex-direction:column}
+.screen-alert h4{margin:0 0 12px;font-size:18px;color:#394356}
+.screen-alert h4::before{content:'!';display:inline-grid;place-items:center;width:22px;height:22px;margin-right:10px;border-radius:50%;background:var(--red);color:#fff;font-size:14px}
+.screen-alert h4.report-title{font-size:15px;color:var(--ink);font-weight:800}
+.screen-alert h4.report-title::before{
+  content:'';display:block;place-items:unset;
+  width:3px;height:18px;margin-right:0;border-radius:999px;
+  background:var(--red);color:unset;font-size:unset;
+}
+.camera-panel h4.report-title{
+  font-size:15px;color:var(--ink);font-weight:800;
+}
+.screen-alert p{margin:0;font-size:13px;line-height:1.7;color:#394356}
+.screen-alert em{font-style:normal;color:var(--red);font-size:18px;font-weight:800}
+.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}
+.radar-wrap{text-align:center}
+.radar-label{display:inline-block;padding:6px 14px;background:#f5f5f5;font-weight:800;color:#333;margin-bottom:8px}
+.radar-svg{width:150px;height:124px;max-width:100%;margin:auto}
+.skill-stack{display:grid;gap:8px}
+.skill-track{display:grid;grid-template-columns:86px 1fr 42px;gap:8px;align-items:center}
+.skill-name{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--red-deep)}
+.skill-name::before{content:'';width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-soft))}
+.skill-line{height:3px;background:var(--red-soft);position:relative}
+.skill-line::after{content:'';position:absolute;left:38%;top:-4px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid var(--red-deep)}
+.skill-level{padding:5px 9px;background:#f0f1f5;border-radius:5px;font-size:12px;color:#6b7280}
+.model-library{display:grid;gap:10px}
+.model-library .model-list{
+  display:grid;grid-template-columns:1fr;gap:8px;
+}
+.model-card{
+  position:relative;padding:12px 14px;border-radius:8px;
+  background:#fff;border:1px solid rgba(233,237,245,0.95);
+  min-height:64px;overflow:hidden;
+}
+.model-card::after{
+  content:'';position:absolute;right:-6px;bottom:-9px;width:24px;height:24px;
+  background:linear-gradient(135deg,rgba(255,20,69,0.028),rgba(20,32,56,0.016));
+  transform:rotate(45deg);
+}
+.model-card strong{position:relative;z-index:1;display:block;font-size:13px;color:var(--ink-2);line-height:1.4}
+.model-card .meta{position:relative;z-index:1;display:flex;gap:14px;margin-top:8px;font-size:11px;color:#9aa3b2}
+.model-card .meta b{font-size:16px;color:var(--ink-2);margin-right:4px}
+.model-analysis{display:grid;grid-template-columns:.9fr 1.1fr;gap:12px}
+.model-analysis .report-card{margin:0}
+.model-analysis .radar-wrap{text-align:left}
+.model-analysis .radar-label{margin-left:18px}
+.model-analysis .radar-svg{width:170px;height:132px}
+.model-analysis .skill-stack{gap:18px}
+.advice-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:12px}
+.advice-row strong{color:#394356}.advice-row span{padding:5px 12px;border-radius:5px;background:#f4f4f4;color:#555;font-weight:700}
+.matrix-box{height:104px;background:linear-gradient(180deg,#FFF8FA,#fff);border-top:2px solid rgba(255,20,69,0.16);position:relative;padding:14px}
+.matrix-box::before{content:'';position:absolute;left:10%;right:6%;top:50%;border-top:1px dashed #d8dde6}
+.matrix-tag{position:absolute;padding:7px 13px;border-radius:5px;font-size:12px;font-weight:700}
+.matrix-tag.primary{background:#FFF1F4;color:var(--red-deep)}.matrix-tag.muted{background:#F4F5F7;color:#6b7280}
+.course-table{width:100%;border-collapse:collapse;font-size:11px}
+.course-table th{background:#f7f8fa;color:#9aa3b2;text-align:left;padding:6px}
+.course-table td{border:1px solid #edf0f5;padding:6px;color:#333}
+.course-thumb{display:inline-block;width:48px;height:28px;border-radius:2px;margin-right:8px;vertical-align:middle;background:var(--red)}
+.course-thumb.soft{background:var(--red-soft)}
+.course-link{color:var(--red-deep)}
+.bar-chart{display:grid;gap:12px;padding:8px 4px}
+.bar-line{display:grid;grid-template-columns:62px 1fr 36px;gap:8px;align-items:center;font-size:12px;color:#555}
+.bar-bg{height:20px;background:#f5f7fb;position:relative}
+.bar-fill{height:100%;background:var(--red-soft);color:#fff;font-size:11px;text-align:right;padding-right:5px;line-height:20px}
+.quadrant{position:relative;height:150px;background:linear-gradient(90deg,#FFF3F6 0 50%,#F8F9FB 50% 100%);border-radius:4px;overflow:hidden}
+.quadrant::before{content:'';position:absolute;left:0;right:0;top:50%;border-top:1px solid #e2e5ec}
+.quadrant::after{content:'';position:absolute;top:0;bottom:0;left:50%;border-left:1px solid #e2e5ec}
+.quad-label{position:absolute;font-size:11px;color:#a0a7b3}.quad-dot{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;font-size:11px;display:grid;place-items:center}
+.donut-wrap{display:flex;align-items:center;justify-content:center;gap:16px}
+.donut{
+  width:130px;height:130px;border-radius:50%;
+  background:conic-gradient(var(--red) 0 50%, #F3A1AF 50% 100%);
+  position:relative;
+}
+.donut::after{content:'';position:absolute;inset:36px;border-radius:50%;background:#fff}
+.donut-labels{font-size:12px;line-height:1.8;color:#555}
+.stack-bar{display:grid;gap:10px}
+.stack-row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;font-size:12px;color:#44546f}
+.stack{height:14px;display:flex;border-radius:999px;overflow:hidden;background:#f1f5f9}
+.stack span:nth-child(1){background:#F3F4F6}.stack span:nth-child(2){background:#FFE4E9}.stack span:nth-child(3){background:#FFC4D0}.stack span:nth-child(4){background:#FF8EA3}.stack span:nth-child(5){background:#FF5170}.stack span:nth-child(6){background:var(--red-deep)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-bottom:10px;font-size:11px;color:#6b7280}
+.legend i{width:10px;height:10px;display:inline-block;margin-right:4px}
 .mock-chart{background:#fff;border-radius:12px;padding:16px;border:1px solid rgba(0,0,0,0.04);height:160px;position:relative}
 .mock-chart svg{width:100%;height:100%}
 .mock-chart path{stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 2.5s ease-out forwards}
@@ -228,14 +661,69 @@
 .case-d h4{margin:0;font-size:18px;font-weight:800;color:var(--ink-2);position:relative;z-index:1;letter-spacing:0.01em}
 .case-d p{margin:10px 0 0;font-size:13px;line-height:1.75;color:var(--muted-2);position:relative;z-index:1}
 
+/* Bottom CTA banner — same style as AI talent page */
+#cta{padding:140px 0 0;overflow:visible;background:transparent}
+.cta-banner{position:relative;color:#fff;background:linear-gradient(120deg,#FC2412 0%,#FF1445 55%,#E31136 100%);overflow:visible}
+.cta-banner::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(620px 420px at 88% 120%, rgba(255,255,255,0.30), rgba(255,255,255,0) 60%),
+    radial-gradient(520px 380px at 12% -30%, rgba(255,255,255,0.22), rgba(255,255,255,0) 62%),
+    radial-gradient(360px 360px at 60% 50%, rgba(255,80,90,0.30), rgba(255,80,90,0) 70%);
+}
+.cta-deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cta-deco span{position:absolute;display:block}
+.cta-deco span:nth-child(1){width:220px;height:220px;right:30%;top:-90px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.28)}
+.cta-deco span:nth-child(2){width:130px;height:130px;left:8%;bottom:-60px;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.32), rgba(255,255,255,0) 70%)}
+.cta-deco span:nth-child(3){width:64px;height:64px;left:44%;top:22%;border:1.5px solid rgba(255,255,255,0.30);transform:rotate(28deg)}
+.cta-deco span:nth-child(4){width:26px;height:26px;left:18%;top:30%;background:rgba(255,255,255,0.16);transform:rotate(45deg)}
+.cta-deco span:nth-child(5){right:44%;bottom:20%;width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-bottom:36px solid rgba(255,255,255,0.16);transform:rotate(-12deg)}
+.cta-banner-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:18px;padding:34px 24px;min-height:128px}
+.cta-banner-copy h3{margin:0;font-size:30px;font-weight:700;line-height:1.3;color:#fff;letter-spacing:0.02em}
+.cta-banner-copy p{margin:12px 0 0;font-size:15px;color:rgba(255,255,255,0.88)}
+.cta-banner .actions{position:relative;z-index:3}
+.cta-banner .btn-white{background:transparent;color:#fff;padding:13px 30px;font-size:16px;font-weight:700;border-radius:999px;letter-spacing:0.02em;border:1.5px solid rgba(255,255,255,0.9);box-shadow:none;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease}
+.cta-banner .btn-white i{margin-left:6px;transition:transform .25s ease}
+.cta-banner .btn-white:hover{background:#fff;color:#E31136;border-color:#fff;box-shadow:0 10px 24px rgba(15,15,40,0.22);transform:translateY(-2px)}
+.cta-banner .btn-white:hover i{transform:translateX(4px)}
+.cta-banner-illust{position:absolute;right:3%;bottom:0;width:auto;height:320px;pointer-events:none;z-index:2;filter:drop-shadow(0 16px 30px rgba(20,32,56,0.22))}
+
 @media (max-width:1080px){
   .tech-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .roles-cluster{grid-template-columns:repeat(3,minmax(0,1fr))}
   .platform-show{grid-template-columns:1fr;padding:32px}
+  .platform-tab-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .platform-tabs-shell .platform-show{grid-template-columns:1fr}
+  .platform-tabs-shell .platform-show.desc-right .report-visual,
+  .platform-tabs-shell .platform-show.desc-right .anti-cheat-wrapper{
+    grid-column:auto;
+  }
+  .platform-tabs-shell .platform-show.desc-right .anti-cheat-wrapper{padding-right:0}
+  .platform-tabs-shell .platform-tab-panel:nth-child(2) .report-visual{min-height:0}
+  .platform-tabs-shell .platform-tab-panel:nth-child(2) .report-card{min-height:0}
+  .model-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .model-analysis{grid-template-columns:1fr}
+  .cta-banner-illust{height:280px;right:1%}
+  #cta{padding-top:120px}
   .case-dark{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   .tech-grid,.roles-cluster{grid-template-columns:1fr}
+  .platform-tabs-shell{padding:16px}
+  .platform-tab-nav{grid-template-columns:1fr}
+  .platform-tab-btn{min-height:58px}
+  .platform-tabs-shell .anti-cheat-wrapper{padding-left:0}
+  .report-visual{grid-template-columns:1fr}
+  .model-grid{grid-template-columns:1fr}
+  .model-list{grid-template-columns:1fr}
+  .detect-item{grid-template-columns:22px minmax(0,1fr)}
+  .detect-item button{grid-column:2;justify-self:start}
+  .skill-track{grid-template-columns:80px 1fr 40px}
+  .stack-row{grid-template-columns:1fr}
+  .donut-wrap{flex-direction:column}
+  .course-table{font-size:10px}
+  .cta-banner-copy h3{font-size:24px}
+  .cta-banner-illust{display:none}
   .scene-item{grid-template-columns:48px 1fr auto;padding:18px}
 }
 </style>
@@ -246,11 +734,10 @@
 
 <section class="hero assessment-hero" data-screen-label="01 Hero">
   <div class="container reveal in">
-    <span class="hero-eyebrow"><span class="dot"></span>AI 智能测评</span>
     <h1>AI人才测评</h1>
     <p class="hero-sub">51CTO 企业学院，打造可落地的智能人才测评方案。</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#cta">立即咨询 <i class="fas fa-arrow-right"></i></a>
+      <a class="btn btn-primary js-trial-btn" href="#" data-type="consult">获取专属测评方案 <i class="fas fa-arrow-right"></i></a>
       <a class="btn btn-ghost" href="#platform">获取平台演示</a>
     </div>
   </div>
@@ -264,12 +751,15 @@
       <p>依托先进算法，打造智能化测评底座</p>
     </div>
     <div class="tech-grid reveal delay-1">
-      <div class="tech-card" data-num="01"><div class="ic"><i class="fas fa-microchip"></i></div><h4>AI智能评测引擎</h4><p>基于 IRT 理论与动态选题，实现精准高效匹配。</p></div>
-      <div class="tech-card" data-num="02"><div class="ic"><i class="fas fa-route"></i></div><h4>自适应学习路径</h4><p>测评即生成个性化专属学习计划。</p></div>
-      <div class="tech-card" data-num="03"><div class="ic"><i class="fas fa-feather-alt"></i></div><h4>低负担测评</h4><p>人均仅需完成 20-25 题，极速完成能力评估。</p></div>
-      <div class="tech-card" data-num="04"><div class="ic"><i class="fas fa-sync-alt"></i></div><h4>敏捷数据迭代</h4><p>小样本算法持续优化，动态适应企业需求。</p></div>
+      <div class="tech-card" data-num="01"><div class="ic"><img src="assets/assessment/tech-1.png" alt=""></div><h4>AI智能评测引擎</h4><p>基于 IRT 理论与动态选题，实现精准高效匹配。</p></div>
+      <div class="tech-card" data-num="02"><div class="ic"><img src="assets/assessment/tech-2.png" alt=""></div><h4>自适应学习路径</h4><p>测评即生成个性化专属学习计划。</p></div>
+      <div class="tech-card" data-num="03"><div class="ic"><img src="assets/assessment/tech-3.png" alt=""></div><h4>低负担测评</h4><p>人均仅需完成 20-25 题，极速完成能力评估。</p></div>
+      <div class="tech-card" data-num="04"><div class="ic"><img src="assets/assessment/tech-4.png" alt=""></div><h4>敏捷数据迭代</h4><p>小样本算法持续优化，动态适应企业需求。</p></div>
     </div>
     <p class="muted reveal delay-2" style="text-align:center;margin-top:28px">联合北师大、江西师大研发 | 7 项国家发明专利 | 3 年迭代至 3.0</p>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="consult" style="padding: 0 40px; height: 48px; font-size: 16px;">预约团队能力评估 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
+    </div>
   </div>
 </section>
 
@@ -282,29 +772,32 @@
     </div>
     <div class="roles-cluster reveal delay-1">
       <div class="role-chip">
-        <div class="ic"><i class="fas fa-code"></i></div>
         <h5>技术岗</h5>
+        <div class="ic"><img src="assets/assessment/role-1.png" alt=""></div>
         <div class="role-tags">
           <span>JAVA工程师</span><span>前端工程师</span><span>AI工程师</span>
           <span>算法工程师</span><span>测试工程师</span><span>其他</span>
         </div>
       </div>
       <div class="role-chip">
-        <div class="ic"><i class="fas fa-wand-magic-sparkles"></i></div>
         <h5>新兴岗</h5>
+        <div class="ic"><img src="assets/assessment/role-2.png" alt=""></div>
         <div class="role-tags">
           <span>Agent构建师</span><span>RAG工程师</span><span>AI辅助编程</span>
           <span>AIGC工程化</span><span>Prompt工程师</span><span>其他</span>
         </div>
       </div>
       <div class="role-chip">
-        <div class="ic"><i class="fas fa-briefcase"></i></div>
         <h5>通用岗</h5>
+        <div class="ic"><img src="assets/assessment/role-3.png" alt=""></div>
         <div class="role-tags">
           <span>产品经理</span><span>运营专员</span><span>数据分析师</span>
           <span>品牌营销</span><span>用户增长</span><span>其他</span>
         </div>
       </div>
+    </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="material" style="padding: 0 40px; height: 48px; font-size: 16px;">获取完整能力模型 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
     </div>
   </div>
 </section>
@@ -329,47 +822,57 @@
       <h2><span class="bar"></span>智能测评平台<span class="bar"></span></h2>
       <p>一站式测评管理，提升评估效率与体验</p>
     </div>
-    <div class="platform-show reveal delay-1">
-      <style>
-        .anti-cheat-wrapper {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          padding: 10px 0;
-        }
-        .anti-cheat-box {
-          border: none;
-          padding: 24px 0;
-          margin: 16px 0 24px;
-          display: inline-block;
-          background: transparent;
-        }
-        .anti-cheat-list {
-          list-style: none !important;
-          padding: 0 !important;
-          margin: 0 !important;
-          display: flex !important;
-          flex-direction: column !important;
-          gap: 24px !important;
-        }
-        .anti-cheat-list li {
-          font-size: 16px !important;
-          color: var(--ink-2) !important;
-          display: flex !important;
-          align-items: center !important;
-          gap: 14px !important;
-          justify-content: flex-start !important;
-        }
-        .anti-cheat-list li::before {
-          content: '';
-          display: block;
-          width: 6px;
-          height: 6px;
-          background-color: #A0A0A0;
-          border-radius: 50%;
-        }
-      </style>
+    <div class="platform-tabs-shell reveal delay-1">
+      <div class="platform-panels">
+    <!-- 新增模块 1：不止于标准化的岗位模型库 -->
+    <div class="platform-show platform-compact platform-tab-panel">
+      <div class="report-visual">
+        <div class="report-card model-library">
+          <h4 class="report-title">基础与研发岗位</h4>
+          <div class="model-list">
+            <div class="model-card"><strong>AIGC应用基础测评</strong><div class="meta"><span><b>3</b>核心能力</span><span><b>6</b>关键技能</span></div></div>
+            <div class="model-card"><strong>软件开发工程师（全栈）岗位</strong><div class="meta"><span><b>5</b>核心能力</span><span><b>13</b>关键技能</span></div></div>
+            <div class="model-card"><strong>功能测试工程师岗位</strong><div class="meta"><span><b>3</b>核心能力</span><span><b>9</b>关键技能</span></div></div>
+          </div>
+        </div>
+        <div class="report-card model-library">
+          <h4 class="report-title">产品与管理岗位</h4>
+          <div class="model-list">
+            <div class="model-card"><strong>产品经理岗位</strong><div class="meta"><span><b>3</b>核心能力</span><span><b>9</b>关键技能</span></div></div>
+            <div class="model-card"><strong>人工智能岗位（传统）</strong><div class="meta"><span><b>2</b>核心能力</span><span><b>7</b>关键技能</span></div></div>
+            <div class="model-card"><strong>项目经理岗位</strong><div class="meta"><span><b>2</b>核心能力</span><span><b>8</b>关键技能</span></div></div>
+          </div>
+        </div>
+        <div class="report-card model-library">
+          <h4 class="report-title">开发与设计岗位</h4>
+          <div class="model-list">
+            <div class="model-card"><strong>Java后端岗位</strong><div class="meta"><span><b>3</b>核心能力</span><span><b>9</b>关键技能</span></div></div>
+            <div class="model-card"><strong>Web前端岗位</strong><div class="meta"><span><b>4</b>核心能力</span><span><b>9</b>关键技能</span></div></div>
+            <div class="model-card"><strong>UI设计</strong><div class="meta"><span><b>4</b>核心能力</span><span><b>10</b>关键技能</span></div></div>
+          </div>
+        </div>
+        <div class="report-card model-library">
+          <h4 class="report-title">工程与数据岗位</h4>
+          <div class="model-list">
+            <div class="model-card"><strong>Java开发工程师</strong><div class="meta"><span><b>7</b>核心能力</span><span><b>12</b>关键技能</span></div></div>
+            <div class="model-card"><strong>产品经理</strong><div class="meta"><span><b>4</b>核心能力</span><span><b>9</b>关键技能</span></div></div>
+            <div class="model-card"><strong>数据分析工程师</strong><div class="meta"><span><b>4</b>核心能力</span><span><b>9</b>关键技能</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="anti-cheat-wrapper">
+        <h3 style="margin: 0;">不止标准化的岗位模型库</h3>
+        <div class="anti-cheat-box" style="border:none; padding: 24px 0;">
+          <ul class="anti-cheat-list" style="align-items: flex-start;">
+            <li>标准化岗位模型库</li>
+            <li>定制化建模能力</li>
+          </ul>
+        </div>
+        <a class="btn btn-primary js-trial-btn" href="#" data-type="consult" style="padding: 12px 40px;">立即咨询 <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="platform-show platform-tab-panel active desc-right">
       <div class="anti-cheat-wrapper">
         <h3 style="margin: 0;">全链路防作弊机制</h3>
         <div class="anti-cheat-box">
@@ -379,57 +882,45 @@
             <li>手机行为监控</li>
           </ul>
         </div>
-        <a class="btn btn-primary" href="#cta" style="padding: 12px 40px;">立即咨询</a>
+        <a class="btn btn-primary js-trial-btn" href="#" data-type="consult" style="padding: 12px 40px;">立即咨询 <i class="fas fa-arrow-right"></i></a>
       </div>
-      <div class="platform-mock">
-        <div class="mock-row">
-          <div class="mock-card"><div class="l">身份核验通过率</div><div class="v">99.8%</div></div>
-          <div class="mock-card"><div class="l">违规拦截（次）</div><div class="v">1,248</div></div>
+      <div class="report-visual">
+        <div class="report-card">
+          <h4 class="report-title">防作弊环境检测</h4>
+          <div class="detect-list">
+            <div class="detect-item"><i class="fas fa-video"></i><div><strong>摄像头检测</strong><span>测评全程会开启摄像头实时监控，请检查摄像头是否可以正常打开</span></div><button>检测</button></div>
+            <div class="detect-item"><i class="fas fa-desktop"></i><div><strong>屏幕监控检测</strong><span>测评全程会对页面实时监控，请检查屏幕共享功能是否正常，需选择“整个屏幕”</span></div><button>检测</button></div>
+            <div class="detect-item"><i class="fas fa-mobile-screen"></i><div><strong>测评身份验证</strong><span>测评需要进行真实身份验证，请点击“验证”后微信扫码进行身份验证</span></div><button>验证</button></div>
+          </div>
+          <div style="text-align:center;margin-top:12px"><span class="visual-action-btn">开始测评</span></div>
         </div>
-        <div class="mock-row">
-          <div class="mock-card"><div class="l">切屏违规</div><div class="mock-bar"><div style="width:12%;background:var(--red)"></div></div></div>
-          <div class="mock-card"><div class="l">监控异常</div><div class="mock-bar"><div style="width:5%;background:var(--red)"></div></div></div>
+        <div class="report-card camera-panel">
+          <h4 class="report-title">摄像头检测</h4>
+          <div class="camera-box">
+            <img src="assets/advisor.png" alt="客服头像检测画面">
+          </div>
+          <div class="camera-select"><strong>摄像头</strong><span class="select-box">FaceTime高清相机（C4E…</span></div>
+          <div class="panel-bottom-action"><span class="visual-action-btn">开始检测</span></div>
         </div>
-        <div class="mock-chart">
-          <svg viewBox="0 0 400 100" preserveAspectRatio="none">
-            <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="rgba(230,33,42,0.5)"/><stop offset="1" stop-color="rgba(230,33,42,0)"/></linearGradient></defs>
-            <path d="M0 80 L40 60 L80 70 L120 40 L160 50 L200 30 L240 45 L280 25 L320 35 L360 20 L400 30 L400 100 L0 100 Z" fill="url(#g)" style="animation:none"/>
-            <path d="M0 80 L40 60 L80 70 L120 40 L160 50 L200 30 L240 45 L280 25 L320 35 L360 20 L400 30" stroke="#E6212A" fill="none" stroke-width="2"/>
-          </svg>
+        <div class="report-card screen-alert">
+          <h4 class="report-title">考试切屏提醒</h4>
+          <p>你已离开当前页面1次，离开超过<em>3</em>次后会标识考试异常，可能会影响你的成绩。答题过程中请不要离开当前页面。</p>
+          <div class="panel-bottom-action"><span class="visual-action-btn">我已知晓</span></div>
         </div>
-      </div>
-    </div>
-
-    <!-- 新增模块 1：不止于标准化的岗位模型库 -->
-    <div class="platform-show reveal delay-1" style="margin-top: 40px;">
-      <div class="platform-mock" style="background:linear-gradient(135deg,#F5F8FE,#FFF6F8); height:auto; display:grid; gap:14px;">
-        <div class="mock-row">
-          <div class="mock-card"><div class="l" style="font-size:13px; font-weight:700;">AIGC应用基础测评</div><div class="v" style="font-size:12px;margin-top:4px;color:var(--muted-2)">3 核心能力 | 6 关键技能</div></div>
-          <div class="mock-card"><div class="l" style="font-size:13px; font-weight:700;">软件开发工程师（全栈）</div><div class="v" style="font-size:12px;margin-top:4px;color:var(--muted-2)">5 核心能力 | 13 关键技能</div></div>
+        <div class="report-card">
+          <h4 class="report-title">切屏行为记录</h4>
+          <p class="report-note">AIGC应用基础：1次　完成时间：2026-02-10 14:39:13</p>
+          <div style="display:grid;grid-template-columns:12px 1fr;gap:14px;align-items:start;margin-top:14px">
+            <span style="width:12px;height:12px;border-radius:50%;background:#dfe4ec;margin-top:12px"></span>
+            <div style="padding:18px 20px;border:1px solid #edf0f5;border-radius:8px;background:#fff;font-weight:800;color:var(--ink-2)">切出答题页</div>
+          </div>
+          <div style="margin:14px 0 0 26px;color:#9aa3b2;font-size:13px">2026-02-10 14:30:42</div>
         </div>
-        <div class="mock-row">
-          <div class="mock-card"><div class="l" style="font-size:13px; font-weight:700;">产品经理岗位</div><div class="v" style="font-size:12px;margin-top:4px;color:var(--muted-2)">3 核心能力 | 9 关键技能</div></div>
-          <div class="mock-card"><div class="l" style="font-size:13px; font-weight:700;">人工智能（传统）</div><div class="v" style="font-size:12px;margin-top:4px;color:var(--muted-2)">2 核心能力 | 7 关键技能</div></div>
-        </div>
-        <div class="mock-row">
-          <div class="mock-card"><div class="l" style="font-size:13px; font-weight:700;">Java后端岗位</div><div class="v" style="font-size:12px;margin-top:4px;color:var(--muted-2)">3 核心能力 | 9 关键技能</div></div>
-          <div class="mock-card"><div class="l" style="font-size:13px; font-weight:700;">Web前端岗位</div><div class="v" style="font-size:12px;margin-top:4px;color:var(--muted-2)">4 核心能力 | 9 关键技能</div></div>
-        </div>
-      </div>
-      <div class="anti-cheat-wrapper">
-        <h3 style="margin: 0;">不止于标准化的岗位模型库</h3>
-        <div class="anti-cheat-box" style="border:none; padding: 24px 0;">
-          <ul class="anti-cheat-list" style="align-items: flex-start;">
-            <li>标准化岗位模型库</li>
-            <li>定制化建模能力</li>
-          </ul>
-        </div>
-        <a class="btn btn-primary" href="#cta" style="padding: 12px 40px;">立即咨询</a>
       </div>
     </div>
 
     <!-- 新增模块 2：个人全景能力报告 -->
-    <div class="platform-show reveal delay-1" style="margin-top: 40px;">
+    <div class="platform-show platform-compact platform-tab-panel">
       <div class="anti-cheat-wrapper">
         <h3 style="margin: 0;">个人全景能力报告</h3>
         <div class="anti-cheat-box" style="border:none; padding: 24px 0;">
@@ -439,32 +930,93 @@
             <li>学习提升推荐</li>
           </ul>
         </div>
-        <a class="btn btn-primary" href="#cta" style="padding: 12px 40px;">立即咨询</a>
+        <a class="btn btn-primary js-trial-btn" href="#" data-type="consult" style="padding: 12px 40px;">立即咨询 <i class="fas fa-arrow-right"></i></a>
       </div>
-      <div class="platform-mock" style="height:auto; display:flex; flex-direction:column; gap:14px; padding:24px;">
-        <div class="mock-row">
-          <div class="mock-card"><div class="l">岗位发展建议</div><div class="mock-bar" style="margin-top:8px"><div style="width:75%;background:var(--red)"></div></div></div>
-          <div class="mock-card"><div class="l">技能掌握分析</div><div class="mock-bar" style="margin-top:8px"><div style="width:85%;background:#1E90FF"></div></div></div>
+      <div class="report-visual">
+        <div class="report-card">
+          <h4 class="report-title">岗位发展建议</h4>
+          <div class="advice-row" style="margin-top:18px"><strong>编程技能</strong><span>熟悉</span><i class="fas fa-caret-right" style="color:#FFB7C4"></i><span>掌握</span></div>
+          <p class="report-note">在该岗位考察的 6 个能力方向中，受测人最擅长的是 数据处理；知识库优化、预训练模型与数据预处理等 3 个技能的掌握水平较为突出。</p>
+          <div class="radar-wrap">
+            <div class="radar-label">能力分析</div>
+            <svg class="radar-svg" viewBox="0 0 200 170">
+              <polygon points="100,12 170,52 170,128 100,160 30,128 30,52" fill="none" stroke="#eef2f7"/>
+              <polygon points="100,40 142,62 156,112 100,132 45,112 58,70" fill="rgba(255,20,69,.10)" stroke="#FF1445" stroke-width="3"/>
+              <g fill="#a0a7b3" font-size="13" font-weight="700"><text x="83" y="12">模型应用</text><text x="164" y="54">基础能力</text><text x="164" y="123">数据处理</text><text x="83" y="168">模型优化</text><text x="5" y="123">模型训练</text><text x="5" y="54">模型部署</text></g>
+            </svg>
+          </div>
         </div>
-        <div class="mock-chart" style="flex:1; min-height: 120px;">
-          <svg viewBox="0 0 400 100" preserveAspectRatio="none">
-            <defs><linearGradient id="g2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="rgba(30,144,255,0.5)"/><stop offset="1" stop-color="rgba(30,144,255,0)"/></linearGradient></defs>
-            <path d="M0 80 L50 40 L100 60 L150 30 L200 50 L250 20 L300 40 L350 15 L400 30 L400 100 L0 100 Z" fill="url(#g2)" style="animation:none"/>
-            <path d="M0 80 L50 40 L100 60 L150 30 L200 50 L250 20 L300 40 L350 15 L400 30" stroke="#1E90FF" fill="none" stroke-width="2"/>
-          </svg>
+        <div class="report-card">
+          <h4 class="report-title">技能掌握情况分析</h4>
+          <p class="report-note">下面展示了各个技能中，不同知识点掌握情况的明细，可有针对性地提高相关知识点的掌握水平。</p>
+          <strong style="font-size:13px">智能体应用 - 精通　238/300</strong>
+          <div class="matrix-box" style="margin-top:10px">
+            <span style="position:absolute;left:30px;top:22px;color:#9aa3b2">优势</span><span style="position:absolute;left:30px;bottom:22px;color:#9aa3b2">弱势</span>
+            <span class="matrix-tag primary" style="left:90px;top:42px">工具设计</span>
+            <span class="matrix-tag primary" style="left:220px;top:42px">多智能体设计</span>
+            <span class="matrix-tag muted" style="left:90px;bottom:34px">智能体开发框架</span>
+            <span class="matrix-tag muted" style="left:235px;bottom:34px">API接口集成</span>
+          </div>
+        </div>
+        <div class="report-card">
+          <h4 class="report-title">技能水平</h4>
+          <p class="report-note">下面展示了 2026数据类大模型测评 所要求的所有技能以及您的掌握水平。</p>
+          <div class="skill-stack">
+            <div class="skill-track"><div class="skill-name">智能体应用</div><div class="skill-line"></div><div class="skill-level">精通</div></div>
+            <div class="skill-track"><div class="skill-name">提示工程</div><div class="skill-line"></div><div class="skill-level">专家</div></div>
+          </div>
+        </div>
+        <div class="report-card">
+          <h4 class="report-title">学习提升推荐</h4>
+          <table class="course-table" style="margin-top:12px">
+            <thead><tr><th>关键技能</th><th>知识点</th><th>推荐课程</th></tr></thead>
+            <tbody>
+              <tr><td>Java</td><td>集合</td><td><span class="course-thumb"></span>Java基础入门语法(第二季)</td></tr>
+              <tr><td>Java</td><td>网络编程（Java）</td><td><span class="course-thumb soft"></span>Java web全栈之Java语言08 网络编程</td></tr>
+              <tr><td>Spring与Spring...</td><td>安全（SpringBoot）</td><td><span class="course-thumb"></span><span class="course-link">spring-security架构分析</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
     <!-- 新增模块 3：团队全景能力报告 -->
-    <div class="platform-show reveal delay-1" style="margin-top: 40px;">
-      <div class="platform-mock" style="background:linear-gradient(135deg,#F5F8FE,#FFF6F8); height:auto; display:flex; flex-direction:column; gap:14px; padding:24px;">
-        <div class="mock-row">
-          <div class="mock-card"><div class="l">技能达标等级</div><div class="mock-bar" style="margin-top:8px"><div style="width:65%;background:var(--red)"></div></div></div>
-          <div class="mock-card"><div class="l">技能水平分布</div><div class="mock-bar" style="margin-top:8px"><div style="width:88%;background:#1E90FF"></div></div></div>
+    <div class="platform-show platform-compact platform-tab-panel desc-right">
+      <div class="report-visual">
+        <div class="report-card">
+          <h4 class="report-title">技能达标等级分布</h4>
+          <div class="bar-chart">
+            <div class="bar-line"><span>L5 资深</span><div class="bar-bg"></div><strong>0人</strong></div>
+            <div class="bar-line"><span>L4 高级</span><div class="bar-bg"></div><strong>0人</strong></div>
+            <div class="bar-line"><span>L3 中级</span><div class="bar-bg"><div class="bar-fill" style="width:33.3%">33.3%</div></div><strong>1人</strong></div>
+            <div class="bar-line"><span>L2 初级</span><div class="bar-bg"><div class="bar-fill" style="width:66.7%">66.7%</div></div><strong>2人</strong></div>
+            <div class="bar-line"><span>L1 入门</span><div class="bar-bg"></div><strong>0人</strong></div>
+            <div class="bar-line"><span>未达标</span><div class="bar-bg"></div><strong>0人</strong></div>
+          </div>
         </div>
-        <div class="mock-row">
-          <div class="mock-card" style="grid-column:span 2"><div class="l">团队胜任匹配度</div><div class="mock-bar" style="margin-top:8px"><div style="width:72%;background:var(--red-deep)"></div></div></div>
+        <div class="report-card">
+          <h4 class="report-title">技能分析与培养建议</h4>
+          <div class="quadrant">
+            <span class="quad-label" style="left:8px;top:10px">低相似-高水平</span><span class="quad-label" style="right:8px;top:10px">高相似-高水平</span>
+            <span class="quad-label" style="left:8px;bottom:10px">低相似-低水平</span><span class="quad-label" style="right:8px;bottom:10px">高相似-低水平</span>
+            <span style="position:absolute;left:50%;top:-2px;transform:translateX(-50%);font-size:11px;color:#a0a7b3">总体水平</span>
+            <span style="position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-size:13px;color:#a0a7b3">相似度</span>
+            <span class="quad-dot" style="left:73%;top:28%">1</span><span class="quad-dot" style="left:49%;top:24%">2</span>
+          </div>
+        </div>
+        <div class="report-card">
+          <h4 class="report-title">团队职级匹配度</h4>
+          <p class="report-note match-note">当前团队总共2人完成测评，总共有1人与原岗位等级匹配，1人不匹配，其中高于岗位等级1人，低于岗位等级0人，匹配度为50%。</p>
+          <div class="donut-wrap"><div class="donut"></div><div class="donut-labels">高于<br><strong style="color:var(--red)">1人 50%</strong><br>匹配<br><strong style="color:#F3A1AF">1人 50%</strong><br>低于<br><strong style="color:#8B95A1">0人 0%</strong></div></div>
+        </div>
+        <div class="report-card">
+          <h4 class="report-title">技能水平分布</h4>
+          <p class="report-note">以下是各个技能在不同掌握水平上的人数分布。</p>
+          <div class="legend"><span><i style="background:#F3F4F6"></i>无要求</span><span><i style="background:#FFE4E9"></i>了解</span><span><i style="background:#FFC4D0"></i>熟悉</span><span><i style="background:#FF8EA3"></i>掌握</span><span><i style="background:#FF5170"></i>精通</span><span><i style="background:#E6212A"></i>专家</span></div>
+          <div class="stack-bar">
+            <div class="stack-row"><strong>Java</strong><div><div class="stack"><span style="width:5%"></span><span style="width:5%"></span><span style="width:5%"></span><span style="width:35%"></span><span style="width:35%"></span><span style="width:15%"></span></div><small>0人 0人 0人　　　　　1人　　　　　1人　　　　　0人</small></div></div>
+            <div class="stack-row"><strong>Spring与Spring Boot</strong><div><div class="stack"><span style="width:5%"></span><span style="width:5%"></span><span style="width:5%"></span><span style="width:35%"></span><span style="width:5%"></span><span style="width:45%"></span></div><small>0人 0人 0人　　　　　1人　　0人　　　　　1人</small></div></div>
+          </div>
         </div>
       </div>
       <div class="anti-cheat-wrapper">
@@ -476,20 +1028,29 @@
             <li>技能分析与培养建议</li>
           </ul>
         </div>
-        <a class="btn btn-primary" href="#cta" style="padding: 12px 40px;">立即咨询</a>
+        <a class="btn btn-primary js-trial-btn" href="#" data-type="consult" style="padding: 12px 40px;">立即咨询 <i class="fas fa-arrow-right"></i></a>
       </div>
+    </div>
+      </div>
+    </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="trial" style="padding: 0 40px; height: 48px; font-size: 16px;">申请平台试用 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
     </div>
   </div>
 </section>
 
 <section class="section alt" id="cta" data-screen-label="07 CTA">
-  <div class="container reveal">
-    <div class="cta-strip">
-      <div><h3>申请体验 AI 智能测评，精准盘点企业技术人才</h3><p>免费获取企业专属测评方案，量化团队技能模型。</p></div>
-      <div class="actions">
-        <a class="btn btn-white" href="#">立即咨询 <i class="fas fa-arrow-right"></i></a>
-        
+  <div class="cta-banner reveal">
+    <div class="cta-deco"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="container cta-banner-inner">
+      <div class="cta-banner-copy">
+        <h3>申请体验 AI 智能测评，精准盘点企业技术人才</h3>
+        <p>免费获取企业专属测评方案，量化团队技能模型。</p>
       </div>
+      <div class="actions">
+        <a class="btn btn-white js-trial-btn" href="#" data-type="consult">立即咨询 <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <img class="cta-banner-illust" src="assets/bg/cta-banner.png" alt="">
     </div>
   </div>
 </section>
@@ -507,6 +1068,7 @@ document.querySelectorAll('.scene-item').forEach(item => {
     if(!wasOpen) item.classList.add('open');
   });
 });
+
 </script>
 </body>
 </html>

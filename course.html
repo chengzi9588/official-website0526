@@ -9,7 +9,7 @@
 <style>
 .course-hero{
   min-height:500px;
-  background:#f8fbfd url('assets/course-hero.png') center top / 2105px 500px no-repeat;
+  background:#f8fbfd url('assets/hero/course-hero.png') center / cover no-repeat;
 }
 .course-hero::before{display:none}
 /* Section 2 — Highlights: big stat strip */
@@ -297,7 +297,8 @@
 .course-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;
   transition:transform .3s, box-shadow .3s}
 .course-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-lg)}
-.course-card .thumb{height:160px;background:#FFF6F8;background-size:cover;background-position:center}
+.course-card .thumb{height:160px;background:#FFF6F8;background-size:cover;background-position:center;position:relative}
+.course-card .industry-tag{position:absolute;top:10px;right:10px;background:#fff;color:var(--red);border:1px solid var(--red);font-size:12px;padding:3px 10px;border-radius:4px;z-index:2;line-height:1.2;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
 .course-card .body{padding:16px 18px 18px}
 .course-card h4{margin:0;font-size:15px;font-weight:700;line-height:1.45;color:var(--ink-2);min-height:42px;
   display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -370,11 +371,10 @@
 
 <section class="hero course-hero" data-screen-label="01 Hero">
   <div class="container reveal in">
-    <span class="hero-eyebrow"><span class="dot"></span>定制课程</span>
     <h1>定制化企业实战课程</h1>
     <p class="hero-sub">51CTO 企业学院，打造可落地的实战课程。</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#cta">立即咨询 <i class="fas fa-arrow-right"></i></a>
+      <a class="btn btn-primary js-trial-btn" href="#" data-type="consult">获取专属实战方案 <i class="fas fa-arrow-right"></i></a>
       <a class="btn btn-ghost" href="#highlight">查看课程亮点</a>
     </div>
   </div>
@@ -406,6 +406,9 @@
         <h4>成果化</h4>
         <p>全周期培训服务，确保培训效果可量化、可复盘、可持续。</p>
       </div>
+    </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="material" style="padding: 0 40px; height: 48px; font-size: 16px;">获取详细课程大纲 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
     </div>
   </div>
 </section>
@@ -461,6 +464,9 @@
           <p>跟踪培训落地效果，根据企业业务变化，提供课程迭代、复训、进阶培训建议。</p>
         </div>
       </div>
+    </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="consult" style="padding: 0 40px; height: 48px; font-size: 16px;">获取培训全流程指南 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
     </div>
   </div>
 </section>
@@ -526,14 +532,17 @@
       <p>精选前沿技术，助力业务快速突破</p>
     </div>
     <div class="course-grid reveal delay-1">
-      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/1.png')"></div><div class="body"><h4>业技融合训练营</h4><div class="meta">以真实项目演练，统一业务目标，明确业务与科技职责流程。</div></div></div>
-      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/2.png')"></div><div class="body"><h4>数字化运营体系培养</h4><div class="meta">打通客户洞察、场景经营、私域运营与数据驱动。</div></div></div>
-      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/3.png')"></div><div class="body"><h4>自智网络实战训练营</h4><div class="meta">围绕运营商网络自治化建设，强化 L3-L4 级自智能力落地。</div></div></div>
-      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/4.png')"></div><div class="body"><h4>政企 DICT 人才实战</h4><div class="meta">覆盖方案设计、交付落地、客户运营全环节。</div></div></div>
-      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/5.png')"></div><div class="body"><h4>项目经理能力提升</h4><div class="meta">围绕项目经理能力模型，构建项目管理工具箱。</div></div></div>
-      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/6.png')"></div><div class="body"><h4>AI 产品经理训练营</h4><div class="meta">案例教学 + 现场实战 + 黑客松，产出 AI 产品解决方案。</div></div></div>
-      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/7.png')"></div><div class="body"><h4>网络安全实战训练营</h4><div class="meta">通过攻防演练与合规实操，强化安全防护与应急处置能力。</div></div></div>
-      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/8.png')"></div><div class="body"><h4>AI 大赛实战训练营</h4><div class="meta">以赛促学、以练促用，产出可落地提示词和智能体。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/1.png')"><span class="industry-tag">通用</span></div><div class="body"><h4>业技融合训练营</h4><div class="meta">以真实项目演练，统一业务目标，明确业务与科技职责流程。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/2.png')"><span class="industry-tag">通用</span></div><div class="body"><h4>数字化运营体系培养</h4><div class="meta">打通客户洞察、场景经营、私域运营与数据驱动。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/3.png')"><span class="industry-tag">运营商</span></div><div class="body"><h4>自智网络实战训练营</h4><div class="meta">围绕运营商网络自治化建设，强化 L3-L4 级自智能力落地。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/4.png')"><span class="industry-tag">政企</span></div><div class="body"><h4>政企 DICT 人才实战</h4><div class="meta">覆盖方案设计、交付落地、客户运营全环节。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/5.png')"><span class="industry-tag">通用</span></div><div class="body"><h4>项目经理能力提升</h4><div class="meta">围绕项目经理能力模型，构建项目管理工具箱。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/6.png')"><span class="industry-tag">通用</span></div><div class="body"><h4>AI 产品经理训练营</h4><div class="meta">案例教学 + 现场实战 + 黑客松，产出 AI 产品解决方案。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/7.png')"><span class="industry-tag">通用</span></div><div class="body"><h4>网络安全实战训练营</h4><div class="meta">通过攻防演练与合规实操，强化安全防护与应急处置能力。</div></div></div>
+      <div class="course-card"><div class="thumb" style="background-image:url('assets/course/8.png')"><span class="industry-tag">通用</span></div><div class="body"><h4>AI 大赛实战训练营</h4><div class="meta">以赛促学、以练促用，产出可落地提示词和智能体。</div></div></div>
+    </div>
+    <div class="section-action reveal delay-2" style="text-align: center; margin-top: 40px;">
+      <a href="#" class="btn btn-light js-trial-btn" data-type="consult" style="padding: 0 40px; height: 48px; font-size: 16px;">定制企业内训方案 <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
     </div>
   </div>
 </section>
@@ -631,14 +640,18 @@
   </div>
 </section>
 
-<section class="section" id="cta" data-screen-label="08 CTA">
-  <div class="container reveal">
-    <div class="cta-strip">
-      <div><h3>联系学习顾问定制专属实战课程</h3><p>免费获取企业专属学习计划，专业顾问 1 对 1 服务。</p></div>
-      <div class="actions">
-        <a class="btn btn-white" href="#">立即咨询 <i class="fas fa-arrow-right"></i></a>
-        
+<section class="section alt" id="cta" data-screen-label="08 CTA">
+  <div class="cta-banner reveal">
+    <div class="cta-deco"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="container cta-banner-inner">
+      <div class="cta-banner-copy">
+        <h3>联系学习顾问定制专属实战课程</h3>
+        <p>免费获取企业专属学习计划，专业顾问 1 对 1 服务。</p>
       </div>
+      <div class="actions">
+        <a class="btn btn-white js-trial-btn" href="#" data-type="consult">立即咨询 <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <img class="cta-banner-illust" src="assets/bg/cta-banner.png" alt="">
     </div>
   </div>
 </section>

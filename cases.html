@@ -9,7 +9,7 @@
 <style>
 .cases-hero{
   min-height:500px;
-  background:#f8fbfd url('assets/cases-hero.png') center top / 2105px 500px no-repeat;
+  background:#f8fbfd url('assets/hero/cases-hero.png') center / cover no-repeat;
 }
 .cases-hero::before{display:none}
 .filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:32px}
@@ -19,7 +19,7 @@
   transition:background .2s, color .2s, border-color .2s;
 }
 .filter:hover{color:var(--red-deep)}
-.filter.active{background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 6px 14px rgba(20,32,56,0.12)}
+.filter.active{background:linear-gradient(135deg,#FC2412 0%,#FF1445 100%);color:#fff;border-color:#FF1445;box-shadow:0 6px 14px rgba(20,32,56,0.12)}
 
 .case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .case-card{
@@ -80,10 +80,9 @@
 
 <section class="hero cases-hero" data-screen-label="01 Hero">
   <div class="container reveal in">
-    <span class="hero-eyebrow"><span class="dot"></span>客户案例</span>
     <h1>客户案例</h1>
     <p class="hero-sub">自 2005 年成立以来，51CTO 已与超过 25000 家国内外企业建立深度合作，覆盖科技互联网、运营商、金融、能源、制造、医疗、房地产、教育、出版等行业。</p>
-    <div class="hero-actions"><a class="btn btn-primary" href="#case-grid">成为客户 <i class="fas fa-arrow-right"></i></a></div>
+    <div class="hero-actions"><a class="btn btn-primary js-trial-btn" href="#" data-type="consult">成为客户 <i class="fas fa-arrow-right"></i></a></div>
   </div>
 </section>
 
@@ -98,7 +97,23 @@
       <button class="filter" data-f="commercial-bank">商业银行</button>
       <button class="filter" data-f="operator">运营商</button>
     </div>
-    <div class="case-grid reveal delay-1" id="case-grid"></div>
+    <div class="case-grid" id="case-grid"></div>
+  </div>
+</section>
+
+<section class="section alt" id="cta" data-screen-label="04 CTA">
+  <div class="cta-banner reveal">
+    <div class="cta-deco"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="container cta-banner-inner">
+      <div class="cta-banner-copy">
+        <h3>开启您的数智化人才发展之旅</h3>
+        <p>了解更多行业标杆实践，与 51CTO 资深专家共创专属解决方案。</p>
+      </div>
+      <div class="actions">
+        <a class="btn btn-white js-trial-btn" href="#" data-type="consult">立即咨询 <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <img class="cta-banner-illust" src="assets/bg/cta-banner.png" alt="">
+    </div>
   </div>
 </section>
 
@@ -124,21 +139,35 @@ const cases = [
   { tag:'某大型云服务商', cat:'operator', title:'全栈认证体系建设项目', desc:'围绕关键岗位构建覆盖课程、题库、考试、证书和运营的标准化认证体系，突出评、培、考、证、用一体化。', bg:'assets/case_bg/case-1.jpeg', link:'case-detail.html?id=15' },
 ];
 
+const iconMapping = {
+  '某股份行': 'fa-building-columns',
+  '某国有行': 'fa-landmark-flag',
+  '某能源企业': 'fa-bolt',
+  '某保险公司': 'fa-shield-halved',
+  '某能源科技公司': 'fa-solar-panel',
+  '某银行': 'fa-piggy-bank',
+  '某大型云服务商': 'fa-cloud',
+  '中国联通集团': 'fa-tower-cell',
+  '中国移动某省公司': 'fa-satellite-dish'
+};
+
 function render(filter){
   const grid = document.getElementById('case-grid');
   grid.innerHTML = cases
     .filter(c => filter==='all' || c.cat===filter)
-    .map((c, i) => `
+    .map((c, i) => {
+      const iconClass = iconMapping[c.tag] || 'fa-tag';
+      return `
       <a href="${c.link}" class="case-card" style="--i:${i}; display:block; text-decoration:none;">
         <div class="media"><img src="${c.bg}" alt=""></div>
         <div class="body">
-          <span class="tag"><i class="fas fa-tag"></i>${c.tag}</span>
+          <span class="tag"><i class="fas ${iconClass}"></i>${c.tag}</span>
           <h4>${c.title}</h4>
           <p>${c.desc}</p>
         </div>
         <span class="arrow"><i class="fas fa-arrow-right"></i></span>
       </a>
-    `).join('');
+    `}).join('');
 }
 render('all');
 document.querySelectorAll('.filter').forEach(b => {

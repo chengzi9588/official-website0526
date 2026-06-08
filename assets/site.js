@@ -56,7 +56,7 @@ function renderNav(activeKey){
   nav.innerHTML = `
     <div class="container">
       <a class="brand" href="index.html">
-        <img src="assets/logo.png" alt="51CTO" onerror="this.style.display='none'">
+        <img src="assets/common/logo.png" alt="51CTO" onerror="this.style.display='none'">
         <span class="name">企业学院</span>
       </a>
       <div class="menu">${menu}</div>
@@ -85,7 +85,7 @@ function renderFooter(){
         <div class="phone">400-101-1651 (转2)</div>
         <p class="time">周一至周五 10:00-19:00</p>
         <div class="footer-logo" style="margin-top: 42px; margin-left: -20px;">
-          <img src="assets/logo.png" alt="51CTO 企业学院" style="height: 80px; width: auto; filter: brightness(0) invert(1); opacity: 0.9;">
+          <img src="assets/common/logo.png" alt="51CTO 企业学院" style="height: 80px; width: auto; filter: brightness(0) invert(1); opacity: 0.9;">
         </div>
       </div>
       <div class="footer-col">
@@ -138,7 +138,7 @@ function renderSide(){
   const s = document.getElementById('site-side');
   if(!s) return;
   s.innerHTML = `
-    <div class="advisor" title="专属顾问"><img src="assets/advisor.png" alt="顾问"></div>
+    <div class="advisor" title="专属顾问"><img src="assets/common/advisor.png" alt="顾问"></div>
     <div class="side-item"><i class="fas fa-phone"></i><span>电话咨询</span></div>
     <div class="side-divider"></div>
     <div class="side-item"><i class="fab fa-weixin"></i><span>微信咨询</span></div>
@@ -455,7 +455,7 @@ function injectWechatModal(){
     </div>
     <div class="wechat-bd">
       <div class="wechat-qr">
-        <img src="assets/weixin_qr.png" alt="微信二维码">
+        <img src="assets/common/weixin_qr.png" alt="微信二维码">
       </div>
       <p class="wechat-tip">扫描二维码，获取专业服务</p>
     </div>
